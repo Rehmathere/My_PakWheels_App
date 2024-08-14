@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Auto Finders",
+    "slug": "auto-finder",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/My_Logo.jpg",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/My_Logo.jpg",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.rehmat_qazi.autofinder"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "sentry": {
+      "dsn": "https://7bda4b504a25d35ab89a7ff0974fb657@o4505674338795520.ingest.us.sentry.io/4507126460645376"
+    },
+    "plugins": [
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "note": "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",
+          "organization": "daniunique",
+          "project": "autofinder-app"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7b526952-d226-4f38-8a0d-144471b432f3"
+      }
+    },
+    "owner": "rehmat_qazi"
+  }
+}
