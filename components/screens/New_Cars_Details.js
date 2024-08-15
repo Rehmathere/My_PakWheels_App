@@ -31,6 +31,30 @@ export default function New_Cars_Details() {
   const handleFeature = () => {
     console.log("Car is Featured");
   };
+  const [carData, setCarData] = useState([]);
+
+  useEffect(() => {
+    const fetchCarData = async () => {
+      try {
+        const response = await fetch(
+          "https://autofinder-backend.vercel.app/api/newCar"
+        );
+        const result = await response.json();
+        const data = result.data || [];
+        setCarData(data);
+        // setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching car data", error);
+        // setIsLoading(false);
+      }
+    };
+
+    fetchCarData();
+  }, []);
+
+  // if (carData.length < 2) {
+  //   return <Text>Not enough data available</Text>;
+  // }
 
   return (
     <View style={styles.container}>
@@ -43,16 +67,16 @@ export default function New_Cars_Details() {
           />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>New Cars Details</Text>
+          <Text style={styles.title}>Car Comparison Details</Text>
         </View>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.imageContainer}>
           <Image
-            source={require("../../assets/featured.png")}
+            source={require("../../assets/My_VS.jpg")}
             style={styles.image}
           />
-          <View style={styles.buttonContainer}>
+          {/* <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={handleFeature}>
               <Image
                 source={require("../../assets/featured.png")}
@@ -76,12 +100,37 @@ export default function New_Cars_Details() {
                 style={styles.navigationButtonIcon}
               />
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
 
-        <Text style={styles.carNameText}>Make</Text>
-        <Text style={styles.priceText}>Model</Text>
-        <Text style={styles.locationText}>Year</Text>
+        <View style={styles.My_MMY_Parent}>
+          {/* Box */}
+          <View style={[styles.My_MMY_Parent_Sub, { paddingLeft: 20 }]}>
+            <Text style={styles.My_Car_Heading_Text}> Car 1</Text>
+            <Text style={styles.carNameText}>
+              Make : <Text style={styles.bold}>{carData[0]?.make}</Text>{" "}
+            </Text>
+            <Text style={styles.priceText}>
+              Model : <Text style={styles.bold}>{carData[0]?.model}</Text>{" "}
+            </Text>
+            <Text style={styles.locationText}>
+              Year : <Text style={styles.bold}>{carData[0]?.year}</Text>{" "}
+            </Text>
+          </View>
+          {/* Box */}
+          <View style={[styles.My_MMY_Parent_Sub, { paddingLeft: 30 }]}>
+            <Text style={styles.My_Car_Heading_Text}> Car 2</Text>
+            <Text style={styles.carNameText}>
+              Make : <Text style={styles.bold}>{carData[1]?.make}</Text>{" "}
+            </Text>
+            <Text style={styles.priceText}>
+              Model : <Text style={styles.bold}>{carData[1]?.model}</Text>{" "}
+            </Text>
+            <Text style={styles.locationText}>
+              Year : <Text style={styles.bold}>{carData[1]?.year}</Text>{" "}
+            </Text>
+          </View>
+        </View>
 
         <View style={styles.tabContainer}>
           <TopTab.Navigator>
@@ -141,6 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
+    paddingBottom: 5,
   },
   backButton: {
     tintColor: "white",
@@ -165,7 +215,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {},
   image: {
-    height: 300,
+    height: 180,
     width: "100%",
     resizeMode: "cover",
   },
@@ -257,8 +307,8 @@ const styles = StyleSheet.create({
     marginTop: 5, // Adjust margin top as needed
     marginLeft: 10,
     color: "black",
-    fontSize: 18, // Adjust font size as needed
-    fontWeight: "bold",
+    fontSize: 14, // Adjust font size as needed
+    // fontWeight: "bold",
   },
   locationText: {
     marginTop: 5, // Adjust margin top as needed
@@ -360,5 +410,32 @@ const styles = StyleSheet.create({
   tabContainer: {
     flex: 1,
     height: 1200, // Give some height to make sure it shows up
+    paddingTop: 5,
+  },
+  My_MMY_Parent: {
+    borderWidth: 0.5,
+    borderColor: "transparent",
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  My_MMY_Parent_Sub: {
+    borderWidth: 0.5,
+    borderColor: "transparent",
+    width: "50%",
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+  My_Car_Heading_Text: {
+    // borderWidth: 0.5,
+    paddingLeft: 15,
+    fontWeight: "bold",
+    fontSize: 21,
+    paddingTop: 15,
+    paddingBottom: 15,
+    letterSpacing: 1.5,
+
   },
 });
