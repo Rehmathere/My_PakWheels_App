@@ -25,15 +25,18 @@ const ManagedByAutoFinder = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "https://autofinder-backend.vercel.app/api/autoPart/"
+      const response = await axios.post(
+        "https://autofinder-backend.vercel.app/api/carAd/"
       );
       setData(response.data.data);
     } catch (error) {
       console.error("Error fetching bike data: ", error);
     }
   };
-
+  const handleCardPress = (itemId) => {
+    navigation.navigate("sellerCarDetail", { itemId: itemId });
+  };
+  // Main Body
   return (
     <View style={styles.featuredAdsContainer}>
       {/* Box */}
@@ -43,7 +46,7 @@ const ManagedByAutoFinder = () => {
         {/* - */}
         <TouchableOpacity
           style={styles.Extra_Box_Txt_2_Box}
-          onPress={() => navigation.navigate("Auto_Parts")}
+          onPress={() => navigation.navigate("buyNow")}
         >
           <Text style={styles.Extra_Box_Txt_2}>See All</Text>
         </TouchableOpacity>
@@ -58,9 +61,7 @@ const ManagedByAutoFinder = () => {
           data.map((item, index) => (
             <TouchableOpacity
               key={index}
-              onPress={() =>
-                navigation.navigate("Auto_Parts_Details", { item })
-              }
+              onPress={() => handleCardPress(item)}
               style={{ marginHorizontal: 10 }}
             >
               {/* Image container */}
@@ -68,18 +69,17 @@ const ManagedByAutoFinder = () => {
                 {/* Placeholder for user-uploaded image */}
                 {/* You can replace this with your actual image upload component */}
                 <Image
-                  source={require("../../assets/BMW.png")}
-                  // source={{ uri: item.images[0] }} // Use the first image URI
+                  // source={require("../../assets/BMW.png")}
+                  source={{ uri: item.images[0] }} // Use the first image URI
                   style={styles.image}
                 />
               </View>
               {/* Content container */}
               <View style={styles.contentContainer}>
                 {/* Item details */}
-                <Text style={styles.name}>{item.title}</Text>
+                <Text style={styles.name}>{item.brand}</Text>
                 <Text style={styles.price}>PKR {item.price}</Text>
                 <Text style={styles.city}>{item.location}</Text>
-                <Text style={styles.modelKmDriven}>{item.category.name}</Text>
               </View>
             </TouchableOpacity>
           ))}

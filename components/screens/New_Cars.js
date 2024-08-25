@@ -16,6 +16,7 @@ import axios from "axios";
 import SyncStorage from "sync-storage"; // Import SyncStorage for checking login status
 import { UserContext } from "../../context/userContext"; // Import UserContext for user data
 import SearchBar from "../searchBar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const New_Cars = () => {
   // --- My API Data ---
@@ -33,32 +34,19 @@ const New_Cars = () => {
     }
   };
 
-  const handleSubmit = async (path) => {
+  const handleSubmit = async () => {
     const data = { car1, car2 };
-    setIsLoading(true);
-
+    setIsLoading(true); // Start loading
     try {
-      const response = await fetch(
-        "https://autofinder-backend.vercel.app/api/newCar/compare",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      // Save car makes to localStorage
+      await AsyncStorage.setItem("car1Make", car1.make);
+      await AsyncStorage.setItem("car2Make", car2.make);
 
-      if (response.ok) {
-        console.log("Data successfully posted");
-        navigation.navigate(path);
-      } else {
-        console.error("Failed to post data");
-      }
+      navigation.navigate("New_Cars_Details");
     } catch (error) {
-      console.error("Error posting data", error);
+      console.error("Error saving data", error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Stop loading
     }
   };
   // --- My API Data ---
@@ -79,7 +67,7 @@ const New_Cars = () => {
           />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>New Cars</Text>
+          <Text style={styles.title}>Car Comparison</Text>
         </View>
       </View>
       {/* - Search Bar - */}
@@ -94,7 +82,7 @@ const New_Cars = () => {
       <View style={styles.Container_Sub}>
         {/* Body */}
         {/* --- API Body --- */}
-        <Text style={styles.heading}>Cars Comparison</Text>
+        <Text style={styles.heading}>Compare Cars</Text>
         <View style={styles.box}>
           <View style={styles.boxSub}>
             <Text style={styles.subHeading}>Car 1 :</Text>
@@ -182,6 +170,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     alignSelf: "center",
+    letterSpacing: 0.8,
   },
   Container_Sub: {
     flex: 1,
@@ -189,6 +178,7 @@ const styles = StyleSheet.create({
   },
   button_Parent: {
     // borderWidth: 0.5,
+    // backgroundColor: "lightgreen",
     backgroundColor: "white",
   },
   button: {
@@ -203,7 +193,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     fontWeight: "bold",
-    letterSpacing: 1.5,
+    letterSpacing: 2,
   },
   buttonText: {
     color: "white",
@@ -308,42 +298,55 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   heading: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     // marginBottom: 20,
     textAlign: "center",
-    paddingTop: 30,
+    paddingTop: 25,
     paddingBottom: 15,
+    letterSpacing: 1.5,
   },
   box: {
     paddingHorizontal: 30,
-    paddingVertical: 3,
+    paddingTop: 10,
+    paddingBottom: 35,
     backgroundColor: "#fff",
     borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
+    // borderWidth: 0.5,
   },
   boxSub: {
-    marginBottom: 1,
+    borderWidth: 0.5,
+    width: "80%",
+    marginHorizontal: "auto",
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+    backgroundColor: "#f39c12",
+    borderColor: "#f39c12",
+    borderRadius: 20,
   },
   subHeading: {
     // borderWidth: 0.5,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 4,
-    paddingTop: 8,
+    marginBottom: 1,
+    paddingTop: 10,
     paddingBottom: 12,
+    letterSpacing: 1,
   },
   input: {
     borderWidth: 1,
     borderColor: "#ddd",
-    borderRadius: 4,
-    paddingHorizontal: 10,
-    paddingVertical: 2,
-    marginBottom: 10,
-    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 0,
+    marginBottom: 5,
+    borderRadius: 5,
+    backgroundColor: "white",
+    fontSize: 13,
+    letterSpacing: 1,
   },
 });
 

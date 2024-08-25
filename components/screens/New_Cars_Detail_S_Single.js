@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRoute } from "@react-navigation/native";
 
-export default function New_Cars_Detail_S() {
+export default function New_Cars_Detail_S_Single() {
+  const route = useRoute();
+  const { item } = route.params;
+
   const [openBoxIndex, setOpenBoxIndex] = useState(null);
 
   const toggleAnswer = (index) => {
@@ -67,127 +71,85 @@ export default function New_Cars_Detail_S() {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Body Type</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.bodyType}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.bodyType}
+              {item.keySpecifications?.bodyType}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Dimensions</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.dimensions}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.dimensions}
+              {item.keySpecifications?.dimensions}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Ground Clearance</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.groundClearance}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.groundClearance}
+              {item.keySpecifications?.groundClearance}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Horse Power</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.horsePower}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.horsePower}
+              {item.keySpecifications?.horsePower}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Boot Space</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.bootSpace}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.bootSpace}
+              {item.keySpecifications?.bootSpace}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Fuel Type</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.fuelType}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.fuelType}
+              {item.keySpecifications?.fuelType}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Battery Capacity</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.batteryCapacity || "N/A"}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.batteryCapacity || "N/A"}
+              {item.keySpecifications?.batteryCapacity || "N/A"}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Charging Time</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.chargingTime || "N/A"}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.chargingTime || "N/A"}
+              {item.keySpecifications?.chargingTime || "N/A"}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Top Speed</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.topSpeed}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.topSpeed}
+              {item.keySpecifications?.topSpeed}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Range</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.range || "N/A"}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.range || "N/A"}
+              {item.keySpecifications?.range || "N/A"}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Transmission</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.transmission}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.transmission}
+              {item.keySpecifications?.transmission}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Kerb Weight</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.kerbWeight}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.kerbWeight}
+              {item.keySpecifications?.kerbWeight}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Seating Capacity</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.seatingCapacity}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.seatingCapacity}
+              {item.keySpecifications?.seatingCapacity}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Tyre Size</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.keySpecifications?.tyreSize}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.keySpecifications?.tyreSize}
+              {item.keySpecifications?.tyreSize}
             </Text>
           </View>
         </View>
@@ -211,82 +173,55 @@ export default function New_Cars_Detail_S() {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Overall Length</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.dimensions?.overallLength}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.dimensions?.overallLength}
+              {item.specifications?.dimensions?.overallLength}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Overall Width</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.dimensions?.overallWidth}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.dimensions?.overallWidth}
+              {item.specifications?.dimensions?.overallWidth}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Overall Height</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.dimensions?.overallHeight}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.dimensions?.overallHeight}
+              {item.specifications?.dimensions?.overallHeight}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Wheel Base</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.dimensions?.wheelBase}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.dimensions?.wheelBase}
+              {item.specifications?.dimensions?.wheelBase}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Ground Clearance</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.dimensions?.groundClearance}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.dimensions?.groundClearance}
+              {item.specifications?.dimensions?.groundClearance}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Kerb Weight</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.dimensions?.kerbWeight}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.dimensions?.kerbWeight}
+              {item.specifications?.dimensions?.kerbWeight}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Boot Space</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.dimensions?.bootSpace}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.dimensions?.bootSpace}
+              {item.specifications?.dimensions?.bootSpace}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Seating Capacity</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.dimensions?.seatingCapacity}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.dimensions?.seatingCapacity}
+              {item.specifications?.dimensions?.seatingCapacity}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>No of Doors</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.dimensions?.noOfDoors}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.dimensions?.noOfDoors}
+              {item.specifications?.dimensions?.noOfDoors}
             </Text>
           </View>
         </View>
@@ -310,55 +245,37 @@ export default function New_Cars_Detail_S() {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Engine Type</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.engineMotor?.engineType}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.engineMotor?.engineType}
+              {item.specifications?.engineMotor?.engineType}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Battery Type</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.engineMotor?.batteryType}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.engineMotor?.batteryType}
+              {item.specifications?.engineMotor?.batteryType}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Battery Capacity</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.engineMotor?.batteryCapacity}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.engineMotor?.batteryCapacity}
+              {item.specifications?.engineMotor?.batteryCapacity}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Range</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.engineMotor?.range}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.engineMotor?.range}
+              {item.specifications?.engineMotor?.range}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Max Speed</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.engineMotor?.maxSpeed}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.engineMotor?.maxSpeed}
+              {item.specifications?.engineMotor?.maxSpeed}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Power</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.engineMotor?.power}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.engineMotor?.power}
+              {item.specifications?.engineMotor?.power}
             </Text>
           </View>
         </View>
@@ -382,19 +299,13 @@ export default function New_Cars_Detail_S() {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Transmission Type</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.transmission?.transmissionType}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.transmission?.transmissionType}
+              {item.specifications?.transmission?.transmissionType}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Gearbox</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.transmission?.gearbox}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.transmission?.gearbox}
+              {item.specifications?.transmission?.gearbox}
             </Text>
           </View>
         </View>
@@ -418,28 +329,19 @@ export default function New_Cars_Detail_S() {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Steering Type</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.steering?.steeringType}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.steering?.steeringType}
+              {item.specifications?.steering?.steeringType}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Power Assisted</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.steering?.powerAssisted}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.steering?.powerAssisted}
+              {item.specifications?.steering?.powerAssisted}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Turning Radius</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.steering?.minimumTurningRadius}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.steering?.minimumTurningRadius}
+              {item.specifications?.steering?.minimumTurningRadius}
             </Text>
           </View>
         </View>
@@ -463,37 +365,25 @@ export default function New_Cars_Detail_S() {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Front Suspension</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.suspensionBrakes?.frontSuspension}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.suspensionBrakes?.frontSuspension}
+              {item.specifications?.suspensionBrakes?.frontSuspension}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear Suspension</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.suspensionBrakes?.rearSuspension}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.suspensionBrakes?.rearSuspension}
+              {item.specifications?.suspensionBrakes?.rearSuspension}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Front Brakes</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.suspensionBrakes?.frontBrakes}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.suspensionBrakes?.frontBrakes}
+              {item.specifications?.suspensionBrakes?.frontBrakes}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear Brakes</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.suspensionBrakes?.rearBrakes}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.suspensionBrakes?.rearBrakes}
+              {item.specifications?.suspensionBrakes?.rearBrakes}
             </Text>
           </View>
         </View>
@@ -517,46 +407,31 @@ export default function New_Cars_Detail_S() {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Wheel Type</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.wheelsTyres?.wheelType}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.wheelsTyres?.wheelType}
+              {item.specifications?.wheelsTyres?.wheelType}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Wheel Size</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.wheelsTyres?.wheelSize}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.wheelsTyres?.wheelSize}
+              {item.specifications?.wheelsTyres?.wheelSize}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Tyre Size</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.wheelsTyres?.tyreSize}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.wheelsTyres?.tyreSize}
+              {item.specifications?.wheelsTyres?.tyreSize}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Spare Tyre</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.wheelsTyres?.spareTyre}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.wheelsTyres?.spareTyre}
+              {item.specifications?.wheelsTyres?.spareTyre}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>PCD</Text>
             <Text style={styles.AnswerName}>
-              {carData[0]?.specifications?.wheelsTyres?.pcd}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {carData[1]?.specifications?.wheelsTyres?.pcd}
+              {item.specifications?.wheelsTyres?.pcd}
             </Text>
           </View>
         </View>
@@ -622,13 +497,14 @@ const styles = StyleSheet.create({
   },
   AnswerHeading: {
     // borderWidth: 0.5,
-    width: "38%",
+    paddingLeft: 10,
+    width: "50%",
     padding: 2,
     fontSize: 13,
   },
   AnswerName: {
     // borderWidth: 0.5,
-    width: "31%",
+    width: "50%",
     padding: 2,
     textAlign: "center",
     color: "grey",

@@ -2,49 +2,53 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRoute } from "@react-navigation/native";
 
-export default function New_Cars_Detail_F() {
+export default function New_Cars_Detail_F_Single() {
+  const route = useRoute();
+  const { item } = route.params;
+
   const [openBoxIndex, setOpenBoxIndex] = useState(null);
 
   const toggleAnswer = (index) => {
     setOpenBoxIndex((prevIndex) => (prevIndex === index ? null : index));
   };
-// --- API Data ---
-const [carData, setCarData] = useState([]);
-const [isLoading, setIsLoading] = useState(true);
+  // --- API Data ---
+  const [carData, setCarData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-useEffect(() => {
-  const fetchCarData = async () => {
-    const car1Make = await AsyncStorage.getItem("car1Make");
-    const car2Make = await AsyncStorage.getItem("car2Make");
+  useEffect(() => {
+    const fetchCarData = async () => {
+      const car1Make = await AsyncStorage.getItem("car1Make");
+      const car2Make = await AsyncStorage.getItem("car2Make");
 
-    if (!car1Make || !car2Make) {
-      console.error("No car makes found in localStorage");
-      setIsLoading(false);
-      return;
-    }
+      if (!car1Make || !car2Make) {
+        console.error("No car makes found in localStorage");
+        setIsLoading(false);
+        return;
+      }
 
-    try {
-      const response = await fetch(
-        "https://autofinder-backend.vercel.app/api/newCar"
-      );
-      const data = await response.json();
+      try {
+        const response = await fetch(
+          "https://autofinder-backend.vercel.app/api/newCar"
+        );
+        const data = await response.json();
 
-      // Filter data based on makes
-      const filteredData = data.data.filter(
-        (car) => car.make === car1Make || car.make === car2Make
-      );
+        // Filter data based on makes
+        const filteredData = data.data.filter(
+          (car) => car.make === car1Make || car.make === car2Make
+        );
 
-      setCarData(filteredData);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error fetching car data", error);
-      setIsLoading(false);
-    }
-  };
+        setCarData(filteredData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching car data", error);
+        setIsLoading(false);
+      }
+    };
 
-  fetchCarData();
-}, []);
+    fetchCarData();
+  }, []);
   // --- API Data ---
   const renderValue = (value) => {
     if (typeof value === "boolean") {
@@ -81,30 +85,21 @@ useEffect(() => {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Number of Airbags</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.noOfAirbags)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.noOfAirbags)}
+              {renderValue(item.features?.safety?.noOfAirbags)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Number of Seatbelts</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.noOfSeatbelts)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.noOfSeatbelts)}
+              {renderValue(item.features?.safety?.noOfSeatbelts)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Driver Seat Belt Warning</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.driverSeatBeltWarning)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.driverSeatBeltWarning)}
+              {renderValue(item.features?.safety?.driverSeatBeltWarning)}
             </Text>
           </View>
 
@@ -113,92 +108,56 @@ useEffect(() => {
               Passenger Seat Belt Warning
             </Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.safety?.passengerSeatBeltWarning
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.safety?.passengerSeatBeltWarning
-              )}
+              {renderValue(item.features?.safety?.passengerSeatBeltWarning)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Door Ajar Warning</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.doorAjarWarning)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.doorAjarWarning)}
+              {renderValue(item.features?.safety?.doorAjarWarning)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Adjustable Seats</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.adjustableSeats)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.adjustableSeats)}
+              {renderValue(item.features?.safety?.adjustableSeats)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Vehicle Stability Control</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.safety?.vehicleStabilityControl
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.safety?.vehicleStabilityControl
-              )}
+              {renderValue(item.features?.safety?.vehicleStabilityControl)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Traction Control</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.tractionControl)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.tractionControl)}
+              {renderValue(item.features?.safety?.tractionControl)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Hill Start Assist Control</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.safety?.hillStartAssistControl
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.safety?.hillStartAssistControl
-              )}
+              {renderValue(item.features?.safety?.hillStartAssistControl)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Hill Descent Control</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.hillDescentControl)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.hillDescentControl)}
+              {renderValue(item.features?.safety?.hillDescentControl)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Child Safety Lock</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.childSafetyLock)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.childSafetyLock)}
+              {renderValue(item.features?.safety?.childSafetyLock)}
             </Text>
           </View>
 
@@ -207,34 +166,21 @@ useEffect(() => {
               Speed Sensing Auto Door Lock
             </Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.safety?.speedSensingAutoDoorLock
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.safety?.speedSensingAutoDoorLock
-              )}
+              {renderValue(item.features?.safety?.speedSensingAutoDoorLock)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Anti Lock Braking System</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.antiLockBrakingSystem)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.antiLockBrakingSystem)}
+              {renderValue(item.features?.safety?.antiLockBrakingSystem)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Brake Assist</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.brakeAssist)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.brakeAssist)}
+              {renderValue(item.features?.safety?.brakeAssist)}
             </Text>
           </View>
 
@@ -244,12 +190,7 @@ useEffect(() => {
             </Text>
             <Text style={styles.AnswerName}>
               {renderValue(
-                carData[0]?.features?.safety?.electronicBrakeForceDistribution
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.safety?.electronicBrakeForceDistribution
+                item.features?.safety?.electronicBrakeForceDistribution
               )}
             </Text>
           </View>
@@ -257,10 +198,7 @@ useEffect(() => {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Brake Override System</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.safety?.brakeOverrideSystem)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.safety?.brakeOverrideSystem)}
+              {renderValue(item.features?.safety?.brakeOverrideSystem)}
             </Text>
           </View>
         </View>
@@ -284,10 +222,7 @@ useEffect(() => {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Alloy Wheels</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.alloyWheels)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.alloyWheels)}
+              {renderValue(item.features?.exterior?.alloyWheels)}
             </Text>
           </View>
 
@@ -296,142 +231,91 @@ useEffect(() => {
               Colored Outside Door Handles
             </Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.exterior?.coloredOutsideDoorHandles
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.exterior?.coloredOutsideDoorHandles
-              )}
+              {renderValue(item.features?.exterior?.coloredOutsideDoorHandles)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Body Colored Bumpers</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.bodyColoredBumpers)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.bodyColoredBumpers)}
+              {renderValue(item.features?.exterior?.bodyColoredBumpers)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Sun Roof</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.sunRoof)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.sunRoof)}
+              {renderValue(item.features?.exterior?.sunRoof)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Moon Roof</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.moonRoof)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.moonRoof)}
+              {renderValue(item.features?.exterior?.moonRoof)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Fog Lamps</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.fogLamps)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.fogLamps)}
+              {renderValue(item.features?.exterior?.fogLamps)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Roof Rail</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.roofRail)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.roofRail)}
+              {renderValue(item.features?.exterior?.roofRail)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Side Steps</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.sideSteps)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.sideSteps)}
+              {renderValue(item.features?.exterior?.sideSteps)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Adjustable Headlights</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.exterior?.adjustableHeadlights
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.exterior?.adjustableHeadlights
-              )}
+              {renderValue(item.features?.exterior?.adjustableHeadlights)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Daytime Running Lights</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.exterior?.daytimeRunningLights
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.exterior?.daytimeRunningLights
-              )}
+              {renderValue(item.features?.exterior?.daytimeRunningLights)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Headlight Washer</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.headlightWasher)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.headlightWasher)}
+              {renderValue(item.features?.exterior?.headlightWasher)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Xenon Headlamps</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.xenonHeadlamps)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.xenonHeadlamps)}
+              {renderValue(item.features?.exterior?.xenonHeadlamps)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear Spoiler</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.rearSpoiler)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.rearSpoiler)}
+              {renderValue(item.features?.exterior?.rearSpoiler)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear Wiper</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.exterior?.rearWiper)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.exterior?.rearWiper)}
+              {renderValue(item.features?.exterior?.rearWiper)}
             </Text>
           </View>
         </View>
@@ -455,23 +339,13 @@ useEffect(() => {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Tachometer</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.instrumentation?.tachometer)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.instrumentation?.tachometer)}
+              {renderValue(item.features?.instrumentation?.tachometer)}
             </Text>
           </View>
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Information Cluster</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.instrumentation?.informationCluster
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.instrumentation?.informationCluster
-              )}
+              {renderValue(item.features?.instrumentation?.informationCluster)}
             </Text>
           </View>
         </View>
@@ -495,126 +369,77 @@ useEffect(() => {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>CD Player</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.infotainment?.cdPlayer)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.infotainment?.cdPlayer)}
+              {renderValue(item.features?.infotainment?.cdPlayer)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>DVD Player</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.infotainment?.dvdPlayer)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.infotainment?.dvdPlayer)}
+              {renderValue(item.features?.infotainment?.dvdPlayer)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Number of Speakers</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.infotainment?.numberOfSpeakers
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.infotainment?.numberOfSpeakers
-              )}
+              {renderValue(item.features?.infotainment?.numberOfSpeakers)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Front Speakers</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.infotainment?.frontSpeakers)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.infotainment?.frontSpeakers)}
+              {renderValue(item.features?.infotainment?.frontSpeakers)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear Speakers</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.infotainment?.rearSpeakers)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.infotainment?.rearSpeakers)}
+              {renderValue(item.features?.infotainment?.rearSpeakers)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Bluetooth Connectivity</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.infotainment?.bluetoothConnectivity
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.infotainment?.bluetoothConnectivity
-              )}
+              {renderValue(item.features?.infotainment?.bluetoothConnectivity)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>USB and Auxiliary Cable</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.infotainment?.usbAndAuxiliaryCable
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.infotainment?.usbAndAuxiliaryCable
-              )}
+              {renderValue(item.features?.infotainment?.usbAndAuxiliaryCable)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear Seat Entertainment</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.infotainment?.rearSeatEntertainment
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.infotainment?.rearSeatEntertainment
-              )}
+              {renderValue(item.features?.infotainment?.rearSeatEntertainment)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Android Auto</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.infotainment?.androidAuto)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.infotainment?.androidAuto)}
+              {renderValue(item.features?.infotainment?.androidAuto)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Apple CarPlay</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.infotainment?.appleCarPlay)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.infotainment?.appleCarPlay)}
+              {renderValue(item.features?.infotainment?.appleCarPlay)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Touchscreen</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.infotainment?.touchscreen)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.infotainment?.touchscreen)}
+              {renderValue(item.features?.infotainment?.touchscreen)}
             </Text>
           </View>
         </View>
@@ -638,84 +463,42 @@ useEffect(() => {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Air Conditioner</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.airConditioner
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.airConditioner
-              )}
+              {renderValue(item.features?.comfortConvenience?.airConditioner)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Climate Control</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.climateControl
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.climateControl
-              )}
+              {renderValue(item.features?.comfortConvenience?.climateControl)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Air Purifier</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.airPurifier
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.airPurifier
-              )}
+              {renderValue(item.features?.comfortConvenience?.airPurifier)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear AC Vents</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.rearAcVents
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.rearAcVents
-              )}
+              {renderValue(item.features?.comfortConvenience?.rearAcVents)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear Heater</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.rearHeater
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.rearHeater
-              )}
+              {renderValue(item.features?.comfortConvenience?.rearHeater)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Heated Seats</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.heatedSeats
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.heatedSeats
-              )}
+              {renderValue(item.features?.comfortConvenience?.heatedSeats)}
             </Text>
           </View>
 
@@ -723,12 +506,7 @@ useEffect(() => {
             <Text style={styles.AnswerHeading}>Front Seat Ventilation</Text>
             <Text style={styles.AnswerName}>
               {renderValue(
-                carData[0]?.features?.comfortConvenience?.frontSeatVentilation
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.frontSeatVentilation
+                item.features?.comfortConvenience?.frontSeatVentilation
               )}
             </Text>
           </View>
@@ -737,12 +515,7 @@ useEffect(() => {
             <Text style={styles.AnswerHeading}>Rear Seat Ventilation</Text>
             <Text style={styles.AnswerName}>
               {renderValue(
-                carData[0]?.features?.comfortConvenience?.rearSeatVentilation
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.rearSeatVentilation
+                item.features?.comfortConvenience?.rearSeatVentilation
               )}
             </Text>
           </View>
@@ -751,12 +524,7 @@ useEffect(() => {
             <Text style={styles.AnswerHeading}>Remote Controlled Boot</Text>
             <Text style={styles.AnswerName}>
               {renderValue(
-                carData[0]?.features?.comfortConvenience?.remoteControlledBoot
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.remoteControlledBoot
+                item.features?.comfortConvenience?.remoteControlledBoot
               )}
             </Text>
           </View>
@@ -764,98 +532,49 @@ useEffect(() => {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Navigation System</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.navigationSystem
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.navigationSystem
-              )}
+              {renderValue(item.features?.comfortConvenience?.navigationSystem)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Keyless Entry</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.keylessEntry
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.keylessEntry
-              )}
+              {renderValue(item.features?.comfortConvenience?.keylessEntry)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Push Button Start</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.pushButtonStart
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.pushButtonStart
-              )}
+              {renderValue(item.features?.comfortConvenience?.pushButtonStart)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Central Locking</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.centralLocking
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.centralLocking
-              )}
+              {renderValue(item.features?.comfortConvenience?.centralLocking)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Cruise Control</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.cruiseControl
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.cruiseControl
-              )}
+              {renderValue(item.features?.comfortConvenience?.cruiseControl)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Parking Sensors</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.parkingSensors
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.parkingSensors
-              )}
+              {renderValue(item.features?.comfortConvenience?.parkingSensors)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Parking Camera</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.parkingCamera
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.parkingCamera
-              )}
+              {renderValue(item.features?.comfortConvenience?.parkingCamera)}
             </Text>
           </View>
 
@@ -863,12 +582,7 @@ useEffect(() => {
             <Text style={styles.AnswerHeading}>Auto Rain Sensing Wipers</Text>
             <Text style={styles.AnswerName}>
               {renderValue(
-                carData[0]?.features?.comfortConvenience?.autoRainSensingWipers
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.autoRainSensingWipers
+                item.features?.comfortConvenience?.autoRainSensingWipers
               )}
             </Text>
           </View>
@@ -876,56 +590,28 @@ useEffect(() => {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Auto Headlamps</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.autoHeadlamps
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.autoHeadlamps
-              )}
+              {renderValue(item.features?.comfortConvenience?.autoHeadlamps)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Power Windows</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.powerWindows
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.powerWindows
-              )}
+              {renderValue(item.features?.comfortConvenience?.powerWindows)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Power Steering</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.powerSteering
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.powerSteering
-              )}
+              {renderValue(item.features?.comfortConvenience?.powerSteering)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Power Door Locks</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.powerDoorLocks
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.powerDoorLocks
-              )}
+              {renderValue(item.features?.comfortConvenience?.powerDoorLocks)}
             </Text>
           </View>
 
@@ -933,12 +619,7 @@ useEffect(() => {
             <Text style={styles.AnswerHeading}>Power Folding Mirrors</Text>
             <Text style={styles.AnswerName}>
               {renderValue(
-                carData[0]?.features?.comfortConvenience?.powerFoldingMirrors
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.powerFoldingMirrors
+                item.features?.comfortConvenience?.powerFoldingMirrors
               )}
             </Text>
           </View>
@@ -946,24 +627,14 @@ useEffect(() => {
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear Wiper</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(carData[0]?.features?.comfortConvenience?.rearWiper)}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(carData[1]?.features?.comfortConvenience?.rearWiper)}
+              {renderValue(item.features?.comfortConvenience?.rearWiper)}
             </Text>
           </View>
 
           <View style={styles.AnswerRow}>
             <Text style={styles.AnswerHeading}>Rear Defogger</Text>
             <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[0]?.features?.comfortConvenience?.rearDefogger
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.rearDefogger
-              )}
+              {renderValue(item.features?.comfortConvenience?.rearDefogger)}
             </Text>
           </View>
 
@@ -971,12 +642,7 @@ useEffect(() => {
             <Text style={styles.AnswerHeading}>Follow Me Home Headlamps</Text>
             <Text style={styles.AnswerName}>
               {renderValue(
-                carData[0]?.features?.comfortConvenience?.followMeHomeHeadlamps
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.followMeHomeHeadlamps
+                item.features?.comfortConvenience?.followMeHomeHeadlamps
               )}
             </Text>
           </View>
@@ -985,12 +651,7 @@ useEffect(() => {
             <Text style={styles.AnswerHeading}>Headlamp Beam Adjuster</Text>
             <Text style={styles.AnswerName}>
               {renderValue(
-                carData[0]?.features?.comfortConvenience?.headlampBeamAdjuster
-              )}
-            </Text>
-            <Text style={styles.AnswerName}>
-              {renderValue(
-                carData[1]?.features?.comfortConvenience?.headlampBeamAdjuster
+                item.features?.comfortConvenience?.headlampBeamAdjuster
               )}
             </Text>
           </View>
@@ -1057,13 +718,14 @@ const styles = StyleSheet.create({
   },
   AnswerHeading: {
     // borderWidth: 0.5,
-    width: "38%",
+    paddingLeft: 10,
+    width: "60%",
     padding: 2,
     fontSize: 13,
   },
   AnswerName: {
     // borderWidth: 0.5,
-    width: "31%",
+    width: "40%",
     padding: 2,
     textAlign: "center",
     color: "grey",

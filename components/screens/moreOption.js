@@ -132,7 +132,7 @@ const moreOption = ({ navigation }) => {
   };
 
   const handleNewCars = () => {
-    navigation.navigate("New_Cars");
+    navigation.navigate("New_Cars_Find");
   };
 
   const handle_Blog = () => {
