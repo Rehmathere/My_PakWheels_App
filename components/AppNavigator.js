@@ -73,6 +73,10 @@ import CategoriesScreen from "./CategoriesScreen";
 import Filter_RentBike from "./screens/Filter_RentBike";
 import checkoutCarInspection_Bike from "./screens/checkoutCarInspection_Bike";
 import transactionApproval_Bike from "./screens/transactionApproval_Bike";
+import New_Cars_Find from "./screens/New_Cars_Find";
+import New_Cars_Details_Single from "./screens/New_Cars_Details_Single";
+import New_Cars_Detail_S_Single from "./screens/New_Cars_Detail_S_Single";
+import New_Cars_Detail_F_Single from "./screens/New_Cars_Detail_F_Single";
 
 const Stack = createStackNavigator();
 const AppNavigator = () => {
@@ -209,8 +213,12 @@ const AppNavigator = () => {
       {/* New Cars */}
       <Stack.Screen name="New_Cars" component={New_Cars} />
       <Stack.Screen name="New_Cars_Details" component={New_Cars_Details} />
+      <Stack.Screen name="New_Cars_Details_Single" component={New_Cars_Details_Single} />
       <Stack.Screen name="New_Cars_Detail_S" component={New_Cars_Detail_S} />
+      <Stack.Screen name="New_Cars_Detail_S_Single" component={New_Cars_Detail_S_Single} />
       <Stack.Screen name="New_Cars_Detail_F" component={New_Cars_Detail_F} />
+      <Stack.Screen name="New_Cars_Detail_F_Single" component={New_Cars_Detail_F_Single} />
+      <Stack.Screen name="New_Cars_Find" component={New_Cars_Find} />
       {/* My Favorite ( My Ads ) */}
       <Stack.Screen name="My_Favorite" component={My_Favorite} />
       {/* Featured Ad List Only */}
