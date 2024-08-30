@@ -7,12 +7,11 @@ const cities = [
   'Karachi',
   'Lahore',
   'Quetta',
-  'Pakisstan',
-  'Rawalppindi',
-  'Iqslamabad',
-  'Kearachi',
-  'Ltahore',
-  'Qyuetta',
+  'Multan',
+  'Faisalabad',
+  'Sukkur',
+  'Peshawar',
+  'Sialkot',
   // Add more cities as needed
 ];
 

@@ -135,8 +135,8 @@ const InputRange = ({ min, max, steps, title, onValueChange }) => {
           /> */}
         </View>
         <View style={styles.additionalView}>
-          <Text>{formatPrice(parseInt(minValue))}</Text>
-          <Text>{formatPrice(parseInt(maxValue))}</Text>
+          <Text style={styles.val_1}>{formatPrice(parseInt(minValue))}</Text>
+          <Text style={styles.val_1}>{formatPrice(parseInt(maxValue))}</Text>
         </View>
 
         <View style={styles.track}>
@@ -189,12 +189,21 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 18,
   },
+  val_1: {
+    // Here I Make FontSize = 0 
+    fontSize: 0,
+    // fontSize: 13,
+    letterSpacing: 1,
+    color: "grey",
+  },
   title: {
     borderWidth: 0.5,
     borderColor: "transparent",
     paddingVertical: 0,
+    color: "grey",
     textAlign: "center",
-    fontSize: 14,
+    // Here I Make FontSize = 0 
+    fontSize: 0,
     letterSpacing: 1.5,
   },
   rangeContainer: {
