@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,9 @@ import InputRange from "../inputRange";
 import CategorySelect from "./CategorySelect";
 import Entypo from "@expo/vector-icons/Entypo";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+// Fonts
+import { useFonts } from "expo-font";
 
 const Filter_AutoParts = ({ route, navigation }) => {
   const { onFilterApply } = route.params;
@@ -65,6 +68,29 @@ const Filter_AutoParts = ({ route, navigation }) => {
   const handleBack = () => {
     navigation.goBack();
   };
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
     <ScrollView style={styles.filter}>
@@ -94,7 +120,8 @@ const Filter_AutoParts = ({ route, navigation }) => {
         <View style={styles.InputRangeDiv_Parent}>
           <View style={styles.My_Btn_Opt_Parent_Box}>
             <Text style={styles.My_Btn_Opt_Parent_Txt_1}>
-              <Entypo name="location-pin" size={24} color="white" />
+              {/* <Entypo name="location-pin" size={24} color="#BC0000" /> */}
+              <MaterialCommunityIcons name="cash" size={24} color="#BC0000" />
             </Text>
             <Text style={styles.My_Btn_Opt_Parent_Txt_2}>Use Price Below</Text>
           </View>
@@ -107,8 +134,8 @@ const Filter_AutoParts = ({ route, navigation }) => {
           />
         </View>
         <View style={styles.values}>
-          <Text>{minPrice.toLocaleString()}</Text>
-          <Text>{maxPrice.toLocaleString()}</Text>
+          <Text style={styles.values_1}>{minPrice.toLocaleString()}</Text>
+          <Text style={styles.values_2}>{maxPrice.toLocaleString()}</Text>
         </View>
       </View>
       {/* Location Option */}
@@ -116,11 +143,11 @@ const Filter_AutoParts = ({ route, navigation }) => {
       <View style={styles.My_Btn_Opt_Parent_Grand}>
         <View style={styles.My_Btn_Opt_Parent}>
           <TouchableOpacity
-            style={styles.My_Btn_Opt_Parent_Box}
+            style={styles.My_Btn_Opt_Parent_Box_1}
             onPress={handleOpenLocationPicker}
           >
             <Text style={styles.My_Btn_Opt_Parent_Txt_1}>
-              <Entypo name="location-pin" size={24} color="white" />
+              <Entypo name="location-pin" size={24} color="#BC0000" />
             </Text>
             <Text style={styles.My_Btn_Opt_Parent_Txt_2}>Choose Location</Text>
           </TouchableOpacity>
@@ -137,11 +164,11 @@ const Filter_AutoParts = ({ route, navigation }) => {
       <View style={styles.My_Btn_Opt_Parent_Grand}>
         <View style={styles.My_Btn_Opt_Parent}>
           <TouchableOpacity
-            style={styles.My_Btn_Opt_Parent_Box}
+            style={styles.My_Btn_Opt_Parent_Box_1}
             onPress={handleOpenCategoryPicker}
           >
             <Text style={styles.My_Btn_Opt_Parent_Txt_1}>
-              <AntDesign name="menu-fold" size={23} color="white" />
+              <AntDesign name="menu-fold" size={23} color="#BC0000" />
             </Text>
             <Text style={styles.My_Btn_Opt_Parent_Txt_2}>Choose Category</Text>
           </TouchableOpacity>
@@ -174,7 +201,7 @@ const Filter_AutoParts = ({ route, navigation }) => {
             navigation.navigate("Auto_Parts");
           }}
         >
-          <Text style={styles.My_Btn_Parent_Box_Txt}>Remove All</Text>
+          <Text style={styles.My_Btn_Parent_Box_Txt_1}>Remove Filter</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -268,7 +295,7 @@ const styles = StyleSheet.create({
   InputRangeDiv_Parent: {
     borderWidth: 0.5,
     borderColor: "transparent",
-    paddingVertical: 10,
+    paddingVertical: 15,
     paddingHorizontal: 0,
   },
   Input_Range_CSS_0: {
@@ -298,8 +325,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    paddingVertical: 5,
+    paddingVertical: 1,
   },
+  values_1: {
+    paddingVertical: 1,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+  },
+  values_2: {
+    paddingVertical: 1,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+  },
+
   header: {
     backgroundColor: "#bd2a2a",
     flexDirection: "row",
@@ -323,31 +361,34 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 18,
-    fontWeight: "bold",
     alignSelf: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+    paddingVertical: 10,
   },
   // New CSS
   My_Btn_Parent: {
     borderWidth: 0.5,
     borderColor: "transparent",
-    paddingVertical: 20,
-    paddingHorizontal: 38,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
   },
   My_Btn_Parent_Box: {
     borderWidth: 0.5,
     borderColor: "transparent",
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderRadius: 10,
-    backgroundColor: "green",
+    borderRadius: 50,
+    backgroundColor: "#BC0000",
   },
   My_Btn_Parent_Box_2: {
     borderWidth: 0.5,
-    borderColor: "transparent",
+    borderColor: "#BC0000",
     paddingVertical: 6,
     paddingHorizontal: 10,
-    borderRadius: 10,
-    backgroundColor: "red",
+    borderRadius: 50,
+    backgroundColor: "white",
+    marginBottom: 30,
   },
   My_Btn_Parent_Box_Txt: {
     borderWidth: 0.5,
@@ -355,31 +396,46 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 30,
     textAlign: "center",
-    letterSpacing: 2.2,
+    letterSpacing: 3,
     color: "white",
     fontSize: 18,
+    fontFamily: "Kanit",
+  },
+  My_Btn_Parent_Box_Txt_1: {
+    borderWidth: 0.5,
+    borderColor: "transparent",
+    paddingVertical: 5,
+    borderRadius: 30,
+    textAlign: "center",
+    letterSpacing: 3,
+    color: "#BC0000",
+    fontSize: 18,
+    fontFamily: "Kanit",
   },
   My_Btn_Opt_Parent_Grand_Txt: {
     borderWidth: 0.5,
     borderColor: "transparent",
-    paddingVertical: 1,
+    paddingTop: 3,
+    paddingBottom: 3,
     paddingHorizontal: 16,
     letterSpacing: 0.8,
-    fontWeight: "bold",
+    fontSize: 16,
+    // color: "grey",
+    fontFamily: "Heebo",
   },
   My_Btn_Opt_Parent_Grand: {
     borderWidth: 0.5,
     borderColor: "transparent",
     paddingTop: 2,
     paddingBottom: 15,
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
   },
   My_Btn_Opt_Parent: {
     borderWidth: 0.5,
     borderColor: "transparent",
     paddingTop: 10,
     paddingBottom: 3,
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
     flexDirection: "row",
     justifyContent: "center",
   },
@@ -387,38 +443,50 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "transparent",
     paddingVertical: 1,
-    paddingHorizontal: 1,
+    paddingHorizontal: 0,
     flexDirection: "row",
     justifyContent: "center",
     borderRadius: 5,
   },
-  My_Btn_Opt_Parent_Txt_1: {
+  My_Btn_Opt_Parent_Box_1: {
     borderWidth: 0.5,
     borderColor: "transparent",
+    paddingVertical: 1,
+    paddingHorizontal: 0,
+    flexDirection: "row",
+    justifyContent: "center",
+    borderRadius: 5,
+    width: "100%",
+  },
+  My_Btn_Opt_Parent_Txt_1: {
+    borderWidth: 0.5,
+    borderColor: "#BC0000",
     paddingVertical: 8,
     paddingHorizontal: 18,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    backgroundColor: "#bd2a2a",
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
   },
   My_Btn_Opt_Parent_Txt_2: {
+    width: "70%",
     borderWidth: 0.5,
-    borderColor: "#FFD1D1",
+    borderColor: "#BC0000",
     paddingVertical: 9,
-    paddingHorizontal: 46,
+    paddingHorizontal: 20,
     letterSpacing: 1,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
     fontSize: 14,
-    backgroundColor: "#FFD1D1",
+    // backgroundColor: "#FFD1D1",
+    fontFamily: "Kanit",
   },
   Below_Name_Txt: {
     borderWidth: 0.5,
     borderColor: "transparent",
-    paddingVertical: 1,
+    paddingVertical: 3,
     textAlign: "center",
     fontSize: 14,
-    letterSpacing: 1.5,
+    letterSpacing: 1.8,
+    fontFamily: "Kanit",
   },
   My_Parent_Img: {
     borderWidth: 0.5,
@@ -439,10 +507,10 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     fontSize: 23,
     textAlign: "center",
-    paddingTop: 20,
-    paddingBottom: 10,
-    letterSpacing: 1,
-    fontWeight: "bold",
+    paddingTop: 40,
+    paddingBottom: 25,
+    letterSpacing: 2,
+    fontFamily: "HeeboExtra",
   },
 });
 

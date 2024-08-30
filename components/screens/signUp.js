@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 // Function to validate email format
 const validateEmail = (email) => {
@@ -116,7 +117,63 @@ const signUp = () => {
       console.error(error.response.data);
     }
   };
+  // --- OTP Logic ---
+  const [otpError, setOtpError] = useState("");
+  const [signupError, setSignupError] = useState("");
+  const [modalIsOpenSignup, setIsOpenSignup] = useState(false);
+  const [modalIsOpenOtp, setIsOpenOtp] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
 
+  const openModalOtp = () => {
+    setIsOpenOtp(true);
+  };
+  const closeModalOtp = () => {
+    setOtpError("");
+    setOtpCode("");
+    setIsOpenOtp(false);
+  };
+  const handleGenerateOtp = async () => {
+    try {
+      setDisableBtn(true);
+      const response = await axios.post(
+        "https://autofinder-backend.vercel.app/api/user/generateotp",
+        // { phone: phoneNumber }
+        { phone: "+923335448744" }
+      );
+      if (response.data.ok) {
+        setDisableBtn(false);
+        setSignupError("");
+        openModalOtp();
+      }
+    } catch (error) {
+      console.log(error);
+      setDisableBtn(false);
+      setSignupError(error.response.data.error);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    try {
+      const response = await axios.post(
+        "https://autofinder-backend.vercel.app/api/user/verifyotp",
+        { codeOTP: otpCode }
+      );
+      if (response.data.ok) {
+        setOtpError("OTP Code Is Correct");
+        setTimeout(() => {
+          closeModalOtp();
+          handleSignUp();
+        }, 1000);
+      } else {
+        setOtpError("OTP Code Is Wrong");
+      }
+    } catch (error) {
+      setOtpError("OTP Code Is Wrong");
+    }
+  };
+  // --- OTP Logic ---
+  // Main Body
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -211,10 +268,49 @@ const signUp = () => {
             <Text style={styles.errorText}>Incorrect format</Text>
           )}
         </View>
-        <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
+        {/* SignUp Btn */}
+        <TouchableOpacity
+          style={styles.signUpButton}
+          onPress={handleGenerateOtp}
+        >
           <Text style={styles.signInButtonText}>Sign up</Text>
         </TouchableOpacity>
       </View>
+      {/* OTP Modal */}
+      <Modal visible={modalIsOpenOtp} animationType="slide" transparent>
+        <View style={styles.Otp}>
+          <View style={styles.Otp_Sub}>
+            <TouchableOpacity
+              style={styles.Otp_Parent_H_0}
+              onPress={closeModalOtp}
+            >
+              <Text style={styles.Otp_Parent_H_0_Txt}>
+                <AntDesign name="close" size={15} color="white" />
+              </Text>
+            </TouchableOpacity>
+            <Text style={styles.Otp_H}>OTP Verififcation</Text>
+            <Text style={styles.Otp_H_1}>Please Enter 6 Digit OTP Code</Text>
+            <TextInput
+              style={styles.Otp_Input}
+              placeholder="Enter OTP"
+              keyboardType="numeric"
+              value={otpCode}
+              onChangeText={setOtpCode}
+            />
+            {otpError ? <Text style={styles.errorText}>{otpError}</Text> : null}
+            <TouchableOpacity
+              style={styles.Otp_Button}
+              onPress={handleVerifyOtp}
+            >
+              <Text style={styles.Otp_ButtonText}>Verify</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      {signupError ? (
+        <Text style={styles.signupError}>{signupError}</Text>
+      ) : null}
+      {/* OTP Modal */}
       {/* Popup for empty fields */}
       <Modal visible={emptyFields.length > 0} animationType="slide" transparent>
         <View style={styles.popup}>
@@ -241,7 +337,7 @@ const styles = StyleSheet.create({
   signInText: {
     fontSize: 24,
     fontWeight: "bold",
-    marginTop: 120,
+    marginTop: 10,
     textAlignVertical: "center",
     textAlign: "left",
     color: "#bd2a2a",
@@ -327,7 +423,85 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 14,
   },
+  Otp: {
+    borderWidth: 0.5,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
+  },
+  Otp_Sub: {
+    width: "75%",
+    borderWidth: 0,
+    paddingTop: 20,
+    paddingBottom: 30,
+    paddingHorizontal: 10,
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  Otp_H: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    paddingVertical: 8,
+    textAlign: "center",
+    fontSize: 23,
+    letterSpacing: 1,
+  },
+  Otp_H_1: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    paddingVertical: 10,
+    textAlign: "center",
+    fontSize: 14,
+    letterSpacing: 1.5,
+    color: "grey",
+  },
+  Otp_Input: {
+    borderWidth: 0.5,
+    borderColor: "#CCCCCC",
+    paddingVertical: 3,
+    paddingHorizontal: 10,
+    marginTop: 20,
+    letterSpacing: 2,
+    fontSize: 15,
+    borderRadius: 5,
+    backgroundColor: "#F3F3F3",
+    marginHorizontal: 18,
+  },
+  Otp_Button: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    marginHorizontal: 18,
+    paddingVertical: 10,
+    backgroundColor: "#BC0000",
+    marginTop: 30,
+    borderRadius: 20,
+  },
+  Otp_ButtonText: {
+    textAlign: "center",
+    paddingVertical: 1,
+    color: "white",
+    letterSpacing: 2.5,
+    textTransform: "uppercase",
+    fontSize: 15,
+  },
+  Otp_Parent_H_0: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    paddingVertical: 5,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  Otp_Parent_H_0_Txt: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    paddingVertical: 6,
+    paddingHorizontal: 7,
+    borderRadius: 50,
+    backgroundColor: "red",
+  },
 });
 
 export default signUp;
-
