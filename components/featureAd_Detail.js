@@ -16,7 +16,7 @@ import BuyNowCard from "./buyNowCards";
 // import backArrow from "../../assets/back-arrow.png";
 import axios from "axios";
 
-const featureAd_Detail = () => {
+const FeatureAd_Detail = () => {
   const route = useRoute();
   const filter = route.params;
   const navigation = useNavigation();
@@ -182,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default featureAd_Detail;
+export default FeatureAd_Detail;

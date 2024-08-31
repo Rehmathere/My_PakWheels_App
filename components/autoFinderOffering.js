@@ -1,7 +1,7 @@
 // /* eslint-disable prettier/prettier */
 // /* eslint-disable no-dupe-keys */
 // /* eslint-disable prettier/prettier */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -18,7 +18,9 @@ import listItForYou from "../assets/images/list_it_for_you.png";
 import carInspection from "../assets/images/car_inspection.png";
 import buyCarForMe from "../assets/images/buy_car_for_me.png";
 import rentCar from "../assets/images/rent_car.png";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+// Fonts
+import { useFonts } from "expo-font";
 
 const AutoFindersOffering = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -128,7 +130,30 @@ const AutoFindersOffering = () => {
         break;
     }
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -155,9 +180,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   headerText: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 17,
+    fontFamily: "Heebo",
     color: "black",
+    letterSpacing: 1,
+    paddingVertical: 10,
   },
   line: {
     borderBottomWidth: 1,
@@ -195,17 +222,20 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   label: {
-    marginTop: 5,
+    marginTop: 7,
     fontSize: 12,
     //fontWeight: 'bold',
     color: "#000000",
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
   label2: {
-    marginTop: 2,
-    fontSize: 20,
+    marginTop: 5,
+    fontSize: 17,
     color: "gray",
-    fontWeight: "bold",
+    fontFamily: "Heebo",
     color: "#bd2a2a",
+    letterSpacing: 0.5,
   },
 });
 

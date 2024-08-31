@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 //segmentedSelectionNavigation.js
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   View,
@@ -15,6 +15,7 @@ import {
   Image,
 } from "react-native";
 import GoogleLogo from "../assets/Googlelogo.jpeg";
+
 import {
   brandData,
   modelData,
@@ -22,22 +23,47 @@ import {
   citiesData,
   catogoriesData,
 } from "../data/optionsData";
+// Fonts
+import { useFonts } from "expo-font";
 
 const CategoriesScreen = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState("brand");
 
-  const handleBrowse = (item)=>{
-    navigation.navigate("buyNow" , {selectedBrand: item.text})
-  }
+  const handleBrowse = (item) => {
+    navigation.navigate("buyNow", { selectedBrand: item.text });
+  };
 
-  const handleBrowseLocation = (item)=>{
-    navigation.navigate("buyNow",{selectedLocation:item.text})
-  }
+  const handleBrowseLocation = (item) => {
+    navigation.navigate("buyNow", { selectedLocation: item.text });
+  };
 
-  const handleBrowseModel = (item)=>{
-    navigation.navigate("buyNow" , {selectedBrand:item.text})
+  const handleBrowseModel = (item) => {
+    navigation.navigate("buyNow", { selectedBrand: item.text });
+  };
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
   }
-
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -91,14 +117,16 @@ const CategoriesScreen = ({ navigation }) => {
 
       {/* Options for browsing */}
 
-
       {selectedTab === "brand" && (
         <FlatList
           horizontal
           data={brandData}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.optionCard} onPress={()=>handleBrowse(item)}>
+            <TouchableOpacity
+              style={styles.optionCard}
+              onPress={() => handleBrowse(item)}
+            >
               {item.image && (
                 <View style={styles.imageContainer}>
                   <Image
@@ -121,7 +149,10 @@ const CategoriesScreen = ({ navigation }) => {
           data={modelData}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.optionCard} onPress={()=>handleBrowseModel(item)}>
+            <TouchableOpacity
+              style={styles.optionCard}
+              onPress={() => handleBrowseModel(item)}
+            >
               <View style={styles.imageContainer}>
                 <Image
                   source={require("../assets/audi.png")}
@@ -143,7 +174,10 @@ const CategoriesScreen = ({ navigation }) => {
           data={citiesData}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.optionCard} onPress={()=>handleBrowseLocation(item)}>
+            <TouchableOpacity
+              style={styles.optionCard}
+              onPress={() => handleBrowseLocation(item)}
+            >
               {/* <View style={styles.imageContainer}>
                 <Image source={require("../assets/audi.png")} style={styles.optionImage} resizeMode='contain'/>
               </View> */}
@@ -203,14 +237,16 @@ const styles = StyleSheet.create({
   },
   selectedButton: {
     // backgroundColor: 'white',
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: "#bd2a2a",
+    paddingBottom: 5,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 14.5,
     textAlign: "center",
     color: "#bd2a2a",
-    fontWeight: "bold",
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
   optionContainer: {
     justifyContent: "center",
@@ -258,6 +294,8 @@ const styles = StyleSheet.create({
     // height:30,
     // borderWidth: 1,
     // borderColor: 'black',
+    fontFamily: "Kanit",
+    paddingVertical: 5,
   },
 });
 

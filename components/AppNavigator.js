@@ -79,6 +79,7 @@ import New_Cars_Detail_S_Single from "./screens/New_Cars_Detail_S_Single";
 import New_Cars_Detail_F_Single from "./screens/New_Cars_Detail_F_Single";
 
 const Stack = createStackNavigator();
+
 const AppNavigator = () => {
   const { user, dispatch } = useContext(UserContext);
 
@@ -100,7 +101,7 @@ const AppNavigator = () => {
     }
   }, [user]);
   return (
-    <Stack.Navigator mode="modal" headerMode="none" initialRouteName="home">
+    <Stack.Navigator screenOptions={{ headerShown: false, presentation:"modal" }} initialRouteName="home">
       <Stack.Screen name="home" component={home} />
       <Stack.Screen
         name="SellNowPopup"
@@ -148,11 +149,11 @@ const AppNavigator = () => {
       />
       <Stack.Screen name="homeListItForYou" component={HomeListItForYou} />
       <Stack.Screen name="myAds" component={MyAds} />
-      {/* <Stack.Screen name="activeAds" component={ActiveAds} /> */}
-      <Stack.Screen
+      <Stack.Screen name="actsiveAds" component={ActiveAds} />
+      {/* <Stack.Screen
         name="activeAds"
         component={(props) => <ActiveAds {...props} />}
-      />
+      /> */}
       <Stack.Screen name="pendingAds" component={PendingAds} />
       <Stack.Screen name="packages" component={Packages} />
       <Stack.Screen name="sellerCarDetail" component={SellerCarDetail} />

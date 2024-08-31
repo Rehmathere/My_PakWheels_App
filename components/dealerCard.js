@@ -3,7 +3,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-const dealerCard = ({ packageInfo, onPress, borderColor }) => {
+const DealerCard = ({ packageInfo, onPress, borderColor }) => {
   const {
     _id,
     heading,
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default dealerCard;
+export default DealerCard;

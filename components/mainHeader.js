@@ -17,6 +17,9 @@ import { UserContext } from "../context/userContext";
 import { Entypo } from "@expo/vector-icons";
 import SyncStorage from "sync-storage";
 // import FilterSearchCar from "./screens/filterSearch";
+// Fonts
+import { useFonts } from "expo-font";
+
 const MainHeader = ({
   onPressHome,
   onPressMyAds,
@@ -73,6 +76,29 @@ const MainHeader = ({
     navigation.navigate("DealerPackage");
     // navigation.navigate("transactionApproval");
   };
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
     <View>
@@ -151,7 +177,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "black",
-    fontWeight: "bold",
   },
   buttonHolder: {
     display: "flex",
@@ -160,7 +185,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 1,
     paddingTop: 30,
-    paddingHorizontal: 12,
+    paddingHorizontal: 5,
     width: "100%",
     backgroundColor: "#bd2a2a",
     // borderWidth: 1,
@@ -168,7 +193,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     backgroundColor: "white",
-    width: "27%",
+    width: "28%",
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 5,
@@ -180,8 +205,9 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "#bd2a2a",
-    fontWeight: "bold",
+    fontFamily: "Kanit",
     fontSize: 14,
+    letterSpacing: 0.2,
   },
   rowContainer: {
     flexDirection: "row",

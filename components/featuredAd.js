@@ -12,9 +12,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import axios from "axios";
+// Fonts
+import { useFonts } from "expo-font";
 
 const FeaturedAd = ({ navigation }) => {
-  
   const [items, setItems] = useState([]);
   useEffect(() => {
     async function fetchData() {
@@ -54,7 +55,30 @@ const FeaturedAd = ({ navigation }) => {
     // Navigate to the home.js screen with the itemId
     navigation.navigate("featureAd_Detail");
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.featuredAdsContainer}>
       {/* Box */}
@@ -62,7 +86,10 @@ const FeaturedAd = ({ navigation }) => {
         {/* - */}
         <Text style={styles.Extra_Box_Txt_1}>Featured Ads</Text>
         {/* - */}
-        <TouchableOpacity style={styles.Extra_Box_Txt_2_Box} onPress={handleListFeatureAdPress}>
+        <TouchableOpacity
+          style={styles.Extra_Box_Txt_2_Box}
+          onPress={handleListFeatureAdPress}
+        >
           <Text style={styles.Extra_Box_Txt_2}>See All</Text>
         </TouchableOpacity>
       </View>
@@ -122,7 +149,8 @@ const styles = StyleSheet.create({
     // borderWidth: 0.5,
     color: "black",
     fontSize: 18.5,
-    fontWeight: "bold",
+    fontSize: 17,
+    fontFamily: "Heebo",
     marginLeft: 5,
   },
   // Extra_Box_Txt_2_Box: {
@@ -134,9 +162,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#bd2a2a",
     margin: "auto",
-    marginRight: 10,
-    fontWeight: "bold",
+    marginRight: 6,
     letterSpacing: 0.5,
+    fontFamily: "Kanit",
   },
   container: {
     flexDirection: "row",

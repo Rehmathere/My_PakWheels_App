@@ -1,7 +1,16 @@
-import React, { useState } from "react";
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, FlatList } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  FlatList,
+} from "react-native";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
+// Fonts
+import { useFonts } from "expo-font";
 
 const SearchBar = ({ onSearch = () => {} }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -11,10 +20,23 @@ const SearchBar = ({ onSearch = () => {} }) => {
 
   const suggestions = [
     { text: "Free Ads", action: () => navigation.navigate("homeFreeAds") },
-    { text: "Premium Ads", action: () => navigation.navigate("homePremiumAds") },
-    { text: "List It For You", action: () => navigation.navigate("homeListItForYou", { service: "001" }) },
-    { text: "Car Inspection", action: () => navigation.navigate("homeCarInspection", { service: "002" }) },
-    { text: "Buy Car For Me", action: () => navigation.navigate("homeBuyCarForMe", { service: "003" }) },
+    {
+      text: "Premium Ads",
+      action: () => navigation.navigate("homePremiumAds"),
+    },
+    {
+      text: "List It For You",
+      action: () => navigation.navigate("homeListItForYou", { service: "001" }),
+    },
+    {
+      text: "Car Inspection",
+      action: () =>
+        navigation.navigate("homeCarInspection", { service: "002" }),
+    },
+    {
+      text: "Buy Car For Me",
+      action: () => navigation.navigate("homeBuyCarForMe", { service: "003" }),
+    },
     { text: "Rent A Car", action: () => navigation.navigate("homeRentACar") },
     { text: "Auto Parts", action: () => navigation.navigate("Auto_Parts") },
     { text: "Bikes", action: () => navigation.navigate("Rent_Bike") },
@@ -38,7 +60,7 @@ const SearchBar = ({ onSearch = () => {} }) => {
   };
 
   const handleDelete = (item) => {
-    setRecentSearches(recentSearches.filter(search => search !== item));
+    setRecentSearches(recentSearches.filter((search) => search !== item));
   };
 
   const handleSuggestionClick = (action) => {
@@ -46,10 +68,33 @@ const SearchBar = ({ onSearch = () => {} }) => {
     action();
   };
 
-  const filteredSuggestions = suggestions.filter(suggestion =>
+  const filteredSuggestions = suggestions.filter((suggestion) =>
     suggestion.text.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View>
       <View style={styles.container}>
@@ -61,7 +106,7 @@ const SearchBar = ({ onSearch = () => {} }) => {
         />
         <TextInput
           style={styles.input}
-          placeholder="Search "
+          placeholder=" Search "
           onChangeText={handleInputChange}
           value={searchQuery}
           onSubmitEditing={handleSearch}
@@ -76,7 +121,9 @@ const SearchBar = ({ onSearch = () => {} }) => {
           <FlatList
             data={filteredSuggestions}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleSuggestionClick(item.action)}>
+              <TouchableOpacity
+                onPress={() => handleSuggestionClick(item.action)}
+              >
                 <Text style={styles.resultItem}>{item.text}</Text>
               </TouchableOpacity>
             )}
@@ -89,7 +136,11 @@ const SearchBar = ({ onSearch = () => {} }) => {
               <View style={styles.recentSearchItem}>
                 <Text style={styles.resultItem}>{item}</Text>
                 <TouchableOpacity onPress={() => handleDelete(item)}>
-                  <MaterialIcons name="delete-forever" size={20} color="#bd2a2a" />
+                  <MaterialIcons
+                    name="delete-forever"
+                    size={20}
+                    color="#bd2a2a"
+                  />
                 </TouchableOpacity>
               </View>
             )}
@@ -120,6 +171,7 @@ const styles = StyleSheet.create({
     height: 45,
     fontSize: 16,
     color: "black",
+    fontFamily: "Kanit",
   },
   searchButton: {
     backgroundColor: "#bd2a2a",
@@ -130,6 +182,7 @@ const styles = StyleSheet.create({
   searchButtonText: {
     color: "white",
     fontSize: 16,
+    fontFamily: "Kanit",
   },
   dialogBox: {
     backgroundColor: "white",
