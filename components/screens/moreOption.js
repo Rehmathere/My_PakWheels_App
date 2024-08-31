@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,6 @@ import {
   Alert,
   Modal,
 } from "react-native";
-import { useEffect } from "react";
 import LoginHeader from "../loginHeader";
 import LogoutHeader from "../logoutHeader";
 import { ScrollView } from "react-native-gesture-handler";
@@ -22,8 +21,10 @@ import carIcon from "../../assets/images/car_icon.png";
 import bikeIcon from "../../assets/images/bike_icon.png";
 import toolIcon from "../../assets/images/tools_icon.png";
 // ----- Modal -----
+// Fonts
+import { useFonts } from "expo-font";
 
-const moreOption = ({ navigation }) => {
+const MoreOption = ({ navigation }) => {
   // -------- Modal --------
   const [showStatus, setShowStatus] = useState(false);
   // -------- Modal --------
@@ -199,6 +200,29 @@ const moreOption = ({ navigation }) => {
     navigation.navigate("homeRentACar");
   };
   // -------------- Services OnPress ---------------
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
     <View>
@@ -296,7 +320,7 @@ const moreOption = ({ navigation }) => {
               }}
             >
               <Image
-                source={require("../../assets/garage.png")}
+                source={require("../../assets/Car.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
@@ -304,7 +328,7 @@ const moreOption = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.subOption} onPress={handleNewCars}>
               <Image
-                source={require("../../assets/cart.png")}
+                source={require("../../assets/Car.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
@@ -312,7 +336,7 @@ const moreOption = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.subOption} onPress={handleBikes}>
               <Image
-                source={require("../../assets/cart.png")}
+                source={require("../../assets/bike_1.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
@@ -323,7 +347,7 @@ const moreOption = ({ navigation }) => {
               onPress={handleAutoParts}
             >
               <Image
-                source={require("../../assets/love.png")}
+                source={require("../../assets/tools.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
@@ -431,7 +455,7 @@ const moreOption = ({ navigation }) => {
           <View style={styles.dropdownContent}>
             <TouchableOpacity style={styles.subOption} onPress={handle_Blog}>
               <Image
-                source={require("../../assets/garage.png")}
+                source={require("../../assets/descriptionIcon.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
@@ -439,7 +463,7 @@ const moreOption = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.subOption} onPress={handle_Video}>
               <Image
-                source={require("../../assets/cart.png")}
+                source={require("../../assets/cameraIcon.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
@@ -583,9 +607,9 @@ const styles = StyleSheet.create({
   dropdownText: {
     fontSize: 17.5,
     color: "#454545",
-    fontWeight: "bold",
     verticalAlign: "middle",
     letterSpacing: 1,
+    fontFamily: "Heebo",
   },
   dropdownIcon: {
     width: 15,
@@ -609,6 +633,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "black",
     marginRight: 30,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
   subOptionIcon: {
     width: 15,
@@ -702,4 +728,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default moreOption;
+export default MoreOption;

@@ -16,7 +16,7 @@ import BookRentCards from "../bookRentCards";
 // import backArrow from "../../assets/back-arrow.png";
 import axios from "axios";
 
-const bookRent = () => {
+const BookRent = () => {
   const navigation = useNavigation();
   const [filterOptions, setFilterOptions] = useState({});
   const [isLoading, setIsloading] = useState(true);
@@ -164,5 +164,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default bookRent;
+export default BookRent;
 

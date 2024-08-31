@@ -26,7 +26,7 @@ import { UserContext } from "../../context/userContext";
 //import Alert
 import { Alert } from "react-native";
 
-const freeAdsPostService = () => {
+const FreeAdsPostService = () => {
   const { user } = useContext(UserContext);
   // let A = '';
   const navigation = useNavigation();
@@ -1424,4 +1424,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default freeAdsPostService;
+export default FreeAdsPostService;

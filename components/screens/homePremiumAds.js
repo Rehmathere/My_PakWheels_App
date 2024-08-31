@@ -18,7 +18,7 @@ import AutoFinderServices from "../autoFinderServices";
 import AdvertisementCard from "../advertisementCard";
 import { useEffect, useRef } from "react";
 
-const homePremiumAds = () => {
+const HomePremiumAds = () => {
   const navigation = useNavigation();
   const [selectedPackage, setSelectedPackage] = useState(null);
 
@@ -407,4 +407,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default homePremiumAds;
+export default HomePremiumAds;

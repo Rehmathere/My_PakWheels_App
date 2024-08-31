@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const testing = () => {
+const Testing = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default testing;
+export default Testing;

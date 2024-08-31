@@ -19,7 +19,7 @@ import Advantage from "../advantage";
 import { useEffect, useRef } from "react";
 import AdvertisementCard from "../advertisementCard";
 
-const homeRentACar = () => {
+const HomeRentACar = () => {
   const navigation = useNavigation();
   const [selectedPackage, setSelectedPackage] = useState(null);
 
@@ -403,4 +403,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default homeRentACar;
+export default HomeRentACar;

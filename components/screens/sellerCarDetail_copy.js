@@ -14,7 +14,7 @@ import FooterContact from "../footerContact";
 import { useRoute } from "@react-navigation/native";
 import axios from "axios";
 
-const sellerCarDetail_copy = () => {
+const SellerCarDetail_copy = () => {
   const navigation = useNavigation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -551,6 +551,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default sellerCarDetail_copy;
+export default SellerCarDetail_copy;
 
 

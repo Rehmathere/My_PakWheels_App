@@ -11,7 +11,7 @@ import FuelTypePicker from '../fuelTypePicker';
 import PremiumAdCharges from '../premiumAdCharges';
 // import MarqueeText from 'react-native-marquee';
 
-const premiumAdsPostService = () => {
+const PremiumAdsPostService = () => {
   // let A = '';
   const navigation = useNavigation();
   const [locationModalVisible, setLocationModalVisible] = useState(false);
@@ -797,5 +797,5 @@ const styles = StyleSheet.create({
 //   },
 });
 
-export default premiumAdsPostService;
+export default PremiumAdsPostService;
 

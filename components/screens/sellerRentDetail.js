@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import axios from "axios";
 
-const sellerRentDetail = () => {
+const SellerRentDetail = () => {
   const navigation = useNavigation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -623,5 +623,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default sellerRentDetail;
+export default SellerRentDetail;
 

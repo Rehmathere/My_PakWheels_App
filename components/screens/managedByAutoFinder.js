@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import axios from "axios";
 import { useNavigation, useRoute } from "@react-navigation/native";
+// Fonts
+import { useFonts } from "expo-font";
 
 const ManagedByAutoFinder = () => {
   const route = useRoute();
@@ -36,6 +38,29 @@ const ManagedByAutoFinder = () => {
   const handleCardPress = (itemId) => {
     navigation.navigate("sellerCarDetail", { itemId: itemId });
   };
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
     <View style={styles.featuredAdsContainer}>
@@ -62,7 +87,7 @@ const ManagedByAutoFinder = () => {
             <TouchableOpacity
               key={index}
               onPress={() => handleCardPress(item)}
-              style={{ marginHorizontal: 10 }}
+              style={{ marginHorizontal: 10, }}
             >
               {/* Image container */}
               <View style={styles.imageContainer}>
@@ -110,11 +135,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   Extra_Box_Txt_1: {
-    marginLeft: 5,
+    marginLeft: 0,
     // borderWidth: 0.5,
     color: "black",
-    fontSize: 18.2,
-    fontWeight: "bold",
+    fontSize: 17,
+    fontFamily: "Heebo",
+    letterSpacing: 0.2,
   },
   Extra_Box_Txt_2_Box: {
     borderWidth: 0.5,
@@ -126,9 +152,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#bd2a2a",
     margin: "auto",
-    marginRight: 10,
-    fontWeight: "bold",
+    marginRight: 6,
     letterSpacing: 0.5,
+    fontFamily: "Kanit",
   },
   container: {
     flexDirection: "row",
@@ -141,7 +167,7 @@ const styles = StyleSheet.create({
     margin: 5,
     flexDirection: "column",
     // Shadow properties for iOS
-    shadowColor: "#000",
+    shadowColor: "black",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -149,12 +175,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     // Shadow properties for Android
-    elevation: 5,
+    elevation: 10,
   },
   imageContainer: {
     flex: 1,
     borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0,
     overflow: "hidden",
   },
   image: {
@@ -167,8 +195,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     backgroundColor: "#f4f0ec",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   name: {
     color: "#bd2a2a",
@@ -181,8 +209,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   city: {
-    color: "#8b8c8c",
+    color: "grey",
     fontSize: 12,
+    fontFamily: "Kanit",
+    marginBottom: 5,
+    letterSpacing: 0.5,
   },
   modelKmDriven: {
     color: "#8b8c8c",
@@ -208,15 +239,17 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: 100,
-    marginRight: 10,
+    marginRight: 0,
     justifyContent: "center", // Center vertically
     alignItems: "center", // Center horizontally
   },
   image: {
     width: "100%",
     height: 100,
-    borderRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
     // marginTop: 20,
+    
   },
   featuredIcon: {
     position: "absolute",
@@ -229,10 +262,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   name: {
-    fontSize: 14,
-    fontWeight: "bold",
+    fontSize: 13,
+    // fontWeight: "bold",
     marginBottom: 5,
     color: "#bd2a2a",
+    fontFamily: "Kanit",
   },
   variant: {
     fontSize: 12,
@@ -240,10 +274,10 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   price: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontFamily: "Heebo",
     color: "black",
-    marginBottom: 10,
+    marginBottom: 3,
   },
   upperView: {
     flexDirection: "row",

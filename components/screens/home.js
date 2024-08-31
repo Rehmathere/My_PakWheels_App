@@ -25,8 +25,10 @@ import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 // import SyncStorage from "sync-storage";
 // import { useContext } from "react";
 // import { UserContext } from "../../context/userContext";
+// Fonts
+import { useFonts } from "expo-font";
 
-const home = ({ navigation }) => {
+const Home = ({ navigation }) => {
   // const { user } = useContext(UserContext);
   // useEffect(() => {
   //   console.log(SyncStorage.get("token"));
@@ -40,9 +42,29 @@ const home = ({ navigation }) => {
   const handleDealerPack = () => {
     navigation.navigate("DealerPackage");
   };
-  // -------- Bottom Navbar --------
-
-  // -------- Bottom Navbar --------
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
     <View style={styles.container}>
@@ -248,12 +270,12 @@ const styles = StyleSheet.create({
   E_Bottom_Box_Text_1: {
     borderWidth: 0,
     paddingHorizontal: 2,
-    paddingVertical: 0,
+    paddingVertical: 2,
     borderRadius: 2,
     fontSize: 9,
     letterSpacing: 1.5,
     textAlign: "center",
-    // fontFamily: "Kanit",
+    fontFamily: "Kanit",
     color: "white",
   },
   E_Bottom_Box_EE: {
@@ -278,9 +300,9 @@ const styles = StyleSheet.create({
     fontSize: 9,
     letterSpacing: 1.5,
     textAlign: "center",
-    // fontFamily: "Kanit",
+    fontFamily: "Kanit",
     color: "black",
   },
 });
 
-export default home;
+export default Home;

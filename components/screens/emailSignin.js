@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -9,9 +9,13 @@ import {
   TextInput,
   TouchableOpacity,
   Modal,
+  Image,
 } from "react-native";
 import axios from "axios";
 import SyncStorage from "sync-storage";
+// Fonts
+import { useFonts } from "expo-font";
+
 // Function to validate email format
 // const validateEmail = (email) => {
 //   return String(email)
@@ -28,7 +32,7 @@ import SyncStorage from "sync-storage";
 //   return passwordRegex.test(password);
 // };
 
-const emailSignin = () => {
+const EmailSignin = () => {
   const navigation = useNavigation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
@@ -76,7 +80,7 @@ const emailSignin = () => {
       const response = await axios.post(
         "https://autofinder-backend.vercel.app/api/user/login",
         {
-          phoneNumber:email,
+          phoneNumber: email,
           password,
         }
       );
@@ -101,13 +105,45 @@ const emailSignin = () => {
     // console.log("Signing in...");
     // Perform sign-in logic here
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.container}>
-        <Text style={styles.signInText}>Sign in for AutoFinder</Text>
+        {/* --- Image --- */}
+        <View style={styles.Img_Parent}>
+          <Image
+            source={require("../../assets/logo1.png")}
+            style={styles.Img}
+          />
+        </View>
+        {/* --- Image --- */}
+        {/* Main Body */}
+        <Text style={styles.signInText}>Sign in for Auto Finder</Text>
         <View style={styles.inputContainer}>
-          <Text style={[styles.inputLabel, styles.boldLabel]}>Phone Number</Text>
+          <Text style={styles.inputLabel}>Phone Number</Text>
           <View style={styles.emailInputWrapper}>
             <TextInput
               style={styles.input}
@@ -129,7 +165,7 @@ const emailSignin = () => {
         </View>
 
         <View style={styles.inputContainer}>
-          <Text style={[styles.inputLabel, styles.boldLabel]}>Password</Text>
+          <Text style={styles.inputLabel}>Password</Text>
           <View style={styles.passwordInputWrapper}>
             <TextInput
               style={styles.passwordInput}
@@ -159,11 +195,9 @@ const emailSignin = () => {
         </View>
 
         <TouchableOpacity style={styles.signUpButton}>
-          <Text>
-            Don't have an account?{" "}
-            <Text style={styles.signUpText} onPress={handleSignUp}>
-              Sign up
-            </Text>
+          <Text style={styles.signUpText_1}>Don't have an account ?</Text>
+          <Text style={styles.signUpText} onPress={handleSignUp}>
+            Sign up
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
@@ -208,6 +242,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "80%",
   },
+  Img_Parent: {
+    // borderWidth: 0.5,
+    paddingVertical: 30,
+    width: "100%",
+  },
+  Img: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    width: 130,
+    height: 100,
+    alignSelf: "center",
+    borderRadius: 30,
+  },
   popupTitle: {
     fontSize: 20,
     fontWeight: "bold",
@@ -230,11 +277,12 @@ const styles = StyleSheet.create({
   },
   signInText: {
     fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 120,
-    textAlignVertical: "center",
-    textAlign: "left",
+    paddingTop: 30,
+    paddingBottom: 30,
+    textAlign: "center",
     color: "#bd2a2a",
+    fontFamily: "Heebo",
+    letterSpacing: 1,
   },
   inputContainer: {
     marginTop: 30,
@@ -243,21 +291,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "black",
     marginBottom: 5,
-  },
-  boldLabel: {
-    fontWeight: "bold", // Make the label bold
+    fontFamily: "Heebo",
   },
   input: {
     borderBottomWidth: 1,
-    borderBottomColor: "black", // Black bottom border for input
+    borderBottomColor: "#bc0000", // Black bottom border for input
     fontSize: 16,
     color: "black",
     paddingVertical: 8,
     paddingLeft: 10,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   passwordInputWrapper: {
     borderBottomWidth: 1,
-    borderBottomColor: "black",
+    borderBottomColor: "#bc0000",
     flexDirection: "row", // To align the text label 'Hide'/'Show' to the right
     justifyContent: "space-between", // To create space between password input and text label
     alignItems: "center", // Align items vertically
@@ -265,6 +313,8 @@ const styles = StyleSheet.create({
   passwordVisibilityText: {
     color: "grey",
     fontSize: 16,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   passwordInput: {
     flex: 1,
@@ -272,20 +322,32 @@ const styles = StyleSheet.create({
     color: "black",
     paddingVertical: 8,
     paddingLeft: 10,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   signUpButton: {
-    marginTop: 30,
+    marginTop: 35,
     alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center"
+    ,alignItems: "center",
+  },
+  signUpText_1: {
+    color: "grey",
+    fontFamily: "Kanit",
+    fontSize: 16,
+    marginRight: 10,
   },
   signUpText: {
-    textDecorationLine: "underline",
     color: "#bd2a2a",
-    fontWeight: "bold",
+    fontFamily: "Kanit",
     fontSize: 16,
+    marginRight: 10,
   },
   signInButton: {
     backgroundColor: "#bd2a2a", //(#ff7f50)
-    padding: 15,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
     borderRadius: 5,
     width: "100%",
     justifyContent: "center",
@@ -294,8 +356,10 @@ const styles = StyleSheet.create({
   },
   signInButtonText: {
     color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 20,
+    fontFamily: "Kanit",
+    letterSpacing: 2,
+    textTransform: "uppercase",
   },
   // Popup styles
   popup: {
@@ -307,24 +371,29 @@ const styles = StyleSheet.create({
   },
   popupTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 40,
     color: "#bd2a2a",
+    fontFamily: "Heebo",
+    textAlign: "center",
   },
   popupField: {
     fontSize: 16,
     marginBottom: 5,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
   popupClose: {
     color: "blue",
     alignSelf: "flex-end",
     marginTop: 10,
+    fontFamily: "Heebo",
   },
   // Error text style
   errorText: {
     color: "red",
     fontSize: 14,
+    fontFamily: "Kanit",
   },
 });
 
-export default emailSignin;
+export default EmailSignin;

@@ -14,7 +14,7 @@ import InputRange from "../inputRange";
 import CategorySelect from "./CategorySelect";
 import Entypo from "@expo/vector-icons/Entypo";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 // Fonts
 import { useFonts } from "expo-font";
 
@@ -420,8 +420,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     letterSpacing: 0.8,
     fontSize: 16,
-    // color: "grey",
-    fontFamily: "Heebo",
+    color: "grey",
+    fontFamily: "Kanit",
   },
   My_Btn_Opt_Parent_Grand: {
     borderWidth: 0.5,

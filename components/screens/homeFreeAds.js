@@ -27,7 +27,7 @@ import numberTwo from "../../assets/two.png";
 import numberThree from "../../assets/three.png";
 import numberFour from "../../assets/four.png";
 
-const homeFreeAds = () => {
+const HomeFreeAds = () => {
   // const route = useRoute();
   // const { service } = route.params;
   const navigation = useNavigation();
@@ -417,4 +417,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default homeFreeAds;
+export default HomeFreeAds;

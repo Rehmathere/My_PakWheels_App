@@ -15,7 +15,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import SyncStorage from "sync-storage";
 
-const more = ({ navigation }) => {
+const More = ({ navigation }) => {
   const { user, dispatch } = useContext(UserContext);
   //const navigation = useNavigation();
   const [showPersonalDropdown, setShowPersonalDropdown] = useState(false);
@@ -506,4 +506,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default more;
+export default More;

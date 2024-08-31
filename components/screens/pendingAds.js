@@ -4,7 +4,7 @@ import MyCarAdsCards from "../myCarAdsCards";
 import axios from "axios";
 import { UserContext } from "../../context/userContext";
 
-export default function pendingAds() {
+export default function PendingAds() {
   const { user } = useContext(UserContext);
   const [data, setData] = useState([]);
   useEffect(() => {

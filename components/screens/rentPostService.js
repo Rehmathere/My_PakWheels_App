@@ -22,7 +22,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import axios from "axios";
 
-const rentPostService = () => {
+const RentPostService = () => {
   const { user } = useContext(UserContext);
   const navigation = useNavigation();
   const [carType, setCarType] = useState("");
@@ -649,4 +649,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default rentPostService;
+export default RentPostService;

@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const Tab = createMaterialTopTabNavigator();
 
-const myAds = () => {
+const MyAds = () => {
   const navigation = useNavigation();
   const handleBackPress = () => {
     navigation.goBack();
@@ -28,4 +28,4 @@ const myAds = () => {
   );
 };
 
-export default myAds;
+export default MyAds;

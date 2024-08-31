@@ -10,7 +10,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import { UserContext, userContext } from "../../context/userContext";
-const sellerProfile = ({ navigation }) => {
+
+const SellerProfile = ({ navigation }) => {
   const { user } = useContext(UserContext);
   const handleBack = () => {
     navigation.goBack();
@@ -96,5 +97,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default sellerProfile;
+export default SellerProfile;
 

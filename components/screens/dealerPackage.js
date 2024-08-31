@@ -16,7 +16,7 @@ import { UserContext } from "../../context/userContext";
 import SyncStorage from "sync-storage";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const dealerPackage = () => {
+const DealerPackage = () => {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
   const [data, setData] = useState([]);
@@ -148,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default dealerPackage;
+export default DealerPackage;

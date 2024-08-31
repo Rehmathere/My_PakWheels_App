@@ -17,7 +17,7 @@ import { useRoute } from "@react-navigation/native";
 import EasyPaisaModal from "../EasyPaisaModal";
 import JazzCashModal from "../JassCashModal";
 
-const checkoutCarInspection_Bike = ({ navigation }) => {
+const CheckoutCarInspection_Bike = ({ navigation }) => {
   const route = useRoute();
   const data = route.params;
   const [showModal, setShowModal] = useState(false);
@@ -324,5 +324,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default checkoutCarInspection_Bike;
+export default CheckoutCarInspection_Bike;
 

@@ -4,7 +4,7 @@
 import React from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const horizontalScrollPackage = ({
+const HorizontalScrollPackage = ({
   imageSource,
   title,
   content,
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default horizontalScrollPackage;
+export default HorizontalScrollPackage;

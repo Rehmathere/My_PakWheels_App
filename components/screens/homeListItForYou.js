@@ -22,7 +22,7 @@ import { useRoute } from "@react-navigation/native";
 import { useEffect, useRef } from "react";
 import AdvertisementCard from "../advertisementCard";
 
-const homeListItForYou = () => {
+const HomeListItForYou = () => {
   const route = useRoute();
   const { service } = route.params;
   const navigation = useNavigation();
@@ -438,4 +438,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default homeListItForYou;
+export default HomeListItForYou;

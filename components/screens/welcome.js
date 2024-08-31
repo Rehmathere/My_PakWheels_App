@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -10,18 +10,20 @@ import {
   Image,
   Linking,
 } from "react-native";
-import GoogleLogo from "../../assets/Googlelogo.jpeg";
+import GoogleLogo from "../../assets/Googlelogo.png";
 import email from "../../assets/email.png";
 import { useNavigation } from "@react-navigation/native";
+// Fonts
+import { useFonts } from "expo-font";
 
-const welcome = () => {
- 
+const Welcome = () => {
   const handleTermsPress = () => {
-    console.log("handel termpress") };
+    console.log("handel termpress");
+  };
   const handlePrivacyPress = () => {
-    console.log("handel termpress") };
-    
-  
+    console.log("handel termpress");
+  };
+
   const navigation = useNavigation();
   const handleGoogleSignIn = () => {
     navigation.navigate("googleSignin");
@@ -32,11 +34,35 @@ const welcome = () => {
   const handleEmailSignIn = () => {
     navigation.navigate("emailSignin");
   };
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <Text style={styles.headerText}>Sign In To Continue</Text>
-        <Text style={styles.getStartedText}>Let's Get Started!.</Text>
+        <Text style={styles.getStartedText}>Let's Get Started !</Text>
         {/* <View style={styles.inputContainer}>
           <Text style={styles.prefixText}>+92 |</Text>
           <TextInput
@@ -77,17 +103,21 @@ const welcome = () => {
             <Text style={styles.buttonText}>Continue with Email</Text>
           </TouchableOpacity>
         </View>
+
         <View style={styles.agreementContainer}>
           <Text style={styles.agreementText}>
-            By continuing you agree to our{"\n"}
+            By continuing you agree to our
+          </Text>
+
+          <View style={styles.Mix}>
             <TouchableOpacity onPress={handleTermsPress}>
               <Text style={styles.inlineUnderlineGray}>Terms of Use</Text>
             </TouchableOpacity>
-            <Text style={styles.inlineText}> and </Text>
+            <Text style={styles.agreementText}>And</Text>
             <TouchableOpacity onPress={handlePrivacyPress}>
               <Text style={styles.inlineUnderlineBlack}>Privacy Policy</Text>
             </TouchableOpacity>
-          </Text>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -104,18 +134,18 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 50,
+    marginTop: 70,
     textAlignVertical: "center",
     textAlign: "center",
     color: "black",
+    fontFamily: "Heebo",
   },
   getStartedText: {
     fontSize: 38,
-    fontWeight: "bold",
     marginTop: 80,
-    marginLeft: 20,
     color: "#bd2a2a",
+    fontFamily: "HeeboExtra",
+    textAlign: "center",
   },
   inputContainer: {
     flexDirection: "row",
@@ -153,17 +183,13 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "80%",
-    height: 50,
-    borderRadius: 8,
-    padding: 10,
+    borderRadius: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
     alignItems: "center",
     flexDirection: "row",
-    marginTop: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "black",
+    marginTop: 20,
+    backgroundColor: "#BC0000",
   },
   buttonIcon: {
     width: 24,
@@ -173,10 +199,11 @@ const styles = StyleSheet.create({
   buttonText: {
     flex: 1,
     fontSize: 16,
-    color: "#000000",
-    fontWeight: "bold",
+    color: "white",
     textAlign: "center",
     textAlignVertical: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   buttonGoogle: {
     borderColor: "#000000",
@@ -189,28 +216,48 @@ const styles = StyleSheet.create({
   },
   agreementContainer: {
     alignItems: "center",
-    marginTop: 150,
+    marginTop: 80,
+    marginBottom: 40,
   },
   agreementText: {
     fontSize: 14,
     color: "gray",
     textAlign: "center",
+    fontFamily: "Kanit",
+    paddingVertical: 5,
+    textTransform: "capitalize",
+    letterSpacing: 0.5,
   },
   inlineText: {
-    fontWeight: "bold",
+    fontFamily: "Kanit",
     color: "gray",
+    paddingTop: 20,
+    textTransform: "capitalize",
+    letterSpacing: 0.5,
+    letterSpacing: 0.5,
   },
   inlineUnderlineGray: {
-    fontWeight: "bold",
-    textDecorationLine: "underline",
+    textTransform: "capitalize",
+    fontFamily: "Kanit",
     color: "gray",
+    marginRight: 5,
+    letterSpacing: 0.5,
   },
   inlineUnderlineBlack: {
-    fontWeight: "bold",
-    textDecorationLine: "underline",
-    color: "black",
+    textTransform: "capitalize",
+    fontFamily: "Kanit",
+    color: "gray",
+    marginLeft: 5,
+    letterSpacing: 0.5,
+  },
+  Mix: {
+    // borderWidth: 0.5,
+    paddingVertical: 3,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
-export default welcome;
-
+export default Welcome;

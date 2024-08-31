@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import {
@@ -9,8 +9,11 @@ import {
   TextInput,
   TouchableOpacity,
   Modal,
+  Image,
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+// Fonts
+import { useFonts } from "expo-font";
 
 // Function to validate email format
 const validateEmail = (email) => {
@@ -28,7 +31,7 @@ const validatePassword = (password) => {
   return passwordRegex.test(password);
 };
 
-const signUp = () => {
+const SignUp = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -173,13 +176,37 @@ const signUp = () => {
     }
   };
   // --- OTP Logic ---
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.container}>
+        {/* Main Body */}
         <Text style={styles.signInText}>Sign Up for AutoFinder</Text>
         <View style={styles.inputContainer}>
-          <Text style={[styles.inputLabel, styles.boldLabel]}>Name</Text>
+          <Text style={styles.inputLabel}>Name</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your name"
@@ -196,9 +223,7 @@ const signUp = () => {
           )}
         </View>
         <View style={styles.inputContainer}>
-          <Text style={[styles.inputLabel, styles.boldLabel]}>
-            Phone Number
-          </Text>
+          <Text style={styles.inputLabel}>Phone Number</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your phone number"
@@ -212,7 +237,7 @@ const signUp = () => {
           )}
         </View>
         <View style={styles.inputContainer}>
-          <Text style={[styles.inputLabel, styles.boldLabel]}>Email</Text>
+          <Text style={styles.inputLabel}>Email</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your email"
@@ -228,7 +253,7 @@ const signUp = () => {
           )}
         </View>
         <View style={styles.inputContainer}>
-          <Text style={[styles.inputLabel, styles.boldLabel]}>Password</Text>
+          <Text style={styles.inputLabel}>Password</Text>
           <View style={styles.passwordInputWrapper}>
             <TextInput
               style={styles.passwordInput}
@@ -253,7 +278,7 @@ const signUp = () => {
           )}
         </View>
         <View style={styles.inputContainer}>
-          <Text style={[styles.inputLabel, styles.boldLabel]}>Address</Text>
+          <Text style={styles.inputLabel}>Address</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your address"
@@ -332,54 +357,60 @@ const signUp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 22,
+    backgroundColor: "white",
   },
   signInText: {
     fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 10,
-    textAlignVertical: "center",
-    textAlign: "left",
+    paddingTop: 20,
+    paddingBottom: 10,
+    textAlign: "center",
     color: "#bd2a2a",
+    fontFamily: "Heebo",
+    letterSpacing: 1,
   },
   inputContainer: {
     marginTop: 30,
   },
   inputLabel: {
-    fontSize: 16,
+    fontSize: 14,
     color: "black",
-    marginBottom: 5,
-  },
-  boldLabel: {
-    fontWeight: "bold",
-    color: "black",
-    paddingLeft: 10,
+    marginBottom: 0,
+    fontFamily: "Heebo",
   },
   input: {
     borderBottomWidth: 1,
-    borderBottomColor: "black",
-    fontSize: 16,
+    borderBottomColor: "#bc0000", // Black bottom border for input
+    fontSize: 15,
     color: "black",
-    paddingVertical: 2,
+    paddingVertical: 8,
     paddingLeft: 10,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+    textTransform: "capitalize",
   },
   passwordInputWrapper: {
     borderBottomWidth: 1,
-    borderBottomColor: "black",
+    borderBottomColor: "#bc0000",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  passwordInput: {
-    flex: 1,
-    fontSize: 16,
-    color: "black",
-    paddingVertical: 8,
-    paddingLeft: 10,
-  },
   passwordVisibilityText: {
     color: "grey",
     fontSize: 16,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+  },
+  passwordInput: {
+    flex: 1,
+    fontSize: 15,
+    color: "black",
+    paddingVertical: 8,
+    paddingLeft: 10,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   signUpButton: {
     backgroundColor: "#bd2a2a",
@@ -393,7 +424,9 @@ const styles = StyleSheet.create({
   signInButtonText: {
     color: "white",
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Kanit",
+    letterSpacing: 2,
+    textTransform: "uppercase",
   },
   // Popup styles
   popup: {
@@ -405,23 +438,28 @@ const styles = StyleSheet.create({
   },
   popupTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 40,
     color: "#bd2a2a",
+    fontFamily: "Heebo",
+    textAlign: "center",
   },
   popupField: {
     fontSize: 16,
     marginBottom: 5,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
   popupClose: {
     color: "blue",
     alignSelf: "flex-end",
     marginTop: 10,
+    fontFamily: "Heebo",
   },
   // Error text style
   errorText: {
     color: "red",
     fontSize: 14,
+    fontFamily: "Kanit",
   },
   Otp: {
     borderWidth: 0.5,
@@ -504,4 +542,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default signUp;
+export default SignUp;

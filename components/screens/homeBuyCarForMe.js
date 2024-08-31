@@ -18,7 +18,7 @@ import ManagedByAutoFinder from "./managedByAutoFinder";
 import { useEffect, useRef } from "react";
 import AdvertisementCard from "../advertisementCard";
 
-const homeBuyCarForMe = ({ navigation }) => {
+const HomeBuyCarForMe = ({ navigation }) => {
   const route = useRoute();
   const { service } = route.params;
 
@@ -387,4 +387,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default homeBuyCarForMe;
+export default HomeBuyCarForMe;

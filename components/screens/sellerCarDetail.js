@@ -16,7 +16,7 @@ import axios from "axios";
 import call from "react-native-phone-call";
 import { UserContext } from "../../context/userContext";
 
-const sellerCarDetail = () => {
+const SellerCarDetail = () => {
   const { user } = useContext(UserContext);
   const navigation = useNavigation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -679,4 +679,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default sellerCarDetail;
+export default SellerCarDetail;

@@ -9,7 +9,7 @@ import {
   Linking,
 } from 'react-native';
 
-const googleSignin = ({
+const GoogleSignin = ({
   userName = 'Muhammad Faizan Fayyaz',
   userEmail = 'ffayyaz8c@gmail.com',
 }) => {
@@ -176,4 +176,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default googleSignin;
+export default GoogleSignin;

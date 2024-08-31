@@ -6,7 +6,7 @@ import { UserContext } from "../../context/userContext";
 import axios from "axios"
 
 
-const packages = () => {
+const Packages = () => {
   const {user , dispatch} = useContext(UserContext)
   const handlePress = () => {
     // Handle package selection logic here
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default packages;
+export default Packages;

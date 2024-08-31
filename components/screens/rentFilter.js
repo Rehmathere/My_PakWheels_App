@@ -23,7 +23,7 @@ import { UserContext } from "../../context/userContext";
 import axios from "axios";
 import FilterApply from "../filterApply";
 
-const rentFilter = () => {
+const RentFilter = () => {
   const { user } = useContext(UserContext);
   const navigation = useNavigation();
   const [carType, setCarType] = useState("");
@@ -692,5 +692,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default rentFilter;
+export default RentFilter;
 

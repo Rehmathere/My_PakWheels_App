@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const sellNowChoosePlan = () => {
+const SellNowChoosePlan = () => {
   const navigation = useNavigation();
   const handleBackPress = () => {
     // Handle the back button press or navigate back
@@ -136,5 +136,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default sellNowChoosePlan;
+export default SellNowChoosePlan;
 

@@ -19,7 +19,7 @@ import { useEffect, useRef } from "react";
 import { useRoute } from "@react-navigation/native";
 import AdvertisementCard from "../advertisementCard";
 
-const homeCarInspection = () => {
+const HomeCarInspection = () => {
   const route = useRoute();
   const { service } = route.params;
   const navigation = useNavigation();
@@ -514,4 +514,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default homeCarInspection;
+export default HomeCarInspection;

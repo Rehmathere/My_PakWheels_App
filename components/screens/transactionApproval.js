@@ -15,7 +15,7 @@ import axios from "axios";
 
 import * as ImagePicker from "expo-image-picker";
 
-const transactionApproval = ({ navigation }) => {
+const TransactionApproval = ({ navigation }) => {
   const route = useRoute();
   const data = route.params;
   const [base64Imagee, setBase64Image] = useState(null);
@@ -274,5 +274,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default transactionApproval;
+export default TransactionApproval;
 

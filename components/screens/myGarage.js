@@ -3,7 +3,7 @@ import React from 'react';
 import {View, Image, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native'; // Import navigation hook from react-navigation
 
-const myGarage = () => {
+const MyGarage = () => {
   const navigation = useNavigation(); // Use the navigation hook
 
   const handleBack = () => {
@@ -133,5 +133,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default myGarage;
+export default MyGarage;
 

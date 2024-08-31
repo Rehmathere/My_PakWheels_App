@@ -20,7 +20,7 @@ import SyncStorage from "sync-storage";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 
-const sellNowPopup_2 = ({ visible, onClose, onSelectCategory }) => {
+const SellNowPopup_2 = ({ visible, onClose, onSelectCategory }) => {
 
   const { user } = useContext(UserContext);
   
@@ -145,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default sellNowPopup_2;
+export default SellNowPopup_2;

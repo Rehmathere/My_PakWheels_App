@@ -19,7 +19,7 @@ import { useRoute } from "@react-navigation/native";
 import { useContext } from "react";
 import {UserContext} from "../../context/userContext"
 
-const basicInfoCarInspection = ({ navigation }) => {
+const BasicInfoCarInspection = ({ navigation }) => {
   const {user} = useContext(UserContext)
    const  route = useRoute();
    const {service} = route.params;
@@ -568,4 +568,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default basicInfoCarInspection;
+export default BasicInfoCarInspection;

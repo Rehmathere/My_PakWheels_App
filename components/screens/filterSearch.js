@@ -19,7 +19,7 @@ import FuelTypePicker from "../fuelTypePicker";
 
 // import { Slider } from '@react-native-community/slider';
 
-const filterSearch = () => {
+const FilterSearch = () => {
   // let A = '';
   const navigation = useNavigation();
   const [locationModalVisible, setLocationModalVisible] = useState(false);
@@ -893,5 +893,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default filterSearch;
+export default FilterSearch;
 
