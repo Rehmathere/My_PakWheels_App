@@ -77,6 +77,8 @@ import New_Cars_Find from "./screens/New_Cars_Find";
 import New_Cars_Details_Single from "./screens/New_Cars_Details_Single";
 import New_Cars_Detail_S_Single from "./screens/New_Cars_Detail_S_Single";
 import New_Cars_Detail_F_Single from "./screens/New_Cars_Detail_F_Single";
+import BasicinfoCarIns_2 from "./screens/basicinfoCarIns_2";
+import My_CarInspect from "./screens/My_CarInspect";
 
 const Stack = createStackNavigator();
 
@@ -114,6 +116,9 @@ const AppNavigator = () => {
       <Stack.Screen name="homeCarInspection" component={homeCarInspection} />
       {/* <Stack.Screen name="more" component={More} /> */}
       <Stack.Screen name="profile" component={Profile} />
+      {/* --- New --- */}
+      <Stack.Screen name="My_CarInspect" component={My_CarInspect} />
+      {/* --- New --- */}
       <Stack.Screen name="welcome" component={Welcome} />
       <Stack.Screen name="emailSignin" component={EmailSignin} />
       <Stack.Screen name="googleSignin" component={GoogleSignin} />
@@ -124,6 +129,12 @@ const AppNavigator = () => {
         name="basicInfoCarInspection"
         component={BasicInfoCarInspection}
       />
+      {/* --- New Car Inspection Page --- */}
+      <Stack.Screen
+        name="BasicinfoCarIns_2"
+        component={BasicinfoCarIns_2}
+      />
+      {/* --- New Car Inspection Page --- */}
       <Stack.Screen
         name="bookExpertVisitCarInspection"
         component={BookExpertVisitCarInspection}

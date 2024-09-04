@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
+// Fonts
+import { useFonts } from "expo-font";
 
 const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -71,7 +73,30 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
       setCurrentIndex(currentIndex + 1);
     }
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
       <Text style={styles.imageText}>Upload your car image</Text>
@@ -147,6 +172,9 @@ const styles = StyleSheet.create({
   imageText: {
     fontSize: 14,
     alignSelf: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+    paddingBottom: 10,
   },
   buttonContainer: {
     flexDirection: "row",
@@ -200,13 +228,15 @@ const styles = StyleSheet.create({
     borderRadius: 35,
   },
   arrowIcon: {
-    width: 20,
+    width: 15,
     height: 20,
+    tintColor: "white",
   },
   currentIndexText: {
     fontSize: 16,
-    fontWeight: "bold",
     color: "#bd2a2a",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
 });
 
