@@ -16,6 +16,8 @@ import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../../context/userContext";
 import { useContext } from "react";
+// Fonts
+import { useFonts } from "expo-font";
 
 const My_profile = ({ visible, message, onClose }) => {
   if (!visible) {
@@ -50,7 +52,9 @@ const Profile = ({ navigation }) => {
   const { user } = useContext(UserContext);
 
   const [isEditable, setIsEditable] = useState(false);
-  const [profileImage, setProfileImage] = useState(require("../../assets/My_Upload.png"));
+  const [profileImage, setProfileImage] = useState(
+    require("../../assets/My_Upload.png")
+  );
 
   const handlerBack = () => {
     navigation.goBack();
@@ -68,7 +72,30 @@ const Profile = ({ navigation }) => {
       setProfileImage({ uri: result.assets[0].uri });
     }
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -90,8 +117,13 @@ const Profile = ({ navigation }) => {
           {/* Profile Picture Upload */}
           <View style={styles.imageUploadContainer}>
             <Image source={profileImage} style={styles.profileImage} />
-            <TouchableOpacity style={styles.uploadButton} onPress={handleImageUpload}>
-              <Text style={styles.uploadButtonText}>Upload Profile Picture</Text>
+            <TouchableOpacity
+              style={styles.uploadButton}
+              onPress={handleImageUpload}
+            >
+              <Text style={styles.uploadButtonText}>
+                Upload Profile Picture
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -140,6 +172,7 @@ const Profile = ({ navigation }) => {
                 />
               </View>
             </View>
+            {/* --- Car Inspection --- */}
           </View>
         </View>
       </ScrollView>
@@ -147,7 +180,7 @@ const Profile = ({ navigation }) => {
   );
 };
 
-
+// CSS
 const styles = StyleSheet.create({
   scrollViewContainer: {
     flexGrow: 1,
@@ -173,12 +206,16 @@ const styles = StyleSheet.create({
     tintColor: "white",
     marginLeft: 15,
   },
+  titleContainer: {
+    flex: 1,
+    paddingVertical: 10,
+  },
   title: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    alignSelf: "center",
-    marginLeft: 20,
+    fontSize: 17,
+    textAlign: 'center',
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   background: {
     flex: 1,
@@ -187,21 +224,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textFieldsContainer: {
-    width: "80%",
+    width: "88%",
   },
   textFieldContainer: {
     marginBottom: 20,
   },
   placeholder: {
     color: "#bd2a2a",
-    fontWeight: "bold",
     marginBottom: 5,
+    fontFamily: "Kanit",
   },
   textField: {
     backgroundColor: "white",
     borderRadius: 5,
     padding: 12,
     paddingRight: 40,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   inputWithIcon: {
     position: "relative",
@@ -278,11 +317,13 @@ const styles = StyleSheet.create({
   },
   uploadButtonText: {
     borderWidth: 0.5,
-    paddingVertical: 3,
-    paddingHorizontal: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
     color: "white",
     borderColor: "transparent",
     textAlign: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
 });
 

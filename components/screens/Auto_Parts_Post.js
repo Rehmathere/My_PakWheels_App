@@ -236,12 +236,14 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
+    paddingBottom: 10,
   },
   title: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
     alignSelf: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   Imageborder: {
     // borderWidth: 1,
@@ -271,8 +273,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   label: {
-    fontWeight: "bold",
     marginBottom: 5,
+    fontSize: 14,
+    fontFamily: "Heebo",
+    letterSpacing: 0.5,
+    paddingLeft: 20,
   },
   dropdown: {
     borderWidth: 1,
@@ -284,16 +289,18 @@ const styles = StyleSheet.create({
   labelChooseCarAvailable: {
     marginTop: 20,
     marginLeft: 20,
-    fontSize: 16,
-    fontWeight: "bold",
     alignSelf: "flex-start",
+    fontSize: 14,
+    fontFamily: "Heebo",
+    letterSpacing: 0.5,
   },
   locationText: {
-    marginTop: -5,
+    marginTop: 5,
     marginLeft: 20,
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 14,
     alignSelf: "flex-start",
+    fontFamily: "Heebo",
+    letterSpacing: 0.5,
   },
   selectButton: {
     padding: 10,
@@ -361,7 +368,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontWeight: "bold",
+    fontFamily: "Kanit",
+    letterSpacing: 1.5,
   },
   selectLocationButton: {
     flexDirection: "row",

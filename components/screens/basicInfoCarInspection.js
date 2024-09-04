@@ -36,7 +36,7 @@ const BasicInfoCarInspection = ({ navigation }) => {
   const [filteredBrands, setFilteredBrands] = useState(brands);
   const [carSummary, setCarSummary] = useState("");
   const [carModelModalVisible, setCarModelModalVisible] = useState(false);
-  const [selectedVariant, setSelectedVariant] = useState("");
+  const [selectedVarient, setSelectedVarient] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [locationModalVisible, setLocationModalVisible] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -126,7 +126,7 @@ const BasicInfoCarInspection = ({ navigation }) => {
       selectedYear,
       selectedBrand,
       selectedModel,
-      selectedVariant,
+      selectedVarient,
       carSummary,
     };
     // console.log(data);
@@ -197,7 +197,7 @@ const BasicInfoCarInspection = ({ navigation }) => {
   };
 
   const handleVariantSelect = (variant) => {
-    setSelectedVariant(variant);
+    setSelectedVarient(variant);
     handleCloseCarModelPicker();
   };
 
@@ -383,7 +383,7 @@ const BasicInfoCarInspection = ({ navigation }) => {
                   {selectedYear ? `${selectedYear} ` : ""}
                   {selectedBrand ? `${selectedBrand} ` : ""}
                   {selectedModel ? `${selectedModel} ` : ""}
-                  {selectedVariant || "Car Model"}
+                  {selectedVarient || "Car Model"}
                 </Text>
               </Text>
 

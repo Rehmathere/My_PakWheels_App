@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Image,
@@ -13,6 +13,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import call from "react-native-phone-call";
 import { UserContext } from "../../context/userContext";
 import FooterContact from "../footerContact";
+// Fonts
+import { useFonts } from "expo-font";
 
 export default function Rent_Bike_Details() {
   const route = useRoute();
@@ -82,7 +84,30 @@ export default function Rent_Bike_Details() {
       .then(() => console.log("WhatsApp opened successfully"))
       .catch((error) => console.log("Error opening WhatsApp:", error));
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#bd2a2a"} />
@@ -183,8 +208,6 @@ export default function Rent_Bike_Details() {
   );
 }
 
-
-
 // CSS
 const styles = StyleSheet.create({
   container: {
@@ -212,9 +235,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
+    fontFamily: "Kanit",
     alignSelf: "center",
+    letterSpacing: 1.5,
   },
   imageContainer: {
     // position: 'relative',
@@ -311,19 +335,21 @@ const styles = StyleSheet.create({
     color: "#bd2a2a",
     fontSize: 14, // Adjust font size as needed
     // fontWeight: 'bold',
+    fontFamily: "Kanit",
   },
   priceText: {
     marginTop: 5, // Adjust margin top as needed
     marginLeft: 10,
     color: "black",
-    fontSize: 18, // Adjust font size as needed
-    fontWeight: "bold",
+    fontSize: 17, // Adjust font size as needed
+    fontFamily: "Heebo",
   },
   locationText: {
     marginTop: 5, // Adjust margin top as needed
     marginLeft: 10,
     color: "grey", // Adjust color as needed
     fontSize: 14, // Adjust font size as needed
+    fontFamily: "Kanit",
   },
   specsContainer: {
     flexDirection: "row",
@@ -346,6 +372,7 @@ const styles = StyleSheet.create({
   specName: {
     fontSize: 12,
     color: "grey", // Adjust color as needed
+    fontFamily: "Kanit",
   },
 
   carDetailContainer: {
@@ -375,13 +402,18 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   carDetailHeading: {
-    fontWeight: "bold",
     marginRight: 10,
     width: "50%",
+    fontSize: 14,
+    fontFamily: "Heebo",
+    letterSpacing: 0.5,
   },
   carDetailName: {
     flex: 1,
     textAlign: "right",
+    fontSize: 14,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
   carDetailRow_E: {
     flexDirection: "column",
@@ -392,14 +424,19 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   carDetailHeading_E: {
-    fontWeight: "bold",
     marginRight: 10,
     width: "50%",
+    fontSize: 14,
+    fontFamily: "Heebo",
+    letterSpacing: 0.5,
   },
   carDetailName_E: {
     flex: 1,
     marginTop: 20,
     marginBottom: 10,
     textAlign: "left",
+    fontSize: 14,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
 });

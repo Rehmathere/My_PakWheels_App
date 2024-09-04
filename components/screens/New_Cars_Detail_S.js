@@ -593,6 +593,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     width: "80%",
     color: "white",
+    fontFamily: "Kanit",
   },
   Question_Txt_2: {
     // borderWidth: 0.5,
@@ -606,7 +607,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
     paddingVertical: 5,
     paddingHorizontal: 3,
-    backgroundColor: "#FFE7E7",
+    backgroundColor: "white",
     marginTop: 2,
     marginBottom: 8,
     marginHorizontal: 10,
@@ -624,7 +625,8 @@ const styles = StyleSheet.create({
     // borderWidth: 0.5,
     width: "38%",
     padding: 2,
-    fontSize: 13,
+    fontSize: 12,
+    fontFamily: "Kanit",
   },
   AnswerName: {
     // borderWidth: 0.5,
@@ -632,6 +634,7 @@ const styles = StyleSheet.create({
     padding: 2,
     textAlign: "center",
     color: "grey",
-    fontSize: 13,
+    fontSize: 12,
+    fontFamily: "Kanit",
   },
 });

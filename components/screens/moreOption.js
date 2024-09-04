@@ -95,7 +95,11 @@ const MoreOption = ({ navigation }) => {
 
   const handleSavedAs = () => {
     navigation.navigate("My_Favorite");
-    console.log("Navigate to Saved As");
+    // console.log("Navigate to Saved As");
+  };
+  const handleMyCarInspect = () => {
+    navigation.navigate("My_CarInspect");
+    // console.log("Navigate to Saved As");
   };
   const handleMyorders = () => {
     // Replace this with your actual logic for the My Ads button press
@@ -258,23 +262,41 @@ const MoreOption = ({ navigation }) => {
         </TouchableOpacity>
         {showPersonalDropdown && (
           <View style={styles.dropdownContent}>
-            <TouchableOpacity style={styles.subOption} onPress={handleMyorders}>
+            {/* <TouchableOpacity style={styles.subOption} onPress={handleMyorders}>
               <Image
                 source={require("../../assets/cart.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
               <Text style={styles.subOptionText}>My Ads</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity style={styles.subOption} onPress={handleSavedAs}>
               <Image
-                source={require("../../assets/love.png")}
+                source={require("../../assets/My_Fav_Red.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
-              <Text style={styles.subOptionText}>Saved ads</Text>
+              <Text style={styles.subOptionText}>My Saved ads</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* --- New --- */}
+            {isLoggedIn ? (
+              <TouchableOpacity
+                style={styles.subOption}
+                onPress={handleMyCarInspect}
+              >
+                <Image
+                  source={require("../../assets/Car.png")}
+                  style={styles.subOptionIcon}
+                  resizeMode="contain"
+                />
+                <Text style={styles.subOptionText}>My Car Inspection</Text>
+              </TouchableOpacity>
+            ) : (
+              <Text></Text>
+            )}
+            {/* --- New --- */}
+
+            {/* <TouchableOpacity
               style={styles.subOption}
               onPress={handleNotification}
             >
@@ -284,7 +306,7 @@ const MoreOption = ({ navigation }) => {
                 resizeMode="contain"
               />
               <Text style={styles.subOptionText}>Notifications</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {/* <TouchableOpacity style={styles.subOption} onPress={handleLanguage}>
               <Image
                 source={require("../../assets/language.png")}
@@ -320,7 +342,7 @@ const MoreOption = ({ navigation }) => {
               }}
             >
               <Image
-                source={require("../../assets/Car.png")}
+                source={require("../../assets/carTypee.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
@@ -677,11 +699,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   modalText: {
-    fontSize: 24,
+    fontSize: 20,
+    marginTop: 10,
     marginBottom: 20,
     color: "#000000",
-    fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Heebo",
   },
   categoriesContainer: {
     flexDirection: "column",
@@ -692,7 +715,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 5,
     // borderColor: "black",
     // borderWidth: 0.5,
-    paddingVertical: 8,
+    paddingVertical: 15,
     backgroundColor: "lightpink",
     width: "100%",
     marginVertical: 10,
@@ -711,10 +734,10 @@ const styles = StyleSheet.create({
   textDecor: {
     color: "#000000",
     fontSize: 15,
-    fontWeight: "bold",
     // borderColor: "black",
     // borderWidth: 0.5,
     textAlign: "center",
+    fontFamily: "Kanit",
   },
   closeButton: {
     // borderColor: "black",
@@ -723,8 +746,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontSize: 15,
     color: "#8b0000",
-    fontWeight: "bold",
     alignSelf: "flex-end",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
 });
 

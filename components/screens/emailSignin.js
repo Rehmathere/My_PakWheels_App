@@ -288,10 +288,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   inputLabel: {
-    fontSize: 16,
+    fontSize: 15,
     color: "black",
     marginBottom: 5,
     fontFamily: "Heebo",
+    letterSpacing: 0.5,
   },
   input: {
     borderBottomWidth: 1,

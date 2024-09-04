@@ -67,7 +67,7 @@ const HomeCarInspection = () => {
   const handleScheduleInspeection = () => {
     // schedule inspections
     console.log("begin pressed");
-    navigation.navigate("basicInfoListItForYou", { service: service });
+    navigation.navigate("BasicinfoCarIns_2");
   };
   const handleHorizontalOfferingItemPress = (itemId) => {
     // Handle the press event for the specific item (optional)

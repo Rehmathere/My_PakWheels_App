@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -17,6 +17,8 @@ import RenderHTML from "react-native-render-html";
 import { useWindowDimensions } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Header from "../header"; // Corrected import with PascalCase
+// Fonts
+import { useFonts } from "expo-font";
 
 export default function Blog_Page_Detail() {
   const route = useRoute();
@@ -59,7 +61,30 @@ export default function Blog_Page_Detail() {
   const handleBackPress = () => {
     navigation.goBack();
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#bd2a2a"} />
@@ -125,7 +150,20 @@ export default function Blog_Page_Detail() {
             </View>
             {/* 4 - Body */}
             <View style={styles.BD_Txt_3}>
-              <RenderHTML contentWidth={width} source={{ html: item.body }} />
+              <RenderHTML
+                contentWidth={width}
+                source={{ html: item.body }}
+                systemFonts={['Kanit']}
+                tagsStyles={{
+                  body: { fontFamily: "Kanit", fontSize: 14, color: "grey", letterSpacing: 0.1, },
+                  h1: { fontFamily: 'Kanit', fontSize: 24, color: 'grey' },
+                  h2: { fontFamily: 'Kanit', fontSize: 24, color: 'grey' },
+                  h3: { fontFamily: 'Kanit', fontSize: 24, color: 'grey' },
+                  h4: { fontFamily: 'Kanit', fontSize: 24, color: 'grey' },
+                  h5: { fontFamily: 'Kanit', fontSize: 24, color: 'grey' },
+                  h6: { fontFamily: 'Kanit', fontSize: 24, color: 'grey' },
+                }}
+              />
             </View>
           </View>
         </ScrollView>
@@ -138,7 +176,12 @@ const styles = StyleSheet.create({
   container: {
     // paddingHorizontal: 15,
     // paddingTop: 20,
-    // flex: 1,
+    flex: 1,
+    backgroundColor: "white",
+  },
+  htmlContent: {
+    fontFamily: "Kanit",
+    // Add other text styling here if needed
   },
   Sub_container: {
     flexGrow: 1,
@@ -148,7 +191,7 @@ const styles = StyleSheet.create({
   },
   Blog_Page_Parent: {
     // borderWidth: 0.5,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 20,
   },
   BD_Img_Parent: {
@@ -164,10 +207,10 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   BD_Txt_1_Post: {
-    fontSize: 23,
-    fontWeight: "bold",
+    fontSize: 20,
+    fontFamily: "Heebo",
     // borderWidth: 0.5,
-    marginTop: 5,
+    marginTop: 20,
     color: "#393636",
     paddingHorizontal: 5,
     paddingVertical: 5,
@@ -175,12 +218,12 @@ const styles = StyleSheet.create({
   },
   BD_Txt_1: {
     fontSize: 15,
-    fontWeight: "bold",
+    fontFamily: "Kanit",
     // borderWidth: 0.5,
     marginVertical: 5,
     color: "#393636",
     paddingHorizontal: 8,
-    paddingVertical: 10,
+    paddingVertical: 15,
     letterSpacing: 1,
   },
   BD_Txt_2: {
@@ -188,25 +231,27 @@ const styles = StyleSheet.create({
     // borderWidth: 0.5,
     color: "#575252",
     paddingHorizontal: 10,
-    paddingVertical: 3,
+    paddingVertical: 5,
     letterSpacing: 0.5,
     textAlign: "right",
+    fontFamily: "Kanit",
   },
   BD_Txt_2_1: {
     fontSize: 13,
     // borderWidth: 0.5,
     color: "#575252",
     paddingHorizontal: 10,
-    paddingVertical: 3,
+    paddingVertical: 5,
     letterSpacing: 0.5,
     textAlign: "right",
     marginTop: 5,
+    fontFamily: "Kanit",
   },
   BD_Txt_3: {
     marginVertical: 5,
     // borderWidth: 0.5,
     paddingHorizontal: 6,
-    paddingVertical: 3,
+    paddingVertical: 4,
   },
   BD_Txt_Share: {
     // borderWidth: 0.5,
@@ -229,6 +274,7 @@ const styles = StyleSheet.create({
     padding: 1,
     fontSize: 15,
     letterSpacing: 0.2,
+    fontFamily: "Kanit",
   },
   BD_Txt_Share_2: {
     // borderWidth: 0.5,

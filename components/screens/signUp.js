@@ -378,6 +378,7 @@ const styles = StyleSheet.create({
     color: "black",
     marginBottom: 0,
     fontFamily: "Heebo",
+    letterSpacing: 1,
   },
   input: {
     borderBottomWidth: 1,

@@ -175,7 +175,6 @@ export default function Auto_Parts_Details() {
   );
 }
 
-
 // CSS
 const styles = StyleSheet.create({
   container: {
@@ -200,12 +199,14 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
+    paddingBottom: 15,
   },
   title: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
+    fontFamily: "Kanit",
     alignSelf: "center",
+    letterSpacing: 1.5,
   },
   imageContainer: {
     // position: 'relative',
@@ -215,6 +216,7 @@ const styles = StyleSheet.create({
     height: 300,
     width: "100%",
     resizeMode: "cover",
+    paddingBottom: 15,
   },
   buttonContainer: {
     position: "absolute",
@@ -302,19 +304,21 @@ const styles = StyleSheet.create({
     color: "#bd2a2a",
     fontSize: 14, // Adjust font size as needed
     // fontWeight: 'bold',
+    fontFamily: "Kanit",
   },
   priceText: {
     marginTop: 5, // Adjust margin top as needed
     marginLeft: 10,
     color: "black",
-    fontSize: 18, // Adjust font size as needed
-    fontWeight: "bold",
+    fontSize: 17, // Adjust font size as needed
+    fontFamily: "Heebo",
   },
   locationText: {
     marginTop: 5, // Adjust margin top as needed
     marginLeft: 10,
     color: "grey", // Adjust color as needed
     fontSize: 14, // Adjust font size as needed
+    fontFamily: "Kanit",
   },
   specsContainer: {
     flexDirection: "row",
@@ -365,13 +369,18 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   carDetailHeading: {
-    fontWeight: "bold",
     marginRight: 10,
     width: "50%",
+    fontSize: 14,
+    fontFamily: "Heebo",
+    letterSpacing: 0.5,
   },
   carDetailName: {
     flex: 1,
     textAlign: "right",
+    fontSize: 14,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
   carDetailRow_E: {
     flexDirection: "column",
@@ -382,15 +391,21 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   carDetailHeading_E: {
-    fontWeight: "bold",
     marginRight: 10,
     width: "50%",
+    fontSize: 14,
+    fontFamily: "Heebo",
+    letterSpacing: 0.5,
   },
   carDetailName_E: {
     flex: 1,
     marginTop: 20,
     marginBottom: 10,
     textAlign: "left",
+    fontSize: 14,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
+
   },
   BD_Txt_2_1: {
     fontSize: 12,
@@ -398,9 +413,10 @@ const styles = StyleSheet.create({
     color: "#575252",
     paddingHorizontal: 20,
     paddingVertical: 3,
-    letterSpacing: 0.5,
+    letterSpacing: 1,
     textAlign: "right",
     marginTop: 10,
     marginBottom: 10,
+    fontFamily: "Kanit",
   },
 });

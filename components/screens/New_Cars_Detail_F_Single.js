@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRoute } from "@react-navigation/native";
+// Fonts
+import { useFonts } from "expo-font";
 
 export default function New_Cars_Detail_F_Single() {
   const route = useRoute();
@@ -64,7 +66,30 @@ export default function New_Cars_Detail_F_Single() {
     }
     return <Text style={styles.AnswerName}>{value}</Text>;
   };
-  // Body
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
       {/* ----- Box 1: Safety ----- */}
@@ -686,9 +711,10 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     // fontWeight: "bold",
     fontSize: 14.5,
-    letterSpacing: 2,
+    letterSpacing: 2.1,
     width: "80%",
     color: "white",
+    fontFamily: "Kanit",
   },
   Question_Txt_2: {
     // borderWidth: 0.5,
@@ -702,7 +728,8 @@ const styles = StyleSheet.create({
     borderColor: "white",
     paddingVertical: 5,
     paddingHorizontal: 3,
-    backgroundColor: "#FFE7E7",
+    // backgroundColor: "#FFE7E7",
+    backgroundColor: "white",
     marginTop: 2,
     marginBottom: 8,
     marginHorizontal: 10,
@@ -719,16 +746,18 @@ const styles = StyleSheet.create({
   AnswerHeading: {
     // borderWidth: 0.5,
     paddingLeft: 10,
-    width: "60%",
+    width: "50%",
     padding: 2,
     fontSize: 13,
+    fontFamily: "Kanit",
   },
   AnswerName: {
     // borderWidth: 0.5,
-    width: "40%",
+    width: "50%",
     padding: 2,
     textAlign: "center",
-    color: "grey",
+    color: "#bc0000",
     fontSize: 13,
+    fontFamily: "Kanit",
   },
 });

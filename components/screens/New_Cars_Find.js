@@ -14,6 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { UserContext } from "../../context/userContext";
 import { AntDesign } from "@expo/vector-icons";
+// Fonts
+import { useFonts } from "expo-font";
 
 const New_Cars_Find = () => {
   const navigation = useNavigation();
@@ -57,7 +59,30 @@ const New_Cars_Find = () => {
     setFilteredData(results);
     setSearchQuery(query); // Update searchQuery to trigger the search result section
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -321,6 +346,8 @@ const styles = StyleSheet.create({
     height: 45,
     fontSize: 16,
     color: "black",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   searchButton: {
     backgroundColor: "#bd2a2a",
@@ -331,6 +358,7 @@ const styles = StyleSheet.create({
   searchButtonText: {
     color: "white",
     fontSize: 16,
+    fontFamily: "Kanit",
   },
   header: {
     backgroundColor: "#bd2a2a",
@@ -354,9 +382,9 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 18,
-    fontWeight: "bold",
     alignSelf: "center",
-    letterSpacing: 0.8,
+    letterSpacing: 1,
+    fontFamily: "Kanit",
   },
   rowContainer: {
     backgroundColor: "#bd2a2a",
@@ -385,10 +413,10 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 15,
     paddingHorizontal: 5,
-    fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 17,
     letterSpacing: 1.1,
     color: "#696969",
+    fontFamily: "Heebo",
   },
   heading_Parent: {
     // borderWidth: 0.1,
@@ -402,10 +430,10 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 15,
     paddingHorizontal: 5,
-    fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 17,
     letterSpacing: 1.1,
     color: "#696969",
+    fontFamily: "Heebo",
   },
   heading_2: {
     width: "20%",
@@ -413,10 +441,10 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 15,
     paddingHorizontal: 5,
-    fontWeight: "bold",
     fontSize: 12,
     letterSpacing: 1.1,
-    color: "#696969",
+    color: "#bc0000",
+    fontFamily: "Kanit",
   },
   Brand_Box_Parent: {
     // borderWidth: 0.5,
@@ -453,10 +481,11 @@ const styles = StyleSheet.create({
   },
   Brand_Box_Txt: {
     // borderWidth: 0.5,
-    letterSpacing: 0.5,
+    letterSpacing: 0.6,
     textAlign: "center",
     paddingTop: 5,
     fontSize: 12,
+    fontFamily: "Kanit",
   },
   //   Pouplular New Cars ( Managed Ads By AF )
   Pop_container: {
@@ -503,8 +532,8 @@ const styles = StyleSheet.create({
   },
   name: {
     color: "#bd2a2a",
-    fontWeight: "bold",
     fontSize: 12,
+    fontFamily: "Kanit",
   },
   price: {
     color: "#000000",
@@ -512,8 +541,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   city: {
-    color: "#8b8c8c",
+    color: "grey",
     fontSize: 12,
+    fontFamily: "Kanit",
+    letterSpacing: 0.8,
   },
   modelKmDriven: {
     color: "#8b8c8c",
@@ -563,9 +594,9 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 14,
-    fontWeight: "bold",
     marginBottom: 5,
     color: "#bd2a2a",
+    fontFamily: "Kanit",
   },
   variant: {
     fontSize: 12,
@@ -573,10 +604,10 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   price: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 15,
     color: "black",
     marginBottom: 10,
+    fontFamily: "Heebo",
   },
   upperView: {
     flexDirection: "row",

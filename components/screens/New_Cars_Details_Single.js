@@ -12,6 +12,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import New_Cars_Detail_S_Single from "./New_Cars_Detail_S_Single";
 import New_Cars_Detail_F_Single from "./New_Cars_Detail_F_Single";
+// Fonts
+import { useFonts } from "expo-font";
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -25,14 +27,42 @@ export default function New_Cars_Details_Single() {
   const { item } = route.params;
   const carSpecs = [
     { name: item.year, icon: require("../../assets/modelYear.png") },
-    { name: item.keySpecifications.topSpeed, icon: require("../../assets/carMeter.png") },
-    { name: item.keySpecifications.fuelType, icon: require("../../assets/fuelIcon.png") },
+    {
+      name: item.keySpecifications.topSpeed,
+      icon: require("../../assets/carMeter.png"),
+    },
+    {
+      name: item.keySpecifications.fuelType,
+      icon: require("../../assets/fuelIcon.png"),
+    },
     {
       name: item.keySpecifications.transmission,
       icon: require("../../assets/transmission.png"),
     },
   ];
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
     <View style={styles.container}>
@@ -90,12 +120,12 @@ export default function New_Cars_Details_Single() {
                 tabBarLabel: "Specifications",
                 tabBarLabelStyle: {
                   fontFamily: "Heebo",
-                  letterSpacing: 0.8,
+                  letterSpacing: 1,
                 },
                 tabBarInactiveTintColor: "grey",
                 tabBarIndicatorStyle: {
                   backgroundColor: "#EB2F06",
-                  borderWidth: 1.4,
+                  borderWidth: 0.5,
                   borderColor: "#EB2F06",
                 },
                 tabBarActiveTintColor: "#EB2F06",
@@ -112,12 +142,12 @@ export default function New_Cars_Details_Single() {
                 tabBarLabel: "Features",
                 tabBarLabelStyle: {
                   fontFamily: "Heebo",
-                  letterSpacing: 0.8,
+                  letterSpacing: 1,
                 },
                 tabBarInactiveTintColor: "grey",
                 tabBarIndicatorStyle: {
                   backgroundColor: "#EB2F06",
-                  borderWidth: 1.4,
+                  borderWidth: 0.5,
                   borderColor: "#EB2F06",
                 },
                 tabBarActiveTintColor: "#EB2F06",
@@ -157,9 +187,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
     alignSelf: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1.5,
   },
   scrollContainer: {
     paddingBottom: 20, // Optional padding for extra space at the bottom
@@ -275,17 +306,17 @@ const styles = StyleSheet.create({
     paddingVertical: 1,
     // fontWeight: "bold",
     letterSpacing: 1.5,
+    fontFamily: "Kanit",
   },
   carNameText_1: {
     color: "#1B9200",
-    fontWeight: "bold",
-    fontSize: 21, // Adjust font size as needed
+    fontSize: 20, // Adjust font size as needed
     textAlign: "center",
     borderWidth: 0.5,
     borderColor: "transparent",
     paddingVertical: 3,
-    fontWeight: "bold",
-    letterSpacing: 1.5,
+    letterSpacing: 1.1,
+    fontFamily: "Heebo",
   },
   priceText: {
     letterSpacing: 1.5,
@@ -295,6 +326,7 @@ const styles = StyleSheet.create({
     fontSize: 16, // Adjust font size as needed
     borderColor: "transparent",
     paddingVertical: 3,
+    fontFamily: "Kanit",
   },
   locationText: {
     letterSpacing: 1.5,
@@ -400,7 +432,9 @@ const styles = StyleSheet.create({
     tintColor: "#bd2a2a",
   },
   specName: {
-    fontSize: 12,
+    fontSize: 11.5,
     color: "grey", // Adjust color as needed
+    fontFamily: "Kanit",
+    letterSpacing: 0.1,
   },
 });

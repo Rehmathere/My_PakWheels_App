@@ -71,13 +71,11 @@ const TransactionApproval = ({ navigation }) => {
   };
 
   const handleContinue = async () => {
-    // Show confirmation popup
-
     const newData = {
       ...data,
       image: base64Imagee,
     };
-
+  
     if (data.service !== "000") {
       try {
         const response = await axios.post(
@@ -88,14 +86,15 @@ const TransactionApproval = ({ navigation }) => {
           Alert.alert("Success", "Your data has been uploaded successfully.", [
             {
               text: "OK",
-              onPress: () => navigation.navigate("home"), // Navigate to "home" screen
+              onPress: () => navigation.navigate("home"),
             },
           ]);
         }
       } catch (error) {
-        console.log(error.response.data.error);
+        console.log("Error in userRequest upload:", error);  // Log the entire error object
       }
     }
+  
     if (data.service === "000") {
       try {
         const response = await axios.post(
@@ -106,33 +105,34 @@ const TransactionApproval = ({ navigation }) => {
           Alert.alert("Success", "Your data has been uploaded successfully.", [
             {
               text: "OK",
-              onPress: () => navigation.navigate("home"), // Navigate to "home" screen
+              onPress: () => navigation.navigate("home"),
             },
           ]);
         }
       } catch (error) {
-        console.log(error.response.data.ok);
+        console.log("Error in carAdRequest upload:", error);  // Log the entire error object
       }
     }
+  
     if (data.service === "004") {
       try {
-        const reponse = await axios.post(
+        const response = await axios.post(
           "https://autofinder-backend.vercel.app/api/buyPackageRequest/upload",
           newData
         );
-        if (reponse.data.ok) {
+        if (response.data.ok) {
           Alert.alert("Success", "Your data has been uploaded successfully.", [
             {
               text: "OK",
-              onPress: () => navigation.navigate("home"), // Navigate to "home" screen
+              onPress: () => navigation.navigate("home"),
             },
           ]);
         }
       } catch (error) {
-        console.log(error.response.data.error);
+        console.log("Error in buyPackageRequest upload:", error);  // Log the entire error object
       }
     }
-  };
+  };    
 
   return (
     <View style={styles.container}>

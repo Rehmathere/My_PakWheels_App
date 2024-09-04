@@ -17,6 +17,8 @@ import SyncStorage from "sync-storage"; // Import SyncStorage for checking login
 import { UserContext } from "../../context/userContext"; // Import UserContext for user data
 import SearchBar from "../searchBar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+// Fonts
+import { useFonts } from "expo-font";
 
 const New_Cars = () => {
   // --- My API Data ---
@@ -55,6 +57,29 @@ const New_Cars = () => {
   const handleBack = () => {
     navigation.goBack();
   };
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
     <ScrollView style={styles.container}>
@@ -167,10 +192,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
     alignSelf: "center",
-    letterSpacing: 0.8,
+    letterSpacing: 1,
+    fontFamily: "Kanit",
   },
   Container_Sub: {
     flex: 1,
@@ -192,8 +217,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     textAlign: "center",
-    fontWeight: "bold",
     letterSpacing: 2,
+    fontFamily: "Kanit",
   },
   buttonText: {
     color: "white",
@@ -299,12 +324,12 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 22,
-    fontWeight: "bold",
     // marginBottom: 20,
     textAlign: "center",
     paddingTop: 25,
     paddingBottom: 15,
     letterSpacing: 1.5,
+    fontFamily: "Heebo",
   },
   box: {
     paddingHorizontal: 30,
@@ -331,11 +356,11 @@ const styles = StyleSheet.create({
   subHeading: {
     // borderWidth: 0.5,
     fontSize: 16,
-    fontWeight: "bold",
     marginBottom: 1,
     paddingTop: 10,
     paddingBottom: 12,
     letterSpacing: 1,
+    fontFamily: "Heebo",
   },
   input: {
     borderWidth: 1,
@@ -346,7 +371,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "white",
     fontSize: 13,
-    letterSpacing: 1,
+    letterSpacing: 1.2,
+    fontFamily: "Kanit",
   },
 });
 

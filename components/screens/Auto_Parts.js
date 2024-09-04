@@ -16,6 +16,8 @@ import { formatDistanceToNow } from "date-fns";
 import { AntDesign } from "@expo/vector-icons"; // Importing AntDesign icons
 import SearchBar from "../searchBar";
 import SyncStorage from "sync-storage"; // Import SyncStorage for checking login status
+// Fonts
+import { useFonts } from "expo-font";
 
 const Auto_Parts = () => {
   const navigation = useNavigation();
@@ -84,6 +86,29 @@ const Auto_Parts = () => {
       navigation.navigate("welcome");
     }
   };
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
     <View style={styles.container}>
@@ -112,7 +137,7 @@ const Auto_Parts = () => {
           onPress={handleFilterPress}
         >
           <Text style={styles.filterText}>Filter</Text>
-          <AntDesign name="filter" size={22} color="#fc6f03" />
+          <AntDesign name="filter" size={22} color="black" />
         </TouchableOpacity>
       </View>
       {isLoading ? (
@@ -200,13 +225,13 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    paddingBottom: 5,
   },
   title: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
     alignSelf: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   rowContainer: {
     flexDirection: "row",
@@ -225,16 +250,18 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     flexDirection: "row",
-    backgroundColor: "#2e8b57",
+    backgroundColor: "#f39c12",
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
     alignItems: "center",
   },
   filterText: {
-    color: "#fff",
+    // color: "white",
     marginRight: 5,
     fontSize: 14,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   Container_Sub: {
     flex: 1,
@@ -253,7 +280,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "Kanit",
+    letterSpacing: 1.5,
   },
   card: {
     backgroundColor: "#fff",
@@ -284,15 +312,15 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 14,
-    fontWeight: "bold",
     marginBottom: 5,
     color: "#bd2a2a",
+    fontFamily: "Kanit",
   },
   price: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
     color: "black",
     marginBottom: 10,
+    fontFamily: "Heebo",
   },
   lowerView: {
     flexDirection: "column",
@@ -310,10 +338,14 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 12,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   infoText_2: {
     fontSize: 12,
+    fontFamily: "Kanit",
     paddingVertical: 10,
+    textTransform: "capitalize",
   },
   featuredTag: {
     backgroundColor: "#ff0",

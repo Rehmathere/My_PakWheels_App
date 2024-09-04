@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Image,
@@ -15,6 +15,8 @@ import LocationPicker from "../locationPicker";
 import { TextInput } from "react-native-gesture-handler";
 import { UserContext } from "../../context/userContext";
 import axios from "axios";
+// Fonts
+import { useFonts } from "expo-font";
 
 const Rent_Bike_Post = () => {
   const { user } = useContext(UserContext);
@@ -195,10 +197,33 @@ const Rent_Bike_Post = () => {
       console.log(error.response.data.error);
     }
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor={"green"} />
+      <StatusBar backgroundColor={"#bc0000"} />
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBack} style={styles.backButton}>
           <Image
@@ -321,11 +346,7 @@ const Rent_Bike_Post = () => {
               style={styles.dropdown}
             >
               {bikeFuelType.map((fuelType, index) => (
-                <Picker.Item
-                  label={fuelType}
-                  value={fuelType}
-                  key={index}
-                />
+                <Picker.Item label={fuelType} value={fuelType} key={index} />
               ))}
             </Picker>
           </View>
@@ -376,7 +397,7 @@ const Rent_Bike_Post = () => {
         <View style={styles.inputContainer}>
           <Text style={styles.labelChooseCarAvailable}>Description</Text>
           <TextInput
-            style={[styles.Input, { height: 100, textAlignVertical: "top" }]}
+            style={[styles.Input, { height: 100, textAlignVertical: "top", paddingTop: 10, }]}
             value={description}
             onChangeText={(text) => setDescription(text)}
             multiline={true}
@@ -385,10 +406,7 @@ const Rent_Bike_Post = () => {
           />
         </View>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handlePostAd}
-        >
+        <TouchableOpacity style={styles.button} onPress={handlePostAd}>
           <Text style={styles.buttonText}>Post Ad</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -396,17 +414,17 @@ const Rent_Bike_Post = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
   },
   header: {
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "#bc0000",
     flexDirection: "row",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
+    paddingBottom: 10,
   },
   backButton: {
     tintColor: "white",
@@ -422,9 +440,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
     alignSelf: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   Imageborder: {
     // borderWidth: 1,
@@ -454,8 +473,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   label: {
-    fontWeight: "bold",
     marginBottom: 5,
+    fontFamily: "Kanit",
+    fontSize: 13,
+    paddingLeft: 10,
+    letterSpacing: 0.5,
   },
   dropdown: {
     borderWidth: 1,
@@ -468,15 +490,17 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 20,
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Kanit",
+    // fontWeight: "bold",
     alignSelf: "flex-start",
   },
   locationText: {
-    marginTop: -5,
+    marginTop: 5,
     marginLeft: 20,
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 14,
     alignSelf: "flex-start",
+    fontFamily: "Heebo",
+    letterSpacing: 0.5,
   },
   selectButton: {
     padding: 10,
@@ -488,7 +512,8 @@ const styles = StyleSheet.create({
   },
   selectButtonText: {
     color: "#bd2a2a",
-    fontWeight: "bold",
+    fontFamily: "Kanit",
+    // fontWeight: "bold",
   },
   selectedDays: {
     fontSize: 12,
@@ -531,7 +556,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
     marginBottom: 1,
-    paddingLeft: 10,
+    paddingLeft: 30,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   button: {
     backgroundColor: "#bd2a2a",
@@ -558,6 +585,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
     marginBottom: 30,
+    paddingBottom: 12,
   },
   locationIcon: {
     width: 20,
@@ -571,6 +599,8 @@ const styles = StyleSheet.create({
     color: "grey",
     marginLeft: 15,
     marginTop: 13,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
 });
 

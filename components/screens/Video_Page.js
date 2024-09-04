@@ -13,6 +13,8 @@ import { format } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../header"; // Corrected import with PascalCase
 import { ScrollView } from "react-native-gesture-handler";
+// Fonts
+import { useFonts } from "expo-font";
 
 export default function Video_Page() {
   const [data, setData] = useState([]);
@@ -43,12 +45,37 @@ export default function Video_Page() {
   };
 
   const handleItemPress = (url) => {
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      url = 'http://' + url;
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = "http://" + url;
     }
-    Linking.openURL(url).catch((err) => console.error("Error opening URL: ", err));
+    Linking.openURL(url).catch((err) =>
+      console.error("Error opening URL: ", err)
+    );
   };
-
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"#bd2a2a"} />
@@ -152,12 +179,17 @@ const styles = StyleSheet.create({
     // borderWidth: 0.5,
     marginBottom: 5,
     fontSize: 14,
-    fontWeight: "bold",
+    letterSpacing: 1,
+    fontFamily: "Heebo",
+    textTransform: "capitalize",
     letterSpacing: 1,
   },
   Blog_Box_Part_2_Txt_2: {
     // borderWidth: 0.5,
     marginTop: 4,
     fontSize: 13,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+    color: 'grey',
   },
 });
