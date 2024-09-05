@@ -20,6 +20,9 @@ import { UserContext } from "../../context/userContext";
 import carIcon from "../../assets/images/car_icon.png";
 import bikeIcon from "../../assets/images/bike_icon.png";
 import toolIcon from "../../assets/images/tools_icon.png";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+
 // ----- Modal -----
 // Fonts
 import { useFonts } from "expo-font";
@@ -249,7 +252,7 @@ const MoreOption = ({ navigation }) => {
           style={styles.dropdownItem}
           onPress={togglePersonalDropdown}
         >
-          <Text style={styles.dropdownText}>Personal</Text>
+          <Text style={styles.dropdownText}><FontAwesome name="user" size={18} color="white" />   Personal</Text>
           <Image
             source={
               showPersonalDropdown
@@ -322,7 +325,7 @@ const MoreOption = ({ navigation }) => {
           style={styles.dropdownItem}
           onPress={toggleProductDropdown}
         >
-          <Text style={styles.dropdownText}>Product</Text>
+          <Text style={styles.dropdownText}><FontAwesome name="briefcase" size={18} color="white" />   Product</Text>
           <Image
             source={
               showProductDropdown
@@ -382,7 +385,7 @@ const MoreOption = ({ navigation }) => {
           style={styles.dropdownItem}
           onPress={toggleServicesDropdown}
         >
-          <Text style={styles.dropdownText}>Services</Text>
+          <Text style={styles.dropdownText}><FontAwesome5 name="tools" size={18} color="white" />   Services</Text>
           <Image
             source={
               showServicesDropdown
@@ -462,7 +465,7 @@ const MoreOption = ({ navigation }) => {
           style={styles.dropdownItem}
           onPress={toggleExploreDropdown}
         >
-          <Text style={styles.dropdownText}>More</Text>
+          <Text style={styles.dropdownText}><FontAwesome name="link" size={18} color="white" />   More</Text>
           <Image
             source={
               showExploreDropdown
@@ -617,26 +620,30 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // borderBottomWidth: 1,
     // borderBottomColor: "lightgrey",
-    marginTop: 15,
-    paddingHorizontal: 15,
+    marginTop: 20,
+    paddingHorizontal: 25,
     paddingVertical: 10,
     borderWidth: 1,
     marginHorizontal: 15,
-    borderRadius: 5,
-    backgroundColor: "#FCB0B0",
-    borderColor: "#FCB0B0",
+    borderRadius: 30,
+    // backgroundColor: "#FCB0B0",
+    // borderColor: "#FCB0B0",
+    backgroundColor: "#bd2a2a",
+    borderColor: "#bd2a2a",
   },
   dropdownText: {
-    fontSize: 17.5,
-    color: "#454545",
+    fontSize: 17,
+    // color: "#454545",
+    color: "white",
     verticalAlign: "middle",
     letterSpacing: 1,
-    fontFamily: "Heebo",
+    fontFamily: "Kanit",
+    letterSpacing: 2,
   },
   dropdownIcon: {
     width: 15,
     height: 15,
-    tintColor: "grey",
+    tintColor: "white",
   },
   dropdownContent: {
     backgroundColor: "whitesmoke", //(#f5f5f5)
@@ -648,8 +655,9 @@ const styles = StyleSheet.create({
   subOption: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 5,
-    paddingVertical: 5,
+    paddingVertical: 3,
+    paddingHorizontal: 15,
+    // borderWidth: 0,
   },
   subOptionText: {
     fontSize: 16,

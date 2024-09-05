@@ -6,14 +6,39 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  Image
+  Image,
 } from "react-native";
+// Fonts
+import { useFonts } from "expo-font";
 
 export default function My_Favorite({ navigation }) {
   const handleBack = () => {
     navigation.goBack();
   };
-  // Body
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View style={styles.container}>
       {/* Status Bar */}
@@ -65,7 +90,9 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "Kanit",
     alignSelf: "center",
+    letterSpacing: 1,
+    paddingVertical: 8,
   },
 });

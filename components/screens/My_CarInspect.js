@@ -19,22 +19,24 @@ import { Alert, Linking } from "react-native";
 import { useFonts } from "expo-font";
 
 export default function My_CarInspect() {
-  // User
+  // User context
   const { user } = useContext(UserContext);
-  // Back
+
+  // Navigation
   const navigation = useNavigation();
   const handlerBack = () => {
     navigation.goBack();
   };
-  //   --- API ---
+
+  // States
   const [data, setData] = useState([]);
   const [data_R, setData_R] = useState([]);
-  const [selectedService, setSelectedService] = useState("002"); // Default service
+  const [selectedService, setSelectedService] = useState("001"); // Default service
   const [noDataMessage, setNoDataMessage] = useState("");
 
-  //   --- Report API ---
+  // Fetch car inspection reports data
   useEffect(() => {
-    async function getData() {
+    async function fetchReportData() {
       try {
         const response = await axios.get(
           "https://autofinder-backend.vercel.app/api/carInspectionReport"
@@ -44,12 +46,12 @@ export default function My_CarInspect() {
         console.log(error);
       }
     }
-    getData();
+    fetchReportData();
   }, []);
-  //   --- Report API ---
 
+  // Fetch user requests data
   useEffect(() => {
-    async function fetchData() {
+    async function fetchUserRequests() {
       try {
         const response = await axios.post(
           "https://autofinder-backend.vercel.app/api/userRequest/",
@@ -70,21 +72,17 @@ export default function My_CarInspect() {
         console.log(error);
       }
     }
-    fetchData();
+    fetchUserRequests();
   }, [selectedService]);
 
+  // Show report handler
   const handleShowReport = async (id) => {
     try {
       console.log("Clicked ID:", id); // Log the clicked ID
-
-      // Construct the URL for the file
       const url = `https://autofinder-backend.vercel.app/api/carInspectionReport/${id}`;
-
-      // Check if the link can be opened
       const supported = await Linking.canOpenURL(url);
 
       if (supported) {
-        // Open the file in the device's default browser
         await Linking.openURL(url);
         Alert.alert("Download Started", "Your report is being downloaded.");
       } else {
@@ -102,11 +100,8 @@ export default function My_CarInspect() {
     }
   };
 
-  //   --- API ---
-  // --- Fonts Family ---
-  // 1 - useState
+  // Font loading
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  // Expo Font Logic
   let [loaded] = useFonts({
     Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
     Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -115,18 +110,18 @@ export default function My_CarInspect() {
     KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
     KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
   });
-  // It Will Load Font
+
   useEffect(() => {
     if (loaded) {
       setFontsLoaded(true);
     }
   }, [loaded]);
-  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+
   if (!fontsLoaded) {
     return null;
   }
-  // --- Fonts Family ---
-  // Main Body
+
+  // Main body
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -141,70 +136,37 @@ export default function My_CarInspect() {
           <Text style={styles.title}>Request For Car Inspection</Text>
         </View>
       </View>
-      {/* Main Body */}
-      {/* --- API Working --- */}
+      
+      {/* Service selection */}
       <Text style={styles.buttonContainer_Txt}>Choose Service</Text>
       <View style={styles.buttonContainer}>
-        <Text
-          onPress={() => setSelectedService("001")}
-          style={[
-            styles.MyItemTxt,
-            {
-              backgroundColor: selectedService === "001" ? "#bc0000" : "white",
-              color: selectedService === "001" ? "white" : "black",
-            },
-          ]}
-        >
-          001
-        </Text>
-        <Text
-          onPress={() => setSelectedService("002")}
-          style={[
-            styles.MyItemTxt,
-            {
-              backgroundColor: selectedService === "002" ? "#bc0000" : "white",
-              color: selectedService === "002" ? "white" : "black",
-            },
-          ]}
-        >
-          002
-        </Text>
-        <Text
-          onPress={() => setSelectedService("003")}
-          style={[
-            styles.MyItemTxt,
-            {
-              backgroundColor: selectedService === "003" ? "#bc0000" : "white",
-              color: selectedService === "003" ? "white" : "black",
-            },
-          ]}
-        >
-          003
-        </Text>
-        <Text
-          onPress={() => setSelectedService("004")}
-          style={[
-            styles.MyItemTxt,
-            {
-              backgroundColor: selectedService === "004" ? "#bc0000" : "white",
-              color: selectedService === "004" ? "white" : "black",
-            },
-          ]}
-        >
-          004
-        </Text>
+        {["001", "002", "003", "004"].map((service) => (
+          <Text
+            key={service}
+            onPress={() => setSelectedService(service)}
+            style={[
+              styles.MyItemTxt,
+              {
+                backgroundColor: selectedService === service ? "#bc0000" : "white",
+                color: selectedService === service ? "white" : "black",
+              },
+            ]}
+          >
+            {service}
+          </Text>
+        ))}
       </View>
 
-      {/* Report */}
-      {noDataMessage ? (
-        <Text style={styles.noDataMessage}>{noDataMessage}</Text>
+      {/* Car inspection reports */}
+      <Text style={styles.My_Heading}>Inspection Reports</Text>
+      {data_R.length === 0 ? (
+        <Text style={styles.noDataMessage}>No Reports Available</Text>
       ) : (
         <FlatList
           data={data_R}
           keyExtractor={(item) => item._id}
           renderItem={({ item, index }) => (
             <View style={styles.itemContainer}>
-              <Text style={styles.My_Heading}>Request Details</Text>
               <View style={styles.Item_Subbox}>
                 <Text style={styles.itemText}>Sr. No :</Text>
                 <Text style={styles.itemText_1}>{index + 1}</Text>
@@ -225,9 +187,10 @@ export default function My_CarInspect() {
         />
       )}
 
-      {/* Details */}
-      {noDataMessage ? (
-        <Text style={{ fontSize: 2 }}>{noDataMessage}</Text>
+      {/* User requests details */}
+      {data.length === 0 ? (
+        // <Text style={styles.noDataMessage}>{noDataMessage}</Text>
+        <Text style={styles.noDataMessage}>No Details Available</Text>
       ) : (
         <FlatList
           data={data}
@@ -236,9 +199,7 @@ export default function My_CarInspect() {
             <View style={styles.itemContainer}>
               <View style={styles.Item_Subbox}>
                 <Text style={styles.itemText}>Name :</Text>
-                <Text style={styles.itemText_1}>
-                  {item.user?.name || " - "}
-                </Text>
+                <Text style={styles.itemText_1}>{item.user?.name || " - "}</Text>
               </View>
               <View style={styles.Item_Subbox}>
                 <Text style={styles.itemText}>Phone No :</Text>
@@ -252,18 +213,17 @@ export default function My_CarInspect() {
                   {item.year} {item.brand} {item.model} {item.varient || " - "}
                 </Text>
               </View>
-              <View style={styles.Item_Subbox}>
+              {/* <View style={styles.Item_Subbox}>
                 <Text style={styles.itemText}>Price :</Text>
-                <Text style={styles.itemText_1}>{item.price || " - "} </Text>
-              </View>
+                <Text style={styles.itemText_1}>{item.price || " - "}</Text>
+              </View> */}
               <View style={styles.Item_Subbox}>
                 <Text style={styles.itemText}>Service :</Text>
                 <Text style={styles.itemText_1}>{item.service || " - "}</Text>
               </View>
               <View style={styles.Item_Subbox}>
-                <Text style={styles.itemText}>Inspector Allote :</Text>
+                <Text style={styles.itemText}>Inspector Alloted :</Text>
                 <Text style={styles.itemText_1}>
-                  {" "}
                   {item.userAllocate?.name || "Not Appointed"}
                 </Text>
               </View>
@@ -271,10 +231,10 @@ export default function My_CarInspect() {
           )}
         />
       )}
-      {/* --- API Working --- */}
     </View>
   );
 }
+
 
 // CSS
 const styles = StyleSheet.create({
@@ -333,7 +293,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   itemContainer: {
-    paddingTop: 10,
+    paddingTop: 1,
     paddingBottom: 1,
   },
   Item_Subbox: {
@@ -372,5 +332,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 30,
     letterSpacing: 1.2,
+  },
+  noDataMessage: {
+    textAlign: "center",
+    fontFamily: "Kanit",
+    backgroundColor: "#bc0000",
+    marginHorizontal: 30,
+    paddingVertical: 5,
+    borderRadius: 50,
+    color: "white",
+    letterSpacing: 1,
+    marginVertical: 30,
   },
 });
