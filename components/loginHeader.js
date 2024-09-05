@@ -41,6 +41,7 @@ const LoginHeader = ({ onLoginPress }) => {
   // Main Body
   return (
     <View style={styles.container}>
+      <Text style={styles.Txt}>Continue With Login</Text>
       <TouchableOpacity onPress={onLoginPress} style={styles.button}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
@@ -52,17 +53,18 @@ const styles = StyleSheet.create({
   container: {
     padding: StatusBar.currentHeight,
     backgroundColor: "#bd2a2a",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
   button: {
-    marginVertical: 30,
+    marginTop: 20,
+    marginBottom: 30,
     paddingHorizontal: 70,
-    paddingVertical: 12,
-    paddingHorizontal: 40,
+    paddingVertical: 11,
+    paddingHorizontal: 30,
     backgroundColor: "white",
-    borderRadius: 10,
+    borderRadius: 5,
   },
   loginText: {
     fontSize: 17,
@@ -70,6 +72,13 @@ const styles = StyleSheet.create({
     fontFamily: "Heebo",
     textTransform: "uppercase",
     letterSpacing: 2,
+  },
+  Txt: {
+    fontFamily: "Kanit",
+    letterSpacing: 2,
+    fontSize: 14,
+    color: "white",
+    paddingVertical: 10,
   },
 });
 

@@ -53,7 +53,7 @@ const LogoutHeader = ({
       {/* Bottom */}
       <View style={styles.userInfo_Parent}>
         <View style={styles.userInfo}>
-          <Text style={styles.usernameText}>Hello, {username}</Text>
+          <Text style={styles.usernameText}>Welcome  {username} !</Text>
           <TouchableOpacity onPress={onViewProfilePress}>
             <Text style={styles.viewProfileText}>View Profile</Text>
           </TouchableOpacity>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   container: {
     // height: 120,
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 15,
     backgroundColor: "#bd2a2a",
     padding: 50 + StatusBar.currentHeight,
     flexDirection: "column",
@@ -87,29 +87,29 @@ const styles = StyleSheet.create({
     flexDirection: "column", // Arrange username and view profile button vertically
   },
   usernameText: {
-    fontSize: 18,
-    color: "white",
-    fontFamily: "Heebo",
-    paddingVertical: 10,
-    letterSpacing: 1,
-  },
-  viewProfileText: {
-    fontSize: 14,
+    fontSize: 17,
     color: "white",
     fontFamily: "Kanit",
-    letterSpacing: 0.5,
+    paddingVertical: 15,
+    letterSpacing: 1.5,
+  },
+  viewProfileText: {
+    fontSize: 13.5,
+    color: "white",
+    fontFamily: "Kanit",
+    letterSpacing: 1.2,
   },
   logoutText: {
-    fontSize: 14,
-    marginTop: 40,
+    fontSize: 13.5,
+    marginTop: 50,
     marginBottom: 10,
     color: "white",
     fontFamily: "Kanit",
-    letterSpacing: 0.5,
+    letterSpacing: 1.2,
   },
   Img_Parent: {
     // borderWidth: 0.5,
-    paddingVertical: 15,
+    paddingVertical: 20,
     width: "100%",
   },
   Img: {
