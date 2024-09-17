@@ -72,7 +72,7 @@ const BuyNowCard = ({
   const source = { uri: carImage };
 
   return (
-    <View>
+    <View style={styles.cardParent}>
       <View style={[styles.card, cardStyle]}>
         {isFeatured && (
           <Image
@@ -85,44 +85,46 @@ const BuyNowCard = ({
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.name}>
-            {name} {model}
+            {name} {model} {variant}
           </Text>
-          <Text style={styles.variant}>{variant}</Text>
+          {/* <Text style={styles.variant}>{variant}</Text> */}
           <Text style={styles.price}>PKR {price}</Text>
+          {/* Below View Parent */}
+          <View style={styles.parentView}>
+            {/* Upper view */}
+            <View style={styles.upperView}>
+              <View style={styles.infoContainer}>
+                <Image
+                  source={require("../assets/modelYear.png")}
+                  style={styles.infoImage}
+                />
+                <Text style={styles.infoText}>{year}</Text>
+              </View>
+              <View style={styles.infoContainer}>
+                <Image
+                  source={require("../assets/carMeter.png")}
+                  style={styles.infoImage}
+                />
+                <Text style={styles.infoText}>{kmReading}</Text>
+              </View>
+            </View>
 
-          {/* Upper view */}
-          <View style={styles.upperView}>
-            <View style={styles.infoContainer}>
-              <Image
-                source={require("../assets/modelYear.png")}
-                style={styles.infoImage}
-              />
-              <Text style={styles.infoText}>{year}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Image
-                source={require("../assets/carMeter.png")}
-                style={styles.infoImage}
-              />
-              <Text style={styles.infoText}>{kmReading}</Text>
-            </View>
-          </View>
-
-          {/* Lower view */}
-          <View style={styles.lowerView}>
-            <View style={styles.infoContainer}>
-              <Image
-                source={require("../assets/fuelIcon.png")}
-                style={styles.infoImage}
-              />
-              <Text style={styles.infoText}>{fuelType}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Image
-                source={require("../assets/locationIcon.png")}
-                style={styles.infoImage}
-              />
-              <Text style={styles.infoText}>{location}</Text>
+            {/* Lower view */}
+            <View style={styles.lowerView}>
+              <View style={styles.infoContainer}>
+                <Image
+                  source={require("../assets/fuelIcon.png")}
+                  style={styles.infoImage}
+                />
+                <Text style={styles.infoText}>{fuelType}</Text>
+              </View>
+              <View style={styles.infoContainer}>
+                <Image
+                  source={require("../assets/locationIcon.png")}
+                  style={styles.infoImage}
+                />
+                <Text style={styles.infoText}>{location}</Text>
+              </View>
             </View>
           </View>
         </View>
@@ -134,35 +136,40 @@ const BuyNowCard = ({
 };
 
 const styles = StyleSheet.create({
+  cardParent: {
+    marginBottom: 10,
+  },
   card: {
     backgroundColor: "#fff",
-    padding: 10,
-    margin: 10,
+    paddingTop: 0,
+    paddingBottom: 3,
+    paddingHorizontal: 0,
+    marginHorizontal: 20,
+    marginVertical: 20,
     borderRadius: 10,
-
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    flexDirection: "row",
+    flexDirection: "column",
     position: "relative",
     marginBottom: 1,
   },
   imageContainer: {
-    width: 100,
+    width: "100%",
     marginRight: 10,
     justifyContent: "center", // Center vertically
     alignItems: "center", // Center horizontally
   },
   image: {
     width: "100%",
-    height: 100,
+    height: 150,
     borderRadius: 5,
-    // marginTop: 20,
+    overflow: "hidden", // Hides any content overflowing out of the container
   },
   featuredIcon: {
     position: "absolute",
@@ -173,12 +180,16 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
   },
   name: {
     fontSize: 14,
-    fontWeight: "bold",
-    marginBottom: 5,
+    // fontWeight: "bold",
+    fontFamily: "Kanit",
+    paddingVertical: 10,
     color: "#bd2a2a",
+    letterSpacing: 1,
   },
   variant: {
     fontSize: 12,
@@ -186,32 +197,42 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   price: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "black",
-    marginBottom: 10,
+    fontSize: 15,
+    fontFamily: "Heebo",
+    color: "#4A4A4A",
+    paddingBottom: 8,
+    letterSpacing: 1,
   },
-  upperView: {
+  parentView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 5,
+    paddingVertical: 2,
+    paddingHorizontal: 3,
+  },
+  upperView: {
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   lowerView: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
   },
   infoContainer: {
+    marginVertical: 5,
     flexDirection: "row",
     alignItems: "center",
   },
   infoImage: {
     width: 15,
     height: 15,
-    marginRight: 5,
+    marginRight: 3,
     tintColor: "#bd2a2a",
   },
   infoText: {
-    fontSize: 12,
+    fontSize: 13,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+    paddingLeft: 9,
   },
   additionalInfoContainer: {
     flexDirection: "row",

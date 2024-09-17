@@ -159,9 +159,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 5,
     paddingHorizontal: 10,
+    marginHorizontal: 2,
     marginVertical: 5,
-    borderColor: "#bd2a2a",
-    borderWidth: 1,
+    borderColor: "#B5B5B5",
+    borderWidth: 0.5,
   },
   searchIcon: {
     marginRight: 10,
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 45,
     fontSize: 16,
-    color: "black",
+    color: "grey",
     fontFamily: "Kanit",
   },
   searchButton: {
@@ -181,8 +182,9 @@ const styles = StyleSheet.create({
   },
   searchButtonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   dialogBox: {
     backgroundColor: "white",

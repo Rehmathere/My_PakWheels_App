@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   label: {
-    marginTop: 7,
+    marginTop: 15,
     fontSize: 12,
     //fontWeight: 'bold',
     color: "#000000",
@@ -231,11 +231,11 @@ const styles = StyleSheet.create({
   },
   label2: {
     marginTop: 5,
-    fontSize: 17,
+    fontSize: 14.5,
     color: "gray",
     fontFamily: "Heebo",
     color: "#bd2a2a",
-    letterSpacing: 0.5,
+    letterSpacing: 1,
   },
 });
 

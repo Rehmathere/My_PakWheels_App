@@ -150,18 +150,28 @@ const MainHeader = ({
           setSellNowPopupVisible(false); // Close the popup
         }}
       />
+      {/* --- Box Shadow --- */}
+      <View style={styles.box_Shadow}>
+        {/* Empty Just For SHadow Applied */}
+      </View>
+      {/* --- Box Shadow --- */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerContainer: {
-    backgroundColor: "#bd2a2a",
+    // backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "white",
+    // shadowColor: "black",
+    // elevation: 5,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 10,
-    paddingBottom: 10,
+    paddingBottom: 26,
     paddingHorizontal: 12,
   },
   userName: {
@@ -187,7 +197,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingHorizontal: 5,
     width: "100%",
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
     // borderWidth: 1,
     // borderColor: "white",
   },
@@ -198,8 +208,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 5,
     paddingVertical: 5,
-    borderRadius: 3,
-    elevation: 5,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: "#B5B5B5",
     // marginHorizontal: 2,
   },
   buttonText: {
@@ -221,12 +232,18 @@ const styles = StyleSheet.create({
   SearchBar: {
     flex: 1,
     // backgroundColor: "#f0f0f0",
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
     borderRadius: 5,
     marginRight: 1,
     paddingHorizontal: 1,
     width: "100%",
+    borderColor: "grey",
+  },
+  box_Shadow: {
+    borderWidth: 0.1,
     borderColor: "transparent",
+    shadowColor: "black",
+    elevation: 8,
   },
 });
 
