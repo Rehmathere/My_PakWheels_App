@@ -140,6 +140,7 @@ const Rent_Bike = () => {
           <AntDesign name="filter" size={22} color="black" />
         </TouchableOpacity>
       </View>
+      {/* --- Main Body --- */}
       {isLoading ? (
         <ActivityIndicator size="large" color="#cd0100" />
       ) : (
@@ -153,53 +154,63 @@ const Rent_Bike = () => {
                     navigation.navigate("Rent_Bike_Details", { item })
                   }
                 >
-                  <View style={[styles.card]}>
-                    <View style={styles.imageContainer}>
-                      {item.images.length > 0 && (
-                        <Image
-                          source={{ uri: item.images[0] }}
-                          style={styles.image}
-                        />
-                      )}
-                    </View>
-                    <View style={styles.detailsContainer}>
-                      <Text style={styles.name}>{item.model}</Text>
-                      <Text style={styles.variant}>{item.brand}</Text>
-                      <Text style={styles.price}>PKR {item.price}</Text>
-
-                      {/* Upper view */}
-                      <View style={styles.upperView}>
-                        <View style={styles.infoContainer}>
+                  <View style={styles.cardParent}>
+                    <View style={[styles.card]}>
+                      <View style={styles.imageContainer}>
+                        {item.images.length > 0 && (
                           <Image
-                            source={require("../../assets/modelYear.png")}
-                            style={styles.infoImage}
+                            source={{ uri: item.images[0] }}
+                            style={styles.image}
                           />
-                          <Text style={styles.infoText}>{item.year}</Text>
-                        </View>
-                        <View style={styles.infoContainer}>
-                          <Image
-                            source={require("../../assets/carMeter.png")}
-                            style={styles.infoImage}
-                          />
-                          <Text style={styles.infoText}>{item.KmDriven}</Text>
-                        </View>
+                        )}
                       </View>
+                      <View style={styles.detailsContainer}>
+                        <Text style={styles.name}>{item.model}</Text>
+                        <Text style={styles.variant}>{item.brand}</Text>
+                        <Text style={styles.price}>PKR {item.price}</Text>
+                        {/* Below View Parent */}
+                        <View style={styles.parentView}>
+                          {/* Upper view */}
+                          <View style={styles.upperView}>
+                            <View style={styles.infoContainer}>
+                              <Image
+                                source={require("../../assets/modelYear.png")}
+                                style={styles.infoImage}
+                              />
+                              <Text style={styles.infoText}>{item.year}</Text>
+                            </View>
+                            <View style={styles.infoContainer}>
+                              <Image
+                                source={require("../../assets/carMeter.png")}
+                                style={styles.infoImage}
+                              />
+                              <Text style={styles.infoText}>
+                                {item.KmDriven}
+                              </Text>
+                            </View>
+                          </View>
 
-                      {/* Lower view */}
-                      <View style={styles.lowerView}>
-                        <View style={styles.infoContainer}>
-                          <Image
-                            source={require("../../assets/fuelIcon.png")}
-                            style={styles.infoImage}
-                          />
-                          <Text style={styles.infoText}>{item.fuelType}</Text>
-                        </View>
-                        <View style={styles.infoContainer}>
-                          <Image
-                            source={require("../../assets/locationIcon.png")}
-                            style={styles.infoImage}
-                          />
-                          <Text style={styles.infoText}>{item.location}</Text>
+                          {/* Lower view */}
+                          <View style={styles.lowerView}>
+                            <View style={styles.infoContainer}>
+                              <Image
+                                source={require("../../assets/fuelIcon.png")}
+                                style={styles.infoImage}
+                              />
+                              <Text style={styles.infoText}>
+                                {item.fuelType}
+                              </Text>
+                            </View>
+                            <View style={styles.infoContainer}>
+                              <Image
+                                source={require("../../assets/locationIcon.png")}
+                                style={styles.infoImage}
+                              />
+                              <Text style={styles.infoText}>
+                                {item.location}
+                              </Text>
+                            </View>
+                          </View>
                         </View>
                       </View>
                     </View>
@@ -212,57 +223,65 @@ const Rent_Bike = () => {
           </ScrollView>
         </View>
       )}
+      {/* --- Post Ad Btn --- */}
       <View style={styles.button_Parent}>
         <TouchableOpacity style={styles.button} onPress={handleRentABike}>
-          <Text style={styles.buttonText}>Post Your Bike</Text>
+          <Text style={styles.buttonText}>Post</Text>
         </TouchableOpacity>
       </View>
+      {/* --- Post Ad Btn --- */}
     </View>
   );
 };
 
+// CSS
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
   },
   header: {
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
   },
   backButton: {
     tintColor: "white",
-    marginLeft: 5,
+    marginLeft: 10,
   },
   backIcon: {
     width: 25,
     height: 25,
-    tintColor: "white",
+    // tintColor: "white",
   },
   titleContainer: {
     flex: 1,
     paddingBottom: 5,
   },
   title: {
-    color: "white",
+    // color: "white",
     fontSize: 18,
-    alignSelf: "center",
+    // fontWeight: "bold",
     fontFamily: "Kanit",
+    alignSelf: "center",
     letterSpacing: 1,
   },
   rowContainer: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#DCDCDC",
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 5,
+    paddingTop: 5,
+    paddingBottom: 20,
+    marginBottom: 30,
     alignItems: "center",
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
   },
   SearchBar: {
     flex: 1,
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
     borderRadius: 5,
     marginRight: 10,
     paddingHorizontal: 10,
@@ -272,6 +291,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f39c12",
     paddingVertical: 10,
     paddingHorizontal: 10,
+    marginRight: 10,
     borderRadius: 5,
     alignItems: "center",
   },
@@ -286,119 +306,130 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button_Parent: {
-    backgroundColor: "white",
+    borderWidth: 0.5,
+    borderColor: "transparent",
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    position: "absolute",
+    bottom: 15,
+    right: 5, 
   },
   button: {
     backgroundColor: "#bd2a2a",
-    padding: 15,
+    paddingVertical: 26,
+    paddingHorizontal: 10,
     marginHorizontal: 20,
     marginVertical: 10,
-    borderRadius: 5,
+    width: 70,
+    borderRadius: 50,
+    alignSelf: "flex-end",
+    shadowColor: "black",
+    elevation: 15,
   },
   buttonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 15,
     textAlign: "center",
     fontFamily: "Kanit",
     letterSpacing: 1.5,
   },
+  // New
+  cardParent: {
+    marginBottom: 10,
+  },
   card: {
     backgroundColor: "#fff",
-    padding: 10,
-    margin: 10,
+    paddingTop: 0,
+    paddingBottom: 3,
+    paddingHorizontal: 0,
+    marginHorizontal: 20,
+    marginVertical: 20,
     borderRadius: 10,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    flexDirection: "row",
+    flexDirection: "column",
     position: "relative",
+    marginBottom: 1,
   },
   imageContainer: {
-    width: 100,
+    width: "100%",
     marginRight: 10,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "center", // Center vertically
+    alignItems: "center", // Center horizontally
   },
   image: {
     width: "100%",
-    height: 100,
+    height: 150,
     borderRadius: 5,
+    overflow: "hidden", // Hides any content overflowing out of the container
+  },
+  featuredIcon: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    width: 30,
+    height: 30,
   },
   detailsContainer: {
     flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
   },
   name: {
     fontSize: 14,
-    marginBottom: 5,
-    color: "#bd2a2a",
+    // fontWeight: "bold",
     fontFamily: "Kanit",
+    paddingVertical: 10,
+    color: "#bd2a2a",
+    letterSpacing: 1,
   },
   variant: {
-    fontSize: 14,
-    marginBottom: 1,
+    fontSize: 12,
+    marginBottom: 5,
     color: "grey",
-    fontFamily: "Kanit",
-    textTransform: "capitalize",
   },
   price: {
-    fontSize: 17,
-    color: "black",
-    marginBottom: 10,
+    fontSize: 15,
     fontFamily: "Heebo",
+    color: "#4A4A4A",
+    paddingBottom: 8,
+    letterSpacing: 1,
+  },
+  parentView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 2,
+    paddingHorizontal: 3,
+  },
+  upperView: {
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   lowerView: {
     flexDirection: "column",
     justifyContent: "space-between",
   },
   infoContainer: {
+    marginVertical: 5,
     flexDirection: "row",
     alignItems: "center",
   },
   infoImage: {
     width: 15,
     height: 15,
-    marginRight: 5,
+    marginRight: 3,
     tintColor: "#bd2a2a",
   },
   infoText: {
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: "Kanit",
-  },
-  infoText_2: {
-    fontSize: 12,
-    paddingVertical: 10,
-    fontFamily: "Kanit",
-  },
-  featuredTag: {
-    backgroundColor: "#ff0",
-    padding: 5,
-    borderRadius: 5,
-    marginTop: 5,
-  },
-  upperView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 5,
-  },
-  lowerView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  infoContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  infoImage: {
-    width: 15,
-    height: 15,
-    marginRight: 5,
-    tintColor: "#bd2a2a",
-  },
-  infoText: {
-    fontSize: 12,
-    fontFamily: "Kanit",
+    letterSpacing: 1,
+    paddingLeft: 9,
   },
 });
 

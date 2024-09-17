@@ -29,9 +29,14 @@ const BuyNow = () => {
       try {
         let response;
         if (filter) {
-          response = await axios.post("https://autofinder-backend.vercel.app/api/carAd/filter", filter);
+          response = await axios.post(
+            "https://autofinder-backend.vercel.app/api/carAd/filter",
+            filter
+          );
         } else {
-          response = await axios.post("https://autofinder-backend.vercel.app/api/carAd/");
+          response = await axios.post(
+            "https://autofinder-backend.vercel.app/api/carAd/"
+          );
         }
         if (response.data.ok) {
           if (response.data.data.length > 0) {
@@ -93,6 +98,7 @@ const BuyNow = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#bd2a2a" />
+      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -107,6 +113,7 @@ const BuyNow = () => {
           <Text style={styles.title}>Buy Cars</Text>
         </View>
       </View>
+      {/* Search Bar & Filter */}
       <View style={styles.rowContainer}>
         <View style={styles.SearchBar}>
           <SearchBar />
@@ -116,9 +123,10 @@ const BuyNow = () => {
           onPress={handleFilterPress}
         >
           <Text style={styles.filterText}>Filter</Text>
-          <AntDesign name="filter" size={22} color="#fc6f03" />
+          <AntDesign name="filter" size={22} color="black" />
         </TouchableOpacity>
       </View>
+      {/* Main Body */}
       {isLoading ? (
         <ActivityIndicator size="large" color="#cd0100" />
       ) : (
@@ -162,60 +170,69 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   header: {
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
   },
   backButton: {
     tintColor: "white",
-    marginLeft: 5,
+    marginLeft: 10,
   },
   backIcon: {
     width: 25,
     height: 25,
-    tintColor: "white",
+    // tintColor: "white",
   },
   titleContainer: {
     flex: 1,
     paddingBottom: 5,
   },
   title: {
-    color: "white",
+    // color: "white",
     fontSize: 18,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: "Kanit",
     alignSelf: "center",
+    letterSpacing: 1,
   },
   rowContainer: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#DCDCDC",
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 5,
+    paddingTop: 5,
+    paddingBottom: 20,
     alignItems: "center",
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
   },
   SearchBar: {
     flex: 1,
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
     borderRadius: 5,
     marginRight: 10,
     paddingHorizontal: 10,
   },
   filterButton: {
     flexDirection: "row",
-    backgroundColor: "#2e8b57",
+    backgroundColor: "#f39c12",
     paddingVertical: 10,
     paddingHorizontal: 10,
+    marginRight: 10,
     borderRadius: 5,
     alignItems: "center",
   },
   filterText: {
-    color: "#fff",
+    // color: "white",
     marginRight: 5,
     fontSize: 14,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   Container_Sub: {
     flex: 1,
+    paddingTop: 20,
   },
   button_Parent: {
     backgroundColor: "white",

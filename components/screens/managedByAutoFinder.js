@@ -87,7 +87,7 @@ const ManagedByAutoFinder = () => {
             <TouchableOpacity
               key={index}
               onPress={() => handleCardPress(item)}
-              style={{ marginHorizontal: 10, }}
+              style={styles.myBox}
             >
               {/* Image container */}
               <View style={styles.imageContainer}>
@@ -102,7 +102,7 @@ const ManagedByAutoFinder = () => {
               {/* Content container */}
               <View style={styles.contentContainer}>
                 {/* Item details */}
-                <Text style={styles.name}>{item.brand}</Text>
+                <Text style={styles.name}>{item.brand} {item.model}</Text>
                 <Text style={styles.price}>PKR {item.price}</Text>
                 <Text style={styles.city}>{item.location}</Text>
               </View>
@@ -115,6 +115,7 @@ const ManagedByAutoFinder = () => {
 
 const styles = StyleSheet.create({
   featuredAdsContainer: {
+    marginTop: 20,
     marginBottom: 20,
     paddingLeft: 10,
   },
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     alignItems: "flex-start",
-    backgroundColor: "#f4f0ec",
+    backgroundColor: "#FFF2F2",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
   },
   price: {
     color: "#000000",
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "bold",
   },
   city: {
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "Kanit",
     marginBottom: 5,
-    letterSpacing: 0.5,
+    letterSpacing: 1,
   },
   modelKmDriven: {
     color: "#8b8c8c",
@@ -237,8 +238,13 @@ const styles = StyleSheet.create({
     position: "relative",
     marginBottom: 1,
   },
+  myBox: {
+    marginHorizontal: 10,
+    marginBottom: 10,
+    width: 120,
+  },
   imageContainer: {
-    width: 100,
+    width: "100%",
     marginRight: 0,
     justifyContent: "center", // Center vertically
     alignItems: "center", // Center horizontally
@@ -262,11 +268,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   name: {
-    fontSize: 13,
+    fontSize: 12.5,
     // fontWeight: "bold",
+    marginTop: 1,
     marginBottom: 5,
     color: "#bd2a2a",
     fontFamily: "Kanit",
+    letterSpacing: 1,
   },
   variant: {
     fontSize: 12,
@@ -274,10 +282,11 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   price: {
-    fontSize: 16,
+    fontSize: 13.5,
     fontFamily: "Heebo",
     color: "black",
     marginBottom: 3,
+    letterSpacing: 0.8,
   },
   upperView: {
     flexDirection: "row",

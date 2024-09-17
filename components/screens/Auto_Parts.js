@@ -196,54 +196,61 @@ const Auto_Parts = () => {
       )}
       <View style={styles.button_Parent}>
         <TouchableOpacity style={styles.button} onPress={handleRentABike}>
-          <Text style={styles.buttonText}>Post Your Auto Parts</Text>
+          <Text style={styles.buttonText}>Post</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
+// CSS
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
   },
   header: {
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
   },
   backButton: {
     tintColor: "white",
-    marginLeft: 5,
+    marginLeft: 10,
   },
   backIcon: {
     width: 25,
     height: 25,
-    tintColor: "white",
+    // tintColor: "white",
   },
   titleContainer: {
     flex: 1,
+    paddingBottom: 5,
   },
   title: {
-    color: "white",
-    fontSize: 17,
-    alignSelf: "center",
+    // color: "white",
+    fontSize: 18,
+    // fontWeight: "bold",
     fontFamily: "Kanit",
+    alignSelf: "center",
     letterSpacing: 1,
   },
   rowContainer: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#DCDCDC",
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 5,
+    paddingTop: 5,
+    paddingBottom: 20,
+    marginBottom: 30,
     alignItems: "center",
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
   },
   SearchBar: {
     flex: 1,
-    backgroundColor: "#bd2a2a",
+    backgroundColor: "white",
     borderRadius: 5,
     marginRight: 10,
     paddingHorizontal: 10,
@@ -253,6 +260,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f39c12",
     paddingVertical: 10,
     paddingHorizontal: 10,
+    marginRight: 10,
     borderRadius: 5,
     alignItems: "center",
   },
@@ -267,91 +275,130 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button_Parent: {
-    backgroundColor: "white",
+    borderWidth: 0.5,
+    borderColor: "transparent",
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    position: "absolute",
+    bottom: 15,
+    right: 5, 
   },
   button: {
     backgroundColor: "#bd2a2a",
-    padding: 15,
+    paddingVertical: 26,
+    paddingHorizontal: 10,
     marginHorizontal: 20,
     marginVertical: 10,
-    borderRadius: 5,
+    width: 70,
+    borderRadius: 50,
+    alignSelf: "flex-end",
+    shadowColor: "black",
+    elevation: 15,
   },
   buttonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 15,
     textAlign: "center",
     fontFamily: "Kanit",
     letterSpacing: 1.5,
   },
+  // New
+  cardParent: {
+    marginBottom: 10,
+  },
   card: {
     backgroundColor: "#fff",
-    padding: 10,
-    margin: 10,
+    paddingTop: 0,
+    paddingBottom: 3,
+    paddingHorizontal: 0,
+    marginHorizontal: 20,
+    marginVertical: 20,
     borderRadius: 10,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    flexDirection: "row",
+    flexDirection: "column",
     position: "relative",
+    marginBottom: 1,
   },
   imageContainer: {
-    width: 100,
+    width: "100%",
     marginRight: 10,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "center", // Center vertically
+    alignItems: "center", // Center horizontally
   },
   image: {
     width: "100%",
-    height: 100,
+    height: 150,
     borderRadius: 5,
+    overflow: "hidden", // Hides any content overflowing out of the container
+  },
+  featuredIcon: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    width: 30,
+    height: 30,
   },
   detailsContainer: {
     flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
   },
   name: {
     fontSize: 14,
-    marginBottom: 5,
-    color: "#bd2a2a",
+    // fontWeight: "bold",
     fontFamily: "Kanit",
+    paddingVertical: 10,
+    color: "#bd2a2a",
+    letterSpacing: 1,
+  },
+  variant: {
+    fontSize: 12,
+    marginBottom: 5,
+    color: "grey",
   },
   price: {
-    fontSize: 17,
-    color: "black",
-    marginBottom: 10,
+    fontSize: 15,
     fontFamily: "Heebo",
+    color: "#4A4A4A",
+    paddingBottom: 8,
+    letterSpacing: 1,
+  },
+  parentView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 2,
+    paddingHorizontal: 3,
+  },
+  upperView: {
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   lowerView: {
     flexDirection: "column",
     justifyContent: "space-between",
   },
   infoContainer: {
+    marginVertical: 5,
     flexDirection: "row",
     alignItems: "center",
   },
   infoImage: {
     width: 15,
     height: 15,
-    marginRight: 5,
+    marginRight: 3,
     tintColor: "#bd2a2a",
   },
   infoText: {
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: "Kanit",
     letterSpacing: 1,
-  },
-  infoText_2: {
-    fontSize: 12,
-    fontFamily: "Kanit",
-    paddingVertical: 10,
-    textTransform: "capitalize",
-  },
-  featuredTag: {
-    backgroundColor: "#ff0",
-    padding: 5,
-    borderRadius: 5,
-    marginTop: 5,
+    paddingLeft: 9,
   },
 });
 
