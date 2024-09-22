@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Button,
   StyleSheet,
   StatusBar,
+  Linking,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
@@ -18,6 +19,11 @@ import SearchBar from "../searchBar";
 import SyncStorage from "sync-storage"; // Import SyncStorage for checking login status
 // Fonts
 import { useFonts } from "expo-font";
+// Fonts Icon
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+// Call
+import call from "react-native-phone-call";
+import { UserContext } from "../../context/userContext";
 
 const Rent_Bike = () => {
   const navigation = useNavigation();
@@ -32,7 +38,10 @@ const Rent_Bike = () => {
           "https://autofinder-backend.vercel.app/api/bike/"
         );
         if (response.data.ok) {
-          setData(response.data.data);
+          const sortedData = response.data.data.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+          setData(sortedData);
         } else {
           setNoDataError("No Data To Show");
         }
@@ -86,6 +95,53 @@ const Rent_Bike = () => {
       navigation.navigate("welcome");
     }
   };
+
+  // --- Favorite Ads ---
+  const [isFavorite, setIsFavorite] = useState(false);
+  const My_Fav_handlePress = async (item) => {
+    try {
+      if (item && item._id && user && user._id) {
+        const response = await axios.post(
+          "https://autofinder-backend.vercel.app/api/user/addFavorite",
+          { userId: user._id, adId: item._id, adType: "Bike" }
+        );
+        // alert(" Added To Favorites ");
+        setIsFavorite(!isFavorite);
+        console.log(response);
+        console.log(" Added To Favorite ");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // --- Favorite Ads ---
+
+  // --- Call Logic ---
+  const { user } = useContext(UserContext);
+
+  const handleCallPress = (mydata) => {
+    console.log("Call Seller pressed");
+    const args = {
+      number: mydata, // Ensure this is the correct path to the phone number
+      prompt: false,
+      skipCanOpen: true,
+    };
+    call(args).catch(console.error);
+  };
+
+  const handleWhatsappPress = (mydata) => {
+    console.log("Whatsapp pressed");
+    const phoneNumber = mydata; // Ensure this is the correct path to the phone number
+    const adDetails = ``;
+    const whatsappMessage = `whatsapp://send?text=${encodeURIComponent(
+      adDetails
+    )}&phone=${phoneNumber}`;
+    Linking.openURL(whatsappMessage)
+      .then(() => console.log("WhatsApp opened successfully"))
+      .catch((error) => console.log("Error opening WhatsApp : ", error));
+  };
+  // --- Call Logic ---
+
   // --- Fonts Family ---
   // 1 - useState
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -146,7 +202,7 @@ const Rent_Bike = () => {
       ) : (
         <View style={styles.Container_Sub}>
           <ScrollView>
-            {data.length > 0 ? (
+            {data && data.length > 0 ? (
               data.map((item) => (
                 <TouchableOpacity
                   key={item._id}
@@ -163,6 +219,23 @@ const Rent_Bike = () => {
                             style={styles.image}
                           />
                         )}
+                        {/* ----- Add To Favorite ----- */}
+                        <View style={styles.buttonContainer_Fav}>
+                          <TouchableOpacity
+                            style={styles.button_Fav}
+                            onPress={() => My_Fav_handlePress(item)}
+                          >
+                            <Image
+                              source={
+                                isFavorite
+                                  ? require("../../assets/My_Fav_Red.png")
+                                  : require("../../assets/My_Fav_White.png")
+                              }
+                              style={styles.buttonIcon_Fav}
+                            />
+                          </TouchableOpacity>
+                          {/* ----- Add To Favorite ----- */}
+                        </View>
                       </View>
                       <View style={styles.detailsContainer}>
                         <Text style={styles.name}>{item.model}</Text>
@@ -212,6 +285,56 @@ const Rent_Bike = () => {
                             </View>
                           </View>
                         </View>
+                        {/* --- Call --- */}
+                        <View style={styles.parentBtnPress_Head}>
+                          {/* Button */}
+                          <TouchableOpacity
+                            style={[
+                              styles.parentBtnPress,
+                              { backgroundColor: "#FFE1E1" },
+                            ]}
+                            onPress={() => {
+                              handleCallPress(item.user.phoneNumber);
+                            }}
+                          >
+                            <Text style={styles.parentBtnPress_Txt_1}>
+                              Sim Call
+                            </Text>
+                            <Text style={styles.parentBtnPress_Txt_2}>
+                              <MaterialCommunityIcons
+                                name="phone-forward"
+                                size={22}
+                                color="#Bc0000"
+                              />
+                            </Text>
+                          </TouchableOpacity>
+                          {/* Button */}
+                          <TouchableOpacity
+                            style={[
+                              styles.parentBtnPress,
+                              { backgroundColor: "#E6FFDF" },
+                            ]}
+                            onPress={() => {
+                              handleWhatsappPress(item.user.phoneNumber);
+                            }}
+                          >
+                            <Text style={styles.parentBtnPress_Txt_1}>
+                              Whatsapp
+                            </Text>
+                            <Text style={styles.parentBtnPress_Txt_2}>
+                              <MaterialCommunityIcons
+                                name="whatsapp"
+                                size={22}
+                                color="green"
+                              />
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                        {/* --- Call --- */}
+                        <Text style={styles.infoText_2}>
+                          Posted :{" "}
+                          {formatDistanceToNow(new Date(item.createdAt))} ago
+                        </Text>
                       </View>
                     </View>
                   </View>
@@ -241,7 +364,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   header: {
-    backgroundColor: "white",
+    backgroundColor: "#F3F3F3",
     flexDirection: "row",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
@@ -275,13 +398,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingTop: 5,
     paddingBottom: 20,
-    marginBottom: 30,
+    // marginBottom: 30,
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#F3F3F3",
   },
   SearchBar: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#F3F3F3",
     borderRadius: 5,
     marginRight: 10,
     paddingHorizontal: 10,
@@ -311,7 +434,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0)",
     position: "absolute",
     bottom: 15,
-    right: 5, 
+    right: 5,
   },
   button: {
     backgroundColor: "#bd2a2a",
@@ -365,8 +488,28 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 150,
-    borderRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
     overflow: "hidden", // Hides any content overflowing out of the container
+  },
+  buttonContainer_Fav: {
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    top: 3,
+    right: 0,
+    padding: 0,
+  },
+  button_Fav: {
+    borderRadius: 30,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    marginRight: 1,
+  },
+  buttonIcon_Fav: {
+    width: 30,
+    height: 30,
+    // tintColor: "white",
   },
   featuredIcon: {
     position: "absolute",
@@ -384,20 +527,24 @@ const styles = StyleSheet.create({
     fontSize: 14,
     // fontWeight: "bold",
     fontFamily: "Kanit",
-    paddingVertical: 10,
+    paddingTop: 0,
+    paddingBottom: 5,
     color: "#bd2a2a",
     letterSpacing: 1,
   },
   variant: {
-    fontSize: 12,
+    textTransform: "capitalize",
+    fontFamily: "Kanit",
+    fontSize: 13,
     marginBottom: 5,
     color: "grey",
+    letterSpacing: 1,
   },
   price: {
-    fontSize: 15,
+    fontSize: 13.5,
     fontFamily: "Heebo",
     color: "#4A4A4A",
-    paddingBottom: 8,
+    paddingBottom: 5,
     letterSpacing: 1,
   },
   parentView: {
@@ -430,6 +577,54 @@ const styles = StyleSheet.create({
     fontFamily: "Kanit",
     letterSpacing: 1,
     paddingLeft: 9,
+  },
+  infoText_2: {
+    color: "grey",
+    fontSize: 13,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
+    paddingLeft: 9,
+    textAlign: "right",
+    paddingRight: 5,
+  },
+  parentBtnPress_Head: {
+    borderWidth: 0,
+    borderTopWidth: 0.5,
+    borderTopColor: "#DCDCDC",
+    // borderColor: "transparent",
+    paddingBottom: 15,
+    paddingTop: 15,
+    marginTop: 15,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  parentBtnPress: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    borderColor: "grey",
+    paddingVertical: 8,
+    paddingHorizontal: 7,
+    borderRadius: 5,
+    width: "47%",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  parentBtnPress_Txt_1: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    textAlign: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+    color: "grey",
+    width: "75%",
+    paddingTop: 0,
+    fontSize: 15,
+  },
+  parentBtnPress_Txt_2: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    textAlign: "center",
+    width: "25%",
   },
 });
 

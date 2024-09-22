@@ -20,9 +20,8 @@ import { UserContext } from "../../context/userContext";
 import carIcon from "../../assets/images/car_icon.png";
 import bikeIcon from "../../assets/images/bike_icon.png";
 import toolIcon from "../../assets/images/tools_icon.png";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 // ----- Modal -----
 // Fonts
 import { useFonts } from "expo-font";
@@ -97,17 +96,35 @@ const MoreOption = ({ navigation }) => {
   };
 
   const handleSavedAs = () => {
-    navigation.navigate("My_Favorite");
+    if (SyncStorage.get("token")) {
+      navigation.navigate("My_Favorite");
+    } else {
+      navigation.navigate("welcome");
+    }
     // console.log("Navigate to Saved As");
   };
   const handleMyCarInspect = () => {
-    navigation.navigate("My_CarInspect");
+    if (SyncStorage.get("token")) {
+      navigation.navigate("My_CarInspect");
+    } else {
+      navigation.navigate("welcome");
+    }
     // console.log("Navigate to Saved As");
   };
   const handleMyorders = () => {
     // Replace this with your actual logic for the My Ads button press
     if (SyncStorage.get("token")) {
       navigation.navigate("myAds");
+    } else {
+      navigation.navigate("welcome");
+    }
+    // navigation.navigate('sellItMyself');
+    console.log("presed");
+  };
+  const handleMyPakcages = () => {
+    // Replace this with your actual logic for the My Ads button press
+    if (SyncStorage.get("token")) {
+      navigation.navigate("My_Package");
     } else {
       navigation.navigate("welcome");
     }
@@ -252,7 +269,9 @@ const MoreOption = ({ navigation }) => {
           style={styles.dropdownItem}
           onPress={togglePersonalDropdown}
         >
-          <Text style={styles.dropdownText}><FontAwesome name="user" size={18} color="white" />   Personal</Text>
+          <Text style={styles.dropdownText}>
+            <FontAwesome name="user" size={18} color="white" /> Personal
+          </Text>
           <Image
             source={
               showPersonalDropdown
@@ -265,38 +284,45 @@ const MoreOption = ({ navigation }) => {
         </TouchableOpacity>
         {showPersonalDropdown && (
           <View style={styles.dropdownContent}>
-            {/* <TouchableOpacity style={styles.subOption} onPress={handleMyorders}>
-              <Image
-                source={require("../../assets/cart.png")}
-                style={styles.subOptionIcon}
-                resizeMode="contain"
-              />
-              <Text style={styles.subOptionText}>My Ads</Text>
-            </TouchableOpacity> */}
             <TouchableOpacity style={styles.subOption} onPress={handleSavedAs}>
               <Image
                 source={require("../../assets/My_Fav_Red.png")}
                 style={styles.subOptionIcon}
                 resizeMode="contain"
               />
-              <Text style={styles.subOptionText}>My Saved ads</Text>
+              <Text style={styles.subOptionText}>My Favorite Ads</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.subOption} onPress={handleMyorders}>
+              <Image
+                source={require("../../assets/updatedIcon.png")}
+                style={styles.subOptionIcon}
+                resizeMode="contain"
+              />
+              <Text style={styles.subOptionText}>My Ads</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.subOption}
+              onPress={handleMyPakcages}
+            >
+              <Image
+                source={require("../../assets/cart.png")}
+                style={styles.subOptionIcon}
+                resizeMode="contain"
+              />
+              <Text style={styles.subOptionText}>My Packages</Text>
             </TouchableOpacity>
             {/* --- New --- */}
-            {isLoggedIn ? (
-              <TouchableOpacity
-                style={styles.subOption}
-                onPress={handleMyCarInspect}
-              >
-                <Image
-                  source={require("../../assets/Car.png")}
-                  style={styles.subOptionIcon}
-                  resizeMode="contain"
-                />
-                <Text style={styles.subOptionText}>My Car Inspection</Text>
-              </TouchableOpacity>
-            ) : (
-              <Text></Text>
-            )}
+            <TouchableOpacity
+              style={styles.subOption}
+              onPress={handleMyCarInspect}
+            >
+              <Image
+                source={require("../../assets/Car.png")}
+                style={styles.subOptionIcon}
+                resizeMode="contain"
+              />
+              <Text style={styles.subOptionText}>My Car Inspection</Text>
+            </TouchableOpacity>
             {/* --- New --- */}
 
             {/* <TouchableOpacity
@@ -310,6 +336,7 @@ const MoreOption = ({ navigation }) => {
               />
               <Text style={styles.subOptionText}>Notifications</Text>
             </TouchableOpacity> */}
+
             {/* <TouchableOpacity style={styles.subOption} onPress={handleLanguage}>
               <Image
                 source={require("../../assets/language.png")}
@@ -325,7 +352,9 @@ const MoreOption = ({ navigation }) => {
           style={styles.dropdownItem}
           onPress={toggleProductDropdown}
         >
-          <Text style={styles.dropdownText}><FontAwesome name="briefcase" size={18} color="white" />   Product</Text>
+          <Text style={styles.dropdownText}>
+            <FontAwesome name="briefcase" size={18} color="white" /> Product
+          </Text>
           <Image
             source={
               showProductDropdown
@@ -385,7 +414,9 @@ const MoreOption = ({ navigation }) => {
           style={styles.dropdownItem}
           onPress={toggleServicesDropdown}
         >
-          <Text style={styles.dropdownText}><FontAwesome5 name="tools" size={18} color="white" />   Services</Text>
+          <Text style={styles.dropdownText}>
+            <FontAwesome5 name="tools" size={18} color="white" /> Services
+          </Text>
           <Image
             source={
               showServicesDropdown
@@ -465,7 +496,9 @@ const MoreOption = ({ navigation }) => {
           style={styles.dropdownItem}
           onPress={toggleExploreDropdown}
         >
-          <Text style={styles.dropdownText}><FontAwesome name="link" size={18} color="white" />   More</Text>
+          <Text style={styles.dropdownText}>
+            <FontAwesome name="link" size={18} color="white" /> More
+          </Text>
           <Image
             source={
               showExploreDropdown

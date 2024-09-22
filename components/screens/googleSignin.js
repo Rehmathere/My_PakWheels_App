@@ -31,11 +31,11 @@ const GoogleSignin = ({
     <View style={styles.container}>
       <View style={styles.popup}>
         <Image
-          source={require('../../assets/logo.jpg')}
+          source={require('../../assets/logo1.png')}
           style={styles.logo}
           resizeMode="contain"
         />
-        <Text style={styles.headerText}>Choose an account</Text>
+        <Text style={styles.headerText}>Choose an Account</Text>
         <Text style={styles.subText}>to continue to AutoFinder</Text>
         <View style={styles.userInfoContainer}>
           <View style={styles.profileContainer}>
@@ -65,18 +65,18 @@ const GoogleSignin = ({
         <View style={styles.additionalText}>
           <Text>
             To continue, Google will share your name, email address, and profile
-            picture with AutoFinder. Before using this app, review{' '}
+            picture with AutoFinder. Before using this app, Review :{' '}
           </Text>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity onPress={openPrivacyPolicy}>
-              <Text style={styles.linkText}> privacy policy</Text>
+              <Text style={styles.linkText}>Privacy policy</Text>
             </TouchableOpacity>
             <Text> and </Text>
             <TouchableOpacity onPress={openTermsOfService}>
-              <Text style={styles.linkText}> terms of service</Text>
+              <Text style={styles.linkText}> Terms of Service</Text>
             </TouchableOpacity>
           </View>
-          <Text>.</Text>
+          <Text></Text>
         </View>
       </View>
     </View>
@@ -88,30 +88,34 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent background
+    backgroundColor: 'rgba(0, 0, 0, 0.70)', // semi-transparent background
   },
   popup: {
     backgroundColor: 'white',
-    width: 300, // Set a fixed width for the popup
-    padding: 20,
+    width: 250, // Set a fixed width for the popup
+    paddingVertical: 20,
+    paddingHorizontal: 30,
     borderRadius: 10,
     alignItems: 'center',
   },
   logo: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
+    width: 120,
+    height: 120,
+    marginBottom: 5,
   },
   headerText: {
-    fontSize: 24,
-    // fontWeight: 'bold',
+    fontSize: 21,
+    fontWeight: 'bold',
     color: 'black',
     marginBottom: 10,
+    letterSpacing: 1.2,
   },
   subText: {
-    fontSize: 16,
-    color: 'black',
+    fontSize: 14.5,
+    color: 'grey',
     marginBottom: 20,
+    textTransform: "capitalize",
+    letterSpacing: 1.8,
   },
   userInfoContainer: {
     flexDirection: 'row',
@@ -131,17 +135,19 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 5,
   },
   userName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
     color: 'black',
+    letterSpacing: 0.5,
   },
   userEmail: {
     fontSize: 14,
     color: 'grey',
+    letterSpacing: 1,
   },
   separator: {
     borderBottomWidth: 1,
@@ -159,8 +165,10 @@ const styles = StyleSheet.create({
   addAccountText: {
     color: 'black',
     fontWeight: 'bold',
-    marginLeft: 20,
-    fontSize: 16,
+    marginLeft: 15,
+    fontSize: 15,
+    letterSpacing: 0.5,
+    textTransform: "capitalize",
   },
   addAccountIcon: {
     width: 30,

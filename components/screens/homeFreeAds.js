@@ -26,6 +26,9 @@ import numberOne from "../../assets/one.png";
 import numberTwo from "../../assets/two.png";
 import numberThree from "../../assets/three.png";
 import numberFour from "../../assets/four.png";
+// Fonts
+import { useFonts } from "expo-font";
+
 
 const HomeFreeAds = () => {
   // const route = useRoute();
@@ -111,6 +114,29 @@ const HomeFreeAds = () => {
     navigation.navigate("homeRentACar");
   };
   // -------------- Services OnPress ---------------
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
   // Main Body
   return (
     <View style={styles.container}>
@@ -279,7 +305,7 @@ const styles = StyleSheet.create({
   backButton: {
     // paddingRight: 20,
     tintColor: "white",
-    marginLeft: 5,
+    marginLeft: 10,
   },
   backIcon: {
     width: 25,
@@ -292,8 +318,10 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 18,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: "Kanit",
     alignSelf: "center",
+    letterSpacing: 1,
   },
   image: {
     width: "100%",
@@ -307,6 +335,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginTop: 10,
+    letterSpacing: 0.5,
   },
   button: {
     backgroundColor: "#bd2a2a",
@@ -318,7 +347,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "Kanit",
+    letterSpacing: 2,
   },
   addTextChoose: {
     marginLeft: 10,

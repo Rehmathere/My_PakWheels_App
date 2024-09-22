@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import call from "react-native-phone-call";
+import axios from "axios";
 import { UserContext } from "../../context/userContext";
 import FooterContact from "../footerContact";
 // Fonts
@@ -29,6 +30,26 @@ export default function Rent_Bike_Details() {
   const handleFeature = () => {
     console.log("Car is Featured");
   };
+
+  // --- Favorite Ads ---
+  const [isFavorite, setIsFavorite] = useState(false);
+  const My_Fav_handlePress = async () => {
+    try {
+      if (item && item._id && user && user._id) {
+        const response = await axios.post(
+          "https://autofinder-backend.vercel.app/api/user/addFavorite",
+          { userId: user._id, adId: item._id, adType: "Bike" }
+        );
+        // alert(" Added To Favorites ");
+        setIsFavorite(!isFavorite);
+        console.log(response);
+        console.log(" Added To Favorite ");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // --- Favorite Ads ---
 
   const carSpecs = [
     { name: item.brand, icon: require("../../assets/modelYear.png") },
@@ -125,13 +146,30 @@ export default function Rent_Bike_Details() {
       <ScrollView>
         <View style={styles.imageContainer}>
           <Image source={{ uri: item.images[0] }} style={styles.image} />
+          {/* ----- Add To Favorite ----- */}
           <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={My_Fav_handlePress}
+            >
+              <Image
+                source={
+                  isFavorite
+                    ? require("../../assets/My_Fav_Red.png")
+                    : require("../../assets/My_Fav_White.png")
+                }
+                style={styles.buttonIcon}
+              />
+            </TouchableOpacity>
+            {/* ----- Add To Favorite ----- */}
+            {/* --- Featuree Btn --- */}
             <TouchableOpacity style={styles.button} onPress={handleFeature}>
               <Image
                 source={require("../../assets/featured.png")}
                 style={styles.buttonIcon}
               />
             </TouchableOpacity>
+            {/* --- Featuree Btn --- */}
           </View>
           <View style={styles.imageCount}>
             <Text style={styles.imageCountText}>
@@ -219,11 +257,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
+    paddingBottom: 10,
   },
   backButton: {
     // paddingRight: 20,
     tintColor: "white",
-    marginLeft: 5,
+    marginLeft: 10,
   },
   backIcon: {
     width: 25,
@@ -248,23 +287,25 @@ const styles = StyleSheet.create({
     height: 300,
     width: "100%",
     resizeMode: "cover",
+    paddingBottom: 15,
   },
   buttonContainer: {
     position: "absolute",
     flexDirection: "row",
     justifyContent: "space-between",
-    bottom: 0,
+    bottom: 13,
     right: 0,
     padding: 10,
   },
   button: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderRadius: 30,
-    padding: 10,
+    padding: 7,
+    marginRight: 10,
   },
   buttonIcon: {
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
     // tintColor: "white",
   },
   scoresContainer: {

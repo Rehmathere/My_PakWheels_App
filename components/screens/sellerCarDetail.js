@@ -26,7 +26,6 @@ const SellerCarDetail = () => {
   const [isLoading, setIsloading] = useState(true);
   const [imagesUri, setImagesUri] = useState([]);
   const [carFeatures, setCarFeatures] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     async function loadItem() {
@@ -84,9 +83,25 @@ const SellerCarDetail = () => {
     return featureTable;
   };
 
-  const My_Fav_handlePress = () => {
-    setIsFavorite(!isFavorite);
+  // --- Favorite Ads ---
+  const [isFavorite, setIsFavorite] = useState(false);
+  const My_Fav_handlePress = async () => {
+    try {
+      if (carDetails && carDetails._id && user && user._id) {
+        const response = await axios.post(
+          "https://autofinder-backend.vercel.app/api/user/addFavorite",
+          { userId: user._id, adId: carDetails._id, adType: "CarAd" }
+        );
+        // alert(" Added To Favorites ");
+        setIsFavorite(!isFavorite);
+        console.log(response);
+        console.log(" Added To Favorite ");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+  // --- Favorite Ads ---
 
   const carSpecs = [
     { name: carDetails.year, icon: require("../../assets/modelYear.png") },
@@ -218,7 +233,7 @@ const SellerCarDetail = () => {
                   style={styles.buttonIcon}
                 />
               </TouchableOpacity>
-            {/* ----- Add To Favorite ----- */}
+              {/* ----- Add To Favorite ----- */}
               <TouchableOpacity style={styles.button} onPress={handleFeature}>
                 <Image
                   source={require("../../assets/featured.png")}
@@ -372,7 +387,7 @@ const SellerCarDetail = () => {
   }
 };
 
-
+// CSS
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -383,6 +398,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: -100 + StatusBar.currentHeight,
+    paddingBottom: 10,
   },
   backButton: {
     // paddingRight: 10,
@@ -393,6 +409,7 @@ const styles = StyleSheet.create({
     height: 25,
     tintColor: "white",
     marginTop: 20,
+    marginLeft: 10,
   },
   titleContainer: {
     flex: 1,
@@ -400,9 +417,10 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "Kanit",
     alignSelf: "center",
     marginTop: 20,
+    letterSpacing: 0.5,
   },
   imageContainer: {
     // position: 'relative',
@@ -412,24 +430,25 @@ const styles = StyleSheet.create({
     height: 300,
     width: "100%",
     resizeMode: "cover",
+    paddingBottom: 15,
   },
   buttonContainer: {
     position: "absolute",
     flexDirection: "row",
     justifyContent: "space-between",
-    bottom: 0,
+    bottom: 13,
     right: 0,
     padding: 10,
   },
   button: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderRadius: 30,
-    padding: 6,
-    marginHorizontal: 5,
+    padding: 7,
+    marginRight: 10,
   },
   buttonIcon: {
-    width: 35,
-    height: 35,
+    width: 24,
+    height: 24,
     // tintColor: "white",
   },
   scoresContainer: {

@@ -312,18 +312,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#bd2a2a",
     paddingVertical: 2,
     paddingHorizontal: 10,
-    marginBottom: 20,
+    marginBottom: 30,
     borderRadius: 20,
   },
   uploadButtonText: {
     borderWidth: 0.5,
-    paddingVertical: 8,
-    paddingHorizontal: 15,
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    fontSize: 12,
+    letterSpacing: 1.5,
     color: "white",
     borderColor: "transparent",
     textAlign: "center",
     fontFamily: "Kanit",
-    letterSpacing: 1,
   },
 });
 

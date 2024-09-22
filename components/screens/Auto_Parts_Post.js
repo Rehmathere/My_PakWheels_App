@@ -226,13 +226,15 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight,
   },
   backButton: {
+    // paddingRight: 20,
     tintColor: "white",
+    marginLeft: 10,
   },
   backIcon: {
     width: 25,
     height: 25,
+    marginBottom: 15,
     tintColor: "white",
-    marginLeft: 5,
   },
   titleContainer: {
     flex: 1,

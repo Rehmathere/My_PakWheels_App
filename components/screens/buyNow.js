@@ -40,7 +40,10 @@ const BuyNow = () => {
         }
         if (response.data.ok) {
           if (response.data.data.length > 0) {
-            setData(response.data.data);
+            const sortedData = response.data.data.sort(
+              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            );
+            setData(sortedData);
           } else {
             setNoDataError("No Data To Show");
           }
@@ -94,6 +97,10 @@ const BuyNow = () => {
   const handleCardPress = (itemId) => {
     navigation.navigate("sellerCarDetail", { itemId: itemId });
   };
+
+  const handleRentABike = () => {
+    navigation.navigate("homeFreeAds");
+  };
   // Main Body
   return (
     <View style={styles.container}>
@@ -132,7 +139,7 @@ const BuyNow = () => {
       ) : (
         <View style={styles.Container_Sub}>
           <ScrollView>
-            {data.length > 0 ? (
+            {data && data.length > 0 ? (
               data.map((item) => (
                 <TouchableOpacity
                   key={item._id}
@@ -158,6 +165,13 @@ const BuyNow = () => {
               <Text>{noDataError}</Text>
             )}
           </ScrollView>
+          {/* --- Post Ad Btn --- */}
+          <View style={styles.button_Parent}>
+            <TouchableOpacity style={styles.button} onPress={handleRentABike}>
+              <Text style={styles.buttonText}>Post</Text>
+            </TouchableOpacity>
+          </View>
+          {/* --- Post Ad Btn --- */}
         </View>
       )}
     </View>
@@ -170,7 +184,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   header: {
-    backgroundColor: "white",
+    backgroundColor: "#F3F3F3",
     flexDirection: "row",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
@@ -204,12 +218,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingTop: 5,
     paddingBottom: 20,
+    // marginBottom: 30,
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#F3F3F3",
   },
   SearchBar: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#F3F3F3",
     borderRadius: 5,
     marginRight: 10,
     paddingHorizontal: 10,
@@ -232,23 +247,33 @@ const styles = StyleSheet.create({
   },
   Container_Sub: {
     flex: 1,
-    paddingTop: 20,
   },
   button_Parent: {
-    backgroundColor: "white",
+    borderWidth: 0.5,
+    borderColor: "transparent",
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    position: "absolute",
+    bottom: 15,
+    right: 5,
   },
   button: {
     backgroundColor: "#bd2a2a",
-    padding: 15,
+    paddingVertical: 26,
+    paddingHorizontal: 10,
     marginHorizontal: 20,
     marginVertical: 10,
-    borderRadius: 5,
+    width: 70,
+    borderRadius: 50,
+    alignSelf: "flex-end",
+    shadowColor: "black",
+    elevation: 15,
   },
   buttonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 15,
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "Kanit",
+    letterSpacing: 1.5,
   },
   card: {
     backgroundColor: "#fff",

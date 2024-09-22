@@ -44,6 +44,27 @@ export default function Auto_Parts_Details() {
     );
   };
 
+  // --- Favorite Ads ---
+  const [isFavorite, setIsFavorite] = useState(false);
+  const My_Fav_handlePress = async () => {
+    try {
+      if (item && item._id && user && user._id) {
+        const response = await axios.post(
+          "https://autofinder-backend.vercel.app/api/user/addFavorite",
+          { userId: user._id, adId: item._id, adType: "AutoPart" }
+        );
+        // alert(" Added To Favorites ");
+        setIsFavorite(!isFavorite);
+        console.log(response);
+        console.log(" Added To Favorite ");
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // --- Favorite Ads ---
+
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
     return format(date, "MMMM d, yyyy h:mm a");
@@ -83,7 +104,7 @@ export default function Auto_Parts_Details() {
     )}&phone=${phoneNumber}`;
     Linking.openURL(whatsappMessage)
       .then(() => console.log("WhatsApp opened successfully"))
-      .catch((error) => console.log("Error opening WhatsApp:", error));
+      .catch((error) => console.log("Error opening WhatsApp : ", error));
   };
 
   if (!item) {
@@ -107,13 +128,30 @@ export default function Auto_Parts_Details() {
       <ScrollView>
         <View style={styles.imageContainer}>
           <Image source={{ uri: item.images[0] }} style={styles.image} />
+          {/* ----- Add To Favorite ----- */}
           <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={My_Fav_handlePress}
+            >
+              <Image
+                source={
+                  isFavorite
+                    ? require("../../assets/My_Fav_Red.png")
+                    : require("../../assets/My_Fav_White.png")
+                }
+                style={styles.buttonIcon}
+              />
+            </TouchableOpacity>
+            {/* ----- Add To Favorite ----- */}
+            {/* --- Featuree Btn --- */}
             <TouchableOpacity style={styles.button} onPress={handleFeature}>
               <Image
                 source={require("../../assets/featured.png")}
                 style={styles.buttonIcon}
               />
             </TouchableOpacity>
+            {/* --- Featuree Btn --- */}
           </View>
           <View style={styles.imageCount}>
             <Text style={styles.imageCountText}>
@@ -165,6 +203,7 @@ export default function Auto_Parts_Details() {
           </View>
         </View>
       </ScrollView>
+      {/* <Text>No : {user.phoneNumber}</Text> */}
       <FooterContact
         onCallPress={handleCallPress}
         onSMSPress={handleSMSPress}
@@ -190,11 +229,12 @@ const styles = StyleSheet.create({
   backButton: {
     // paddingRight: 20,
     tintColor: "white",
-    marginLeft: 5,
+    marginLeft: 10,
   },
   backIcon: {
     width: 25,
     height: 25,
+    marginBottom: 15,
     tintColor: "white",
   },
   titleContainer: {
@@ -222,18 +262,19 @@ const styles = StyleSheet.create({
     position: "absolute",
     flexDirection: "row",
     justifyContent: "space-between",
-    bottom: 0,
+    bottom: 13,
     right: 0,
     padding: 10,
   },
   button: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderRadius: 30,
-    padding: 10,
+    padding: 7,
+    marginRight: 10,
   },
   buttonIcon: {
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
     // tintColor: "white",
   },
   scoresContainer: {
@@ -405,7 +446,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: "Kanit",
     letterSpacing: 0.5,
-
   },
   BD_Txt_2_1: {
     fontSize: 12,

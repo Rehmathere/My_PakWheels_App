@@ -102,7 +102,9 @@ const ManagedByAutoFinder = () => {
               {/* Content container */}
               <View style={styles.contentContainer}>
                 {/* Item details */}
-                <Text style={styles.name}>{item.brand} {item.model}</Text>
+                <Text style={styles.name}>
+                  {item.brand} {item.model}
+                </Text>
                 <Text style={styles.price}>PKR {item.price}</Text>
                 <Text style={styles.city}>{item.location}</Text>
               </View>
@@ -138,10 +140,10 @@ const styles = StyleSheet.create({
   Extra_Box_Txt_1: {
     marginLeft: 0,
     // borderWidth: 0.5,
-    color: "black",
+    color: "#696969",
     fontSize: 17,
+    letterSpacing: 1,
     fontFamily: "Heebo",
-    letterSpacing: 0.2,
   },
   Extra_Box_Txt_2_Box: {
     borderWidth: 0.5,
@@ -159,6 +161,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "row",
+    paddingTop: 5,
+    marginBottom: 5,
   },
   itemContainer: {
     width: 180,
@@ -255,7 +259,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     // marginTop: 20,
-    
   },
   featuredIcon: {
     position: "absolute",
@@ -282,9 +285,9 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   price: {
-    fontSize: 13.5,
+    fontSize: 13.3,
     fontFamily: "Heebo",
-    color: "black",
+    color: "#282828",
     marginBottom: 3,
     letterSpacing: 0.8,
   },

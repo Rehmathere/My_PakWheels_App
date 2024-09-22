@@ -987,6 +987,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
+    paddingBottom: 10,
   },
   backButton: {
     // paddingRight: 20,
@@ -1006,6 +1007,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     alignSelf: "center",
+    letterSpacing: 1,
   },
   scrollViewContent: {
     flexGrow: 1,
