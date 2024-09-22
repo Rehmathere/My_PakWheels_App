@@ -147,9 +147,9 @@ const styles = StyleSheet.create({
   },
   Extra_Box_Txt_1: {
     // borderWidth: 0.5,
-    color: "black",
-    fontSize: 18.5,
+    color: "#696969",
     fontSize: 17,
+    letterSpacing: 1.1,
     fontFamily: "Heebo",
     marginLeft: 5,
   },

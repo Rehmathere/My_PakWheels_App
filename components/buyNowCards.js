@@ -1,6 +1,18 @@
-import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useEffect, useContext, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 import ManagedByAutoFinder from "./screens/managedByAutoFinder";
+// Fonts Icon
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { UserContext } from "../context/userContext";
+import call from "react-native-phone-call";
+import axios from "axios";
 
 const BuyNowCard = ({
   carImage,
@@ -19,6 +31,8 @@ const BuyNowCard = ({
   useEffect(() => {
     console.log(typeof carImage);
   }, []);
+
+  const { user } = useContext(UserContext);
 
   const cardStyle = {
     ...(isInspected || isManagedByAutoFinder
@@ -71,6 +85,38 @@ const BuyNowCard = ({
 
   const source = { uri: carImage };
 
+  // --- Favorite Ads ---
+  const [isFavorite, setIsFavorite] = useState(false);
+  const My_Fav_handlePress = async () => {
+    setIsFavorite(!isFavorite);
+    console.log(" 😂 Added To Favorite ");
+  };
+  // --- Favorite Ads ---
+
+  // --- Call Logic Detail ---
+  const handleCallPress = () => {
+    console.log("Call Seller pressed");
+    const args = {
+      number: user.phoneNumber, // Ensure this is the correct path to the phone number
+      prompt: false,
+      skipCanOpen: true,
+    };
+    call(args).catch(console.error);
+  };
+
+  const handleWhatsappPress = () => {
+    console.log("Whatsapp pressed");
+    const phoneNumber = user.phoneNumber; // Ensure this is the correct path to the phone number
+    const adDetails = ``;
+    const whatsappMessage = `whatsapp://send?text=${encodeURIComponent(
+      adDetails
+    )}&phone=${phoneNumber}`;
+    Linking.openURL(whatsappMessage)
+      .then(() => console.log("WhatsApp opened successfully"))
+      .catch((error) => console.log("Error opening WhatsApp : ", error));
+  };
+  // --- Call Logic Detail ---
+
   return (
     <View style={styles.cardParent}>
       <View style={[styles.card, cardStyle]}>
@@ -82,6 +128,23 @@ const BuyNowCard = ({
         )}
         <View style={styles.imageContainer}>
           <Image source={source} style={styles.image} />
+          {/* ----- Add To Favorite ----- */}
+          <View style={styles.buttonContainer_Fav}>
+            <TouchableOpacity
+              style={styles.button_Fav}
+              onPress={My_Fav_handlePress}
+            >
+              <Image
+                source={
+                  isFavorite
+                    ? require("../assets/My_Fav_Red.png")
+                    : require("../assets/My_Fav_White.png")
+                }
+                style={styles.buttonIcon_Fav}
+              />
+            </TouchableOpacity>
+            {/* ----- Add To Favorite ----- */}
+          </View>
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.name}>
@@ -127,6 +190,38 @@ const BuyNowCard = ({
               </View>
             </View>
           </View>
+          {/* --- Call --- */}
+          <View style={styles.parentBtnPress_Head}>
+            {/* Button */}
+            <TouchableOpacity
+              style={[styles.parentBtnPress, { backgroundColor: "#FFE1E1" }]}
+              onPress={handleCallPress}
+            >
+              <Text style={styles.parentBtnPress_Txt_1}>Sim Call</Text>
+              <Text style={styles.parentBtnPress_Txt_2}>
+                <MaterialCommunityIcons
+                  name="phone-forward"
+                  size={22}
+                  color="#Bc0000"
+                />
+              </Text>
+            </TouchableOpacity>
+            {/* Button */}
+            <TouchableOpacity
+              style={[styles.parentBtnPress, { backgroundColor: "#E6FFDF" }]}
+              onPress={handleWhatsappPress}
+            >
+              <Text style={styles.parentBtnPress_Txt_1}>Whatsapp</Text>
+              <Text style={styles.parentBtnPress_Txt_2}>
+                <MaterialCommunityIcons
+                  name="whatsapp"
+                  size={22}
+                  color="green"
+                />
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* --- Call --- */}
         </View>
       </View>
       {/* Render additional info if available */}
@@ -168,8 +263,28 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 150,
-    borderRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
     overflow: "hidden", // Hides any content overflowing out of the container
+  },
+  buttonContainer_Fav: {
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    top: 3,
+    right: 0,
+    padding: 0,
+  },
+  button_Fav: {
+    borderRadius: 30,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    marginRight: 1,
+  },
+  buttonIcon_Fav: {
+    width: 30,
+    height: 30,
+    // tintColor: "white",
   },
   featuredIcon: {
     position: "absolute",
@@ -270,6 +385,45 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#bd2a2a",
     fontWeight: "bold",
+  },
+  parentBtnPress_Head: {
+    borderWidth: 0,
+    borderTopWidth: 0.5,
+    borderTopColor: "#DCDCDC",
+    // borderColor: "transparent",
+    paddingBottom: 15,
+    paddingTop: 15,
+    marginTop: 15,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  parentBtnPress: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    borderColor: "grey",
+    paddingVertical: 8,
+    paddingHorizontal: 7,
+    borderRadius: 5,
+    width: "47%",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  parentBtnPress_Txt_1: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    textAlign: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+    color: "grey",
+    width: "75%",
+    paddingTop: 0,
+    fontSize: 15,
+  },
+  parentBtnPress_Txt_2: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    textAlign: "center",
+    width: "25%",
   },
 });
 

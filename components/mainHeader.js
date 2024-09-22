@@ -162,9 +162,7 @@ const MainHeader = ({
 const styles = StyleSheet.create({
   headerContainer: {
     // backgroundColor: "#bd2a2a",
-    backgroundColor: "white",
-    borderBottomWidth: 0.5,
-    borderBottomColor: "white",
+    backgroundColor: "#F3F3F3",
     // shadowColor: "black",
     // elevation: 5,
     flexDirection: "row",
@@ -197,7 +195,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingHorizontal: 5,
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#F3F3F3",
     // borderWidth: 1,
     // borderColor: "white",
   },
@@ -231,8 +229,8 @@ const styles = StyleSheet.create({
   },
   SearchBar: {
     flex: 1,
-    // backgroundColor: "#f0f0f0",
-    backgroundColor: "white",
+    backgroundColor: "#F3F3F3",
+    // backgroundColor: "white",
     borderRadius: 5,
     marginRight: 1,
     paddingHorizontal: 1,
@@ -242,8 +240,6 @@ const styles = StyleSheet.create({
   box_Shadow: {
     borderWidth: 0.1,
     borderColor: "transparent",
-    shadowColor: "black",
-    elevation: 8,
   },
 });
 

@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+// Fonts
+import { useFonts } from "expo-font";
 
 const MyCarAdsCards = ({
   _id,
@@ -17,7 +19,7 @@ const MyCarAdsCards = ({
   isManagedByAutoFinder,
   onBoostPress,
   onRemovePress,
-  pendingCard
+  pendingCard,
 }) => {
   useEffect(() => {
     console.log(typeof carImage);
@@ -74,6 +76,30 @@ const MyCarAdsCards = ({
 
   const source = { uri: carImage };
 
+  // --- Fonts Family ---
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // --- Fonts Family ---
+  // Main Body
   return (
     <View>
       <View style={[styles.card, cardStyle]}>
@@ -128,25 +154,22 @@ const MyCarAdsCards = ({
               <Text style={styles.infoText}>{location}</Text>
             </View>
           </View>
-          {
-              !pendingCard &&
-            
-          <View style={styles.buttonContainer}>
-            
-            <TouchableOpacity
-              onPress={()=>onBoostPress(_id)}
-              style={[styles.button, styles.boostButton]}
-            >
-              <Text style={styles.buttonText}>Boost Ad</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={()=>onRemovePress(_id)}
-              style={[styles.button, styles.removeButton]}
-            >
-              <Text style={styles.buttonText}>Remove</Text>
-            </TouchableOpacity>
-          </View>
-          }
+          {!pendingCard && (
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                onPress={() => onBoostPress(_id)}
+                style={[styles.button, styles.boostButton]}
+              >
+                <Text style={styles.buttonText}>Boost Ad</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => onRemovePress(_id)}
+                style={[styles.button, styles.removeButton]}
+              >
+                <Text style={styles.buttonText}>Remove</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
       {/* Render additional info if available */}
@@ -159,8 +182,10 @@ const MyCarAdsCards = ({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
-    padding: 10,
-    margin: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    marginHorizontal: 10,
+    marginVertical: 25,
     borderRadius: 10,
 
     shadowColor: "#000",
@@ -178,7 +203,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: 100,
     marginRight: 10,
-    justifyContent: "center", // Center vertically
+    justifyContent:"flex-start", // Center vertically
     alignItems: "center", // Center horizontally
   },
   image: {
@@ -196,45 +221,67 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
+    paddingLeft: 8,
   },
   name: {
     fontSize: 14,
-    fontWeight: "bold",
-    marginBottom: 5,
+    // fontWeight: "bold",
+    fontFamily: "Kanit",
+    paddingTop: 0,
+    paddingBottom: 5,
     color: "#bd2a2a",
+    letterSpacing: 1,
   },
   variant: {
-    fontSize: 12,
+    textTransform: "capitalize",
+    fontFamily: "Kanit",
+    fontSize: 13,
     marginBottom: 5,
     color: "grey",
+    letterSpacing: 1,
   },
   price: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "black",
-    marginBottom: 10,
+    fontSize: 13.5,
+    fontFamily: "Heebo",
+    color: "#4A4A4A",
+    paddingBottom: 10,
+    letterSpacing: 1,
   },
   upperView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 5,
+    marginBottom: 15,
   },
   lowerView: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 15,
   },
   infoContainer: {
     flexDirection: "row",
     alignItems: "center",
+    width: "50%",
   },
   infoImage: {
     width: 15,
     height: 15,
-    marginRight: 5,
+    marginRight: 0,
     tintColor: "#bd2a2a",
   },
   infoText: {
     fontSize: 12,
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+    paddingLeft: 6,
+  },
+  infoText_2: {
+    color: "grey",
+    fontSize: 13,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
+    paddingLeft: 9,
+    textAlign: "right",
+    paddingRight: 5,
   },
   additionalInfoContainer: {
     flexDirection: "row",
@@ -276,27 +323,29 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 10,
-    paddingHorizontal: 15,
+    marginTop: 0,
   },
   button: {
     flex: 1,
-    paddingVertical: 5,
+    width: "50%",
+    paddingTop: 5,
+    paddingBottom: 5,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonText: {
     color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 15,
+    fontFamily: "Kanit",
+    letterSpacing: 0.5,
   },
   boostButton: {
-    backgroundColor: "#4CAF50", // Green color
+    backgroundColor: "green", // Green color
     marginRight: 5,
   },
   removeButton: {
-    backgroundColor: "#FF5733", // Red color
+    backgroundColor: "#Bc0000", // Red color
     marginLeft: 5,
   },
 });

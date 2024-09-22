@@ -180,11 +180,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   headerText: {
+    color: "#696969",
     fontSize: 17,
-    fontFamily: "Heebo",
-    color: "black",
     letterSpacing: 1,
-    paddingVertical: 10,
+    fontFamily: "Heebo",
+    paddingTop: 20,
+    paddingBottom: 15,
   },
   line: {
     borderBottomWidth: 1,

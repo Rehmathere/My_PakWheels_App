@@ -12,6 +12,7 @@ const cities = [
   'Sukkur',
   'Peshawar',
   'Sialkot',
+  'Hyderabad'
   // Add more cities as needed
 ];
 
