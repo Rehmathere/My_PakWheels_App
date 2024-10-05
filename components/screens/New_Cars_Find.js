@@ -18,6 +18,12 @@ import { AntDesign } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
 const New_Cars_Find = () => {
+  // --- Hide & Seek ---
+  const [showExploreDropdown, setShowExploreDropdown] = useState(false);
+  const toggleExploreDropdown = () => {
+    setShowExploreDropdown(!showExploreDropdown);
+  };
+  // --- Hide & Seek ---
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
   const [data, setData] = useState([]);
@@ -157,7 +163,12 @@ const New_Cars_Find = () => {
       {/* --- Search Portion --- */}
       {/* --- Brand ---  */}
       <View style={styles.Container_Sub}>
-        <Text style={styles.heading}>Browse New Cars By Brand</Text>
+        <View style={styles.heading_Parent}>
+          <Text style={styles.heading_1}>Browse New Cars By Brand</Text>
+          <Text style={styles.heading_2} onPress={toggleExploreDropdown}>
+            See More
+          </Text>
+        </View>
         {/* Brand Row */}
         <View style={styles.Brand_Box_Parent}>
           {/* Box */}
@@ -222,7 +233,7 @@ const New_Cars_Find = () => {
           >
             <View style={styles.Brand_Box_Img_Parent}>
               <Image
-                source={require("../../assets/images/hyundai.webp")}
+                source={require("../../assets/images/Brand/hyundai.png")}
                 style={styles.Brand_Box_Img}
               />
             </View>
@@ -248,7 +259,7 @@ const New_Cars_Find = () => {
           >
             <View style={styles.Brand_Box_Img_Parent}>
               <Image
-                source={require("../../assets/images/proton.webp")}
+                source={require("../../assets/images/Brand/proton.png")}
                 style={styles.Brand_Box_Img}
               />
             </View>
@@ -268,6 +279,177 @@ const New_Cars_Find = () => {
             <Text style={styles.Brand_Box_Txt}>Audi</Text>
           </TouchableOpacity>
         </View>
+        {/* --- Hide & Seek --- */}
+        {showExploreDropdown && (
+          <>
+            {/* // --- Parent Box --- */}
+            <View style={styles.Brand_Box_Parent}>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("baic")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/baic.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>BAIC</Text>
+              </TouchableOpacity>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("bmw")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/bmw.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>BMW</Text>
+              </TouchableOpacity>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("haval")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/haval.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>Haval</Text>
+              </TouchableOpacity>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("Isuzu")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/Isuzu.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>Isuzu</Text>
+              </TouchableOpacity>
+            </View>
+            {/* // --- Parent Box --- */}
+            <View style={styles.Brand_Box_Parent}>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("kia")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/kia.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>KIA</Text>
+              </TouchableOpacity>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("mercedes")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/mercedes.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>Mercedes</Text>
+              </TouchableOpacity>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("mg")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/mg.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>MG</Text>
+              </TouchableOpacity>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("peugeot")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/peugeot.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>Peugeot</Text>
+              </TouchableOpacity>
+            </View>
+            {/* // --- Final Parent Box --- */}
+            <View style={styles.Brand_Box_Parent}>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("porche")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/porche.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>Porche</Text>
+              </TouchableOpacity>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("faw")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/FAW.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>FAW</Text>
+              </TouchableOpacity>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("suzuki")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/Suzuki.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>Suzuki</Text>
+              </TouchableOpacity>
+              {/* Box */}
+              <TouchableOpacity
+                style={styles.Brand_Box}
+                onPress={() => handleSearch("tesla")}
+              >
+                <View style={styles.Brand_Box_Img_Parent}>
+                  <Image
+                    source={require("../../assets/images/Brand/Tesla.png")}
+                    style={styles.Brand_Box_Img}
+                  />
+                </View>
+                <Text style={styles.Brand_Box_Txt}>Tesla</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+        {/* --- Hide & Seek --- */}
       </View>
       {/* --- Brand --- */}
       <View style={styles.Container_Sub}>
@@ -448,7 +630,7 @@ const styles = StyleSheet.create({
   },
   Brand_Box_Parent: {
     // borderWidth: 0.5,
-    paddingVertical: 5,
+    paddingVertical: 4,
     paddingHorizontal: 5,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -457,7 +639,7 @@ const styles = StyleSheet.create({
   Brand_Box: {
     borderWidth: 0.5,
     borderColor: "#D5D5D5",
-    paddingVertical: 15,
+    paddingVertical: 12,
     paddingHorizontal: 10,
     width: "23%",
     borderRadius: 5,
@@ -467,23 +649,24 @@ const styles = StyleSheet.create({
   },
   Brand_Box_Img_Parent: {
     // borderWidth: 0.5,
-    paddingVertical: 2,
-    paddingHorizontal: 2,
+    paddingVertical: 1,
+    paddingTop: 1,
     width: "100%",
   },
   Brand_Box_Img: {
     // borderWidth: 0.5,
     // borderColor: "black",
-    paddingVertical: 2,
-    paddingHorizontal: 2,
-    width: 45,
-    height: 35,
+    paddingVertical: 1,
+    paddingHorizontal: 1,
+    width: 35,
+    height: 30,
+    alignSelf: "center",
   },
   Brand_Box_Txt: {
     // borderWidth: 0.5,
-    letterSpacing: 0.6,
+    letterSpacing: 0.5,
     textAlign: "center",
-    paddingTop: 5,
+    paddingTop: 3,
     fontSize: 12,
     fontFamily: "Kanit",
   },

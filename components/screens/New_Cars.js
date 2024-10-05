@@ -9,6 +9,7 @@ import {
   StatusBar,
   TextInput,
   Button,
+  Modal,
 } from "react-native";
 import { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook from react-navigation
@@ -21,6 +22,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts } from "expo-font";
 
 const New_Cars = () => {
+  // --- Model 1 - ( Car 1) ---
+  const [showStatus, setShowStatus] = useState(false);
+  // --- Model 2 - ( Car 2) ---
+  const [showStatus_1, setShowStatus_1] = useState(false);
   // --- My API Data ---
   const navigation = useNavigation();
 
@@ -82,7 +87,7 @@ const New_Cars = () => {
   // --- Fonts Family ---
   // Main Body
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         {/* - */}
         <TouchableOpacity onPress={handleBack} style={styles.backButton}>
@@ -105,64 +110,144 @@ const New_Cars = () => {
       </View>
       {/* - Search Bar - */}
       <View style={styles.Container_Sub}>
-        {/* Body */}
-        {/* --- API Body --- */}
-        <Text style={styles.heading}>Compare Cars</Text>
-        <View style={styles.box}>
-          <View style={styles.boxSub}>
-            <Text style={styles.subHeading}>Car 1 :</Text>
+        {/* - Main Box - */}
+        <View style={styles.CC_Main_Box}>
+          {/* --- Image Body --- */}
+          <View style={styles.CC_Image_Parent}>
+            <Image
+              source={require("../../assets/Car_Compare.jpg")}
+              style={styles.CC_Image}
+            />
+          </View>
+          {/* --- Box Body --- */}
+          <View style={styles.Compare_Car_X_Box_Parent}>
+            {/* Box */}
+            <TouchableOpacity
+              onPress={() => {
+                setShowStatus(true);
+              }}
+            >
+              <View style={styles.Compare_Car_X_Box}>
+                <View style={styles.Compare_Car_X_Box_Part1}>
+                  <View style={styles.Compare_Car_X_Box_Part1_Sub}>
+                    <Image
+                      source={require("../../assets/Car.png")}
+                      style={styles.Compare_Icon}
+                    />
+                  </View>
+                </View>
+                <View style={styles.Compare_Car_X_Box_Part2}>
+                  <Text style={styles.Compare_Car_X_Box_Part2_Txt}>
+                    Compare
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+            {/* Box */}
+            <TouchableOpacity
+              style={{ marginTop: 10 }}
+              onPress={() => {
+                setShowStatus_1(true);
+              }}
+            >
+              <View style={styles.Compare_Car_X_Box}>
+                <View style={styles.Compare_Car_X_Box_Part1}>
+                  <View style={styles.Compare_Car_X_Box_Part1_Sub}>
+                    <Image
+                      source={require("../../assets/Car.png")}
+                      style={styles.Compare_Icon}
+                    />
+                  </View>
+                </View>
+                <View style={styles.Compare_Car_X_Box_Part2}>
+                  <Text style={styles.Compare_Car_X_Box_Part2_Txt}>With</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+            {/* Box - ( Press Button ) */}
+            <TouchableOpacity
+              style={[styles.button]}
+              onPress={() => handleSubmit("New_Cars_Details")}
+            >
+              <Text style={styles.buttonText_1}>Compare Cars</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+      {/* --- Model 1 - Car 1 ) --- */}
+      <Modal transparent={true} animationType="fade" visible={showStatus}>
+        <View style={styles.modalContainer}>
+          <View style={styles.innerContainer}>
+            <Text style={styles.modalText}>Car 1</Text>
             <TextInput
               style={styles.input}
-              placeholder="Year"
+              placeholder=" Enter Year"
               keyboardType="numeric"
               value={car1.year}
               onChangeText={(text) => handleInputChange("year", text, 1)}
             />
             <TextInput
               style={styles.input}
-              placeholder="Make"
+              placeholder=" Enter Make"
               value={car1.make}
               onChangeText={(text) => handleInputChange("make", text, 1)}
             />
             <TextInput
               style={styles.input}
-              placeholder="Model"
+              placeholder=" Enter Model"
               value={car1.model}
               onChangeText={(text) => handleInputChange("model", text, 1)}
             />
-            <Text style={styles.subHeading}>Car 2 :</Text>
+            <TouchableOpacity
+              style={[styles.button_Modal]}
+              onPress={() => {
+                setShowStatus(false);
+              }}
+            >
+              <Text style={styles.button_Modal_Text_1}>Confirm</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      {/* --- Model 1 - Car 1 ) --- */}
+      {/* ------------------------- */}
+      {/* --- Model 2 - Car 2 ) --- */}
+      <Modal transparent={true} animationType="fade" visible={showStatus_1}>
+        <View style={styles.modalContainer}>
+          <View style={styles.innerContainer}>
+            <Text style={styles.modalText}>Car 2</Text>
             <TextInput
               style={styles.input}
-              placeholder="Year"
+              placeholder=" Enter Year"
               keyboardType="numeric"
               value={car2.year}
               onChangeText={(text) => handleInputChange("year", text, 2)}
             />
             <TextInput
               style={styles.input}
-              placeholder="Make"
+              placeholder=" Enter Make"
               value={car2.make}
               onChangeText={(text) => handleInputChange("make", text, 2)}
             />
             <TextInput
               style={styles.input}
-              placeholder="Model"
+              placeholder=" Enter Model"
               value={car2.model}
               onChangeText={(text) => handleInputChange("model", text, 2)}
             />
+            <TouchableOpacity
+              style={[styles.button_Modal]}
+              onPress={() => {
+                setShowStatus_1(false);
+              }}
+            >
+              <Text style={styles.button_Modal_Text_1}>Compare</Text>
+            </TouchableOpacity>
           </View>
         </View>
-        {/* --- API Body --- */}
-      </View>
-      <View style={styles.button_Parent}>
-        <TouchableOpacity
-          style={[styles.button]}
-          onPress={() => handleSubmit("New_Cars_Details")}
-        >
-          <Text style={styles.buttonText_1}>Compare Cars</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </Modal>
+      {/* --- Model 1 - Car 1 ) --- */}
+    </View>
   );
 };
 
@@ -196,35 +281,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     letterSpacing: 1,
     fontFamily: "Kanit",
-  },
-  Container_Sub: {
-    flex: 1,
-    // backgroundColor: "lightgreen",
-  },
-  button_Parent: {
-    // borderWidth: 0.5,
-    // backgroundColor: "lightgreen",
-    backgroundColor: "white",
-  },
-  button: {
-    backgroundColor: "#bd2a2a",
-    padding: 15,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    borderRadius: 5,
-  },
-  buttonText_1: {
-    color: "white",
-    fontSize: 16,
-    textAlign: "center",
-    letterSpacing: 2,
-    fontFamily: "Kanit",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    textAlign: "center",
-    fontWeight: "bold",
   },
   card: {
     backgroundColor: "#fff",
@@ -322,56 +378,156 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     marginHorizontal: 20,
   },
-  heading: {
-    fontSize: 22,
-    // marginBottom: 20,
-    textAlign: "center",
-    paddingTop: 25,
-    paddingBottom: 15,
-    letterSpacing: 1.5,
-    fontFamily: "Heebo",
+  Container_Sub: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    // paddingVertical: 40,
+    paddingHorizontal: 40,
   },
-  box: {
-    paddingHorizontal: 30,
-    paddingTop: 10,
-    paddingBottom: 35,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    // borderWidth: 0.5,
-  },
-  boxSub: {
+  CC_Main_Box: {
     borderWidth: 0.5,
-    width: "80%",
-    marginHorizontal: "auto",
+    borderColor: "#D1D1D1",
+    borderRadius: 10,
     paddingVertical: 20,
-    paddingHorizontal: 30,
-    backgroundColor: "#f39c12",
-    borderColor: "#f39c12",
-    borderRadius: 20,
+    paddingHorizontal: 20,
+    width: "100%",
   },
-  subHeading: {
-    // borderWidth: 0.5,
+  Compare_Car_X_Box_Parent: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    // backgroundColor: "lightyellow",
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    width: "100%",
+    alignSelf: "center",
+  },
+  Compare_Car_X_Box: {
+    borderWidth: 0,
+    width: "100%",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#D7D7D7",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "lightyellow",
+  },
+  Compare_Car_X_Box_Part1: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    backgroundColor: "white",
+    width: "25%",
+    paddingVertical: 1,
+  },
+  Compare_Car_X_Box_Part1_Sub: {
+    borderWidth: 0,
+    backgroundColor: "#DADADA",
+    paddingVertical: 7.5,
+    borderRadius: 50,
+  },
+  Compare_Icon: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    width: 25,
+    height: 25,
+    alignSelf: "center",
+  },
+  Compare_Car_X_Box_Part2: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    width: "75%",
+    paddingVertical: 5,
+  },
+  Compare_Car_X_Box_Part2_Txt: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    paddingVertical: 6,
+    paddingHorizontal: 15,
+    fontSize: 18,
+    letterSpacing: 1.8,
+    fontFamily: "Kanit",
+    color: "#bc0000",
+  },
+  button: {
+    backgroundColor: "#bd2a2a",
+    padding: 15,
+    marginTop: 30,
+    borderRadius: 5,
+  },
+  buttonText_1: {
+    color: "white",
     fontSize: 16,
-    marginBottom: 1,
-    paddingTop: 10,
-    paddingBottom: 12,
-    letterSpacing: 1,
+    fontFamily: "Kanit",
+    textAlign: "center",
+    letterSpacing: 2.5,
+  },
+  button_Modal: {
+    backgroundColor: "#bd2a2a",
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    marginTop: 20,
+    marginBottom: 20,
+    borderRadius: 5,
+  },
+  button_Modal_Text_1: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Kanit",
+    textAlign: "center",
+    letterSpacing: 2.5,
+  },
+  CC_Image_Parent: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    marginBottom: 20,
+    borderRadius: 10,
+  },
+  CC_Image: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    borderColor: "black",
+    width: 200,
+    height: 130,
+    borderRadius: 15,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    paddingHorizontal: 10,
+  },
+  innerContainer: {
+    width: "80%",
+    backgroundColor: "#ffffff",
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    borderRadius: 10,
+  },
+  modalText: {
+    fontSize: 20,
+    marginTop: 10,
+    marginBottom: 20,
+    color: "#000000",
+    textAlign: "center",
     fontFamily: "Heebo",
+    letterSpacing: 2,
   },
   input: {
     borderWidth: 1,
     borderColor: "#ddd",
     paddingHorizontal: 15,
-    paddingVertical: 0,
-    marginBottom: 5,
+    paddingVertical: 1,
+    marginBottom: 10,
     borderRadius: 5,
     backgroundColor: "white",
     fontSize: 13,
-    letterSpacing: 1.2,
+    letterSpacing: 2.5,
     fontFamily: "Kanit",
   },
 });

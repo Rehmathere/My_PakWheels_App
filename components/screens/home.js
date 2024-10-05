@@ -99,8 +99,8 @@ const Home = ({ navigation }) => {
           imageSource={require("../../assets/boost.png")}
           buttonText="Upgrade Now"
           onPress={handleDealerPack}
-          buttonColor="#2e8b57"
-          titleColor="#2e8b57"
+          buttonColor="#BC0000"
+          titleColor="#BC0000"
         />
 
         {/* <AdvertisementCard

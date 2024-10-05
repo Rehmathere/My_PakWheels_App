@@ -21,7 +21,7 @@ export default function ActiveAds() {
       try {
         const response = await axios.post(
           "https://autofinder-backend.vercel.app/api/carAd/",
-          { user: `${user._id}` }
+          { limit: 10, user: `${user._id}` }
         );
         setData(response.data.data);
       } catch (error) {

@@ -558,9 +558,7 @@ const MoreOption = ({ navigation }) => {
                 <View style={styles.category}>
                   {/* Replace the source with your actual image */}
                   <Image source={carIcon} style={styles.categoryImage} />
-                  <Text style={styles.textDecor}>
-                    Auto Finder Certified Cars
-                  </Text>
+                  <Text style={styles.textDecor}>Find Certified Cars</Text>
                 </View>
               </TouchableOpacity>
 
@@ -568,7 +566,7 @@ const MoreOption = ({ navigation }) => {
                 <View style={styles.category}>
                   {/* Replace the source with your actual image */}
                   <Image source={carIcon} style={styles.categoryImage} />
-                  <Text style={styles.textDecor}>Premium Cars</Text>
+                  <Text style={styles.textDecor}>Find Premium Cars</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -679,7 +677,7 @@ const styles = StyleSheet.create({
     tintColor: "white",
   },
   dropdownContent: {
-    backgroundColor: "whitesmoke", //(#f5f5f5)
+    // backgroundColor: "whitesmoke", //(#f5f5f5)
     marginTop: 5,
     paddingVertical: 10,
     marginHorizontal: 15,
@@ -697,12 +695,12 @@ const styles = StyleSheet.create({
     color: "black",
     marginRight: 30,
     fontFamily: "Kanit",
-    letterSpacing: 0.5,
+    letterSpacing: 1,
   },
   subOptionIcon: {
     width: 15,
     height: 15,
-    tintColor: "grey",
+    tintColor: "black",
     marginRight: 10,
   },
   centeredTextContainer: {
@@ -736,13 +734,13 @@ const styles = StyleSheet.create({
     width: "80%",
     backgroundColor: "#ffffff",
     paddingHorizontal: 20,
-    paddingVertical: 30,
+    paddingVertical: 20,
     borderRadius: 10,
   },
   modalText: {
     fontSize: 20,
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 30,
     color: "#000000",
     textAlign: "center",
     fontFamily: "Heebo",
@@ -756,24 +754,25 @@ const styles = StyleSheet.create({
     // paddingLeft: 5,
     // borderColor: "black",
     // borderWidth: 0.5,
-    paddingVertical: 15,
-    backgroundColor: "lightpink",
-    width: "100%",
-    marginVertical: 10,
-    paddingHorizontal: 28,
-    borderRadius: 5,
+    paddingVertical: 10,
+    backgroundColor: "#bc0000",
+    width: 150,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 20,
   },
   categoryImage: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     borderRadius: 25,
     marginBottom: 10,
+    tintColor: "white",
     // borderColor: "black",
     // borderWidth: 0.5,
     alignSelf: "center",
   },
   textDecor: {
-    color: "#000000",
+    color: "white",
     fontSize: 15,
     // borderColor: "black",
     // borderWidth: 0.5,
@@ -783,7 +782,7 @@ const styles = StyleSheet.create({
   closeButton: {
     // borderColor: "black",
     // borderWidth: 0.5,
-    marginTop: 20,
+    marginTop: 10,
     marginRight: 10,
     fontSize: 15,
     color: "#8b0000",

@@ -13,6 +13,7 @@ import axios from "axios";
 import { useNavigation, useRoute } from "@react-navigation/native";
 // Fonts
 import { useFonts } from "expo-font";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const ManagedByAutoFinder = () => {
   const route = useRoute();
@@ -28,7 +29,10 @@ const ManagedByAutoFinder = () => {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "https://autofinder-backend.vercel.app/api/carAd/"
+        "https://autofinder-backend.vercel.app/api/carAd/",
+        {
+          limit: 10,
+        }
       );
       setData(response.data.data);
     } catch (error) {
@@ -91,19 +95,31 @@ const ManagedByAutoFinder = () => {
             >
               {/* Image container */}
               <View style={styles.imageContainer}>
-                {/* Placeholder for user-uploaded image */}
-                {/* You can replace this with your actual image upload component */}
                 <Image
                   // source={require("../../assets/BMW.png")}
                   source={{ uri: item.images[0] }} // Use the first image URI
                   style={styles.image}
                 />
+                {/* --- Featured --- */}
+                {item.featured && (
+                  // <Image
+                  //   source={require("../assets/featured.png")}
+                  //   style={styles.featuredIcon}
+                  // />
+                  // --- New ---
+                  <Text style={styles.featuredText}>
+                    {/* <FontAwesome name="star" size={15} color="white" /> */}
+                    Featured
+                  </Text>
+                  // --- New ---
+                )}
+                {/* --- Featured --- */}
               </View>
               {/* Content container */}
               <View style={styles.contentContainer}>
                 {/* Item details */}
                 <Text style={styles.name}>
-                  {item.brand} {item.model}
+                  {item.brand} {item.model.substring(0, 10)}
                 </Text>
                 <Text style={styles.price}>PKR {item.price}</Text>
                 <Text style={styles.city}>{item.location}</Text>
@@ -182,19 +198,6 @@ const styles = StyleSheet.create({
     // Shadow properties for Android
     elevation: 10,
   },
-  imageContainer: {
-    flex: 1,
-    borderTopLeftRadius: 20,
-    borderTopLeftRadius: 20,
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0,
-    overflow: "hidden",
-  },
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    // Make sure to handle image dimensions appropriately
-  },
   contentContainer: {
     padding: 10,
     justifyContent: "center",
@@ -245,7 +248,7 @@ const styles = StyleSheet.create({
   myBox: {
     marginHorizontal: 10,
     marginBottom: 10,
-    width: 120,
+    width: 125,
   },
   imageContainer: {
     width: "100%",
@@ -258,14 +261,22 @@ const styles = StyleSheet.create({
     height: 100,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    // marginTop: 20,
   },
-  featuredIcon: {
+  featuredText: {
+    overflow: "visible",
+    borderWidth: 0,
     position: "absolute",
-    top: 10,
-    right: 10,
-    width: 30,
-    height: 30,
+    top: 0,
+    left: 0,
+    paddingHorizontal: 7,
+    paddingVertical: 7,
+    color: "white",
+    backgroundColor: "#EE0101",
+    letterSpacing: 1,
+    fontFamily: "Kanit",
+    borderTopLeftRadius: 5,
+    borderBottomRightRadius: 10,
+    fontSize: 12,
   },
   detailsContainer: {
     flex: 1,

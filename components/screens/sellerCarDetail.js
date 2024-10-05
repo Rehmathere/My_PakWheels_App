@@ -15,6 +15,7 @@ import FooterContact from "../footerContact";
 import axios from "axios";
 import call from "react-native-phone-call";
 import { UserContext } from "../../context/userContext";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const SellerCarDetail = () => {
   const { user } = useContext(UserContext);
@@ -209,13 +210,28 @@ const SellerCarDetail = () => {
             />
             {/* ----- Showing Number Of Days Left - ( Featured Only ) ----- */}
             {carDetails.featured && (
-              <View style={styles.Parent_Time_Remain}>
-                <View style={styles.Parent_Sub_Time_Remain}>
-                  <Text style={styles.Parent_Sub_Time_Remain_Txt}>
-                    10 Days Left
-                  </Text>
+              <>
+                {/* --- Featured Text --- */}
+                <Text style={styles.featuredText}>
+                  {" "}
+                  <FontAwesome name="star" size={16} color="white" /> {"  "}
+                  Featured
+                </Text>
+                {/* --- Days Left --- */}
+                <View style={styles.Parent_Time_Remain}>
+                  <View style={styles.Parent_Sub_Time_Remain}>
+                    <Text style={styles.Parent_Sub_Time_Remain_Txt}>
+                      <FontAwesome name="calendar" size={16} color="white" /> {"  "}
+                      {carDetails?.days
+                        ? carDetails.days !== null
+                          ? carDetails.days
+                          : "-"
+                        : "-"}{" "}
+                      Days Left
+                    </Text>
+                  </View>
                 </View>
-              </View>
+              </>
             )}
             {/* ----- Showing Number Of Days Left - ( Featured Only ) ----- */}
             {/* ----- Add To Favorite ----- */}
@@ -665,12 +681,29 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 20,
   },
+  featuredText: {
+    overflow: "visible",
+    borderWidth: 0,
+    position: "absolute",
+    top: 12,
+    left: 0,
+    width: "42.2%",
+    textAlign: "center",
+    paddingVertical: 7,
+    paddingHorizontal: 1,
+    color: "white",
+    backgroundColor: "#EE0101",
+    letterSpacing: 1.8,
+    fontFamily: "Kanit",
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+  },
   Parent_Time_Remain: {
     borderWidth: 0.5,
     borderColor: "transparent",
-    width: "37%",
+    width: "50%",
     paddingRight: 25,
-    paddingVertical: 20,
+    paddingVertical: 50,
     position: "absolute",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -685,7 +718,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 1,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
-    backgroundColor: "#016301",
+    backgroundColor: "#00A800",
   },
   Parent_Sub_Time_Remain_Txt: {
     borderWidth: 0.5,
@@ -693,7 +726,8 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
     color: "white",
-    fontSize: 12,
+    fontSize: 13,
+    fontFamily: "Kanit",
     letterSpacing: 1,
   },
 });

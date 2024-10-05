@@ -10,11 +10,13 @@ import {
   StyleSheet,
   StatusBar,
   Linking,
+  Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { AntDesign } from "@expo/vector-icons"; // Importing AntDesign icons
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import SearchBar from "../searchBar";
 import SyncStorage from "sync-storage"; // Import SyncStorage for checking login status
 // Fonts
@@ -35,7 +37,10 @@ const Rent_Bike = () => {
     const getData = async () => {
       try {
         const response = await axios.get(
-          "https://autofinder-backend.vercel.app/api/bike/"
+          "https://autofinder-backend.vercel.app/api/bike/",
+          {
+            limit: 10,
+          }
         );
         if (response.data.ok) {
           const sortedData = response.data.data.sort(
@@ -142,6 +147,42 @@ const Rent_Bike = () => {
   };
   // --- Call Logic ---
 
+  // --- Sort Functions ---
+  const [showStatus_Loading, setShowStatus_Loading] = useState(false);
+  // 1
+  const sortNewestToOldest = () => {
+    const sortedData = data.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setData([...sortedData]); // Spread the sorted data to trigger re-render
+    // Modal Close
+    setShowStatus_Loading(false);
+  };
+  // 2
+  const sortOldestToNewest = () => {
+    const sortedData = data.sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+    setData([...sortedData]); // Spread the sorted data to trigger re-render
+    // Modal Close
+    setShowStatus_Loading(false);
+  };
+  // 3
+  const sortHighestToLowestPrice = () => {
+    const sortedData = data.sort((a, b) => b.price - a.price);
+    setData([...sortedData]); // Spread the sorted data to trigger re-render
+    // Modal Close
+    setShowStatus_Loading(false);
+  };
+  // 4
+  const sortLowestToHighestPrice = () => {
+    const sortedData = data.sort((a, b) => a.price - b.price);
+    setData([...sortedData]); // Spread the sorted data to trigger re-render
+    // Modal Close
+    setShowStatus_Loading(false);
+  };
+  // --- Sort Functions ---
+
   // --- Fonts Family ---
   // 1 - useState
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -192,10 +233,65 @@ const Rent_Bike = () => {
           style={styles.filterButton}
           onPress={handleFilterPress}
         >
-          <Text style={styles.filterText}>Filter</Text>
           <AntDesign name="filter" size={22} color="black" />
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.filterButton_1}
+          onPress={() => {
+            setShowStatus_Loading(true);
+          }}
+        >
+          <FontAwesome name="sort" size={20} color="white" />
+        </TouchableOpacity>
       </View>
+      {/* --- Sort --- */}
+      <Modal
+        transparent={true}
+        animationType="fade"
+        visible={showStatus_Loading}
+      >
+        <View style={styles.ParentStatus}>
+          <View style={styles.sub_ParentStatus}>
+            <Text style={styles.Modal_Txt}>Sort</Text>
+            {/* --- Btn Parent --- */}
+            {/* Btn */}
+            <TouchableOpacity
+              style={styles.Modal_Btn}
+              onPress={() => sortNewestToOldest()}
+            >
+              <Text style={styles.Modal_Btn_Txt}>
+                Newest to Oldest ( Default )
+              </Text>
+            </TouchableOpacity>
+            {/* Btn */}
+            <TouchableOpacity
+              style={styles.Modal_Btn}
+              onPress={() => sortOldestToNewest()}
+            >
+              <Text style={styles.Modal_Btn_Txt}>Oldest to Newest</Text>
+            </TouchableOpacity>
+            {/* Btn */}
+            <TouchableOpacity
+              style={styles.Modal_Btn}
+              onPress={() => sortHighestToLowestPrice()}
+            >
+              <Text style={styles.Modal_Btn_Txt}>
+                Highest Price to Lowest Price
+              </Text>
+            </TouchableOpacity>
+            {/* Btn */}
+            <TouchableOpacity
+              style={styles.Modal_Btn}
+              onPress={() => sortLowestToHighestPrice()}
+            >
+              <Text style={styles.Modal_Btn_Txt}>
+                Lowest Price to Highest Price
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      {/* --- Sort --- */}
       {/* --- Main Body --- */}
       {isLoading ? (
         <ActivityIndicator size="large" color="#cd0100" />
@@ -406,25 +502,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F3F3F3",
     borderRadius: 5,
-    marginRight: 10,
+    marginRight: 0,
     paddingHorizontal: 10,
   },
   filterButton: {
     flexDirection: "row",
     backgroundColor: "#f39c12",
-    paddingVertical: 10,
+    paddingVertical: 10.5,
+    paddingHorizontal: 7,
+    marginRight: 10,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  filterButton_1: {
+    flexDirection: "row",
+    backgroundColor: "#Bc0000",
+    paddingVertical: 10.5,
     paddingHorizontal: 10,
     marginRight: 10,
     borderRadius: 5,
     alignItems: "center",
   },
-  filterText: {
-    // color: "white",
-    marginRight: 5,
-    fontSize: 14,
-    fontFamily: "Kanit",
-    letterSpacing: 1,
-  },
+  // filterText: {
+  //   // color: "white",
+  //   marginRight: 5,
+  //   fontSize: 14,
+  //   fontFamily: "Kanit",
+  //   letterSpacing: 1,
+  // },
   Container_Sub: {
     flex: 1,
   },
@@ -625,6 +730,50 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     textAlign: "center",
     width: "25%",
+  },
+  ParentStatus: {
+    backgroundColor: "rgba(0, 0, 0, 0.70)",
+    flex: 1,
+    // borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  sub_ParentStatus: {
+    // borderWidth: 1,
+    width: "81%",
+    backgroundColor: "white",
+    paddingVertical: 30,
+    borderRadius: 10,
+  },
+  Modal_Txt: {
+    textAlign: "center",
+    borderWidth: 0,
+    // borderColor: "transparent",
+    fontFamily: "Heebo",
+    letterSpacing: 2,
+    fontSize: 25,
+    marginBottom: 20,
+  },
+  Modal_Btn: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: "grey",
+    marginHorizontal: 20,
+    paddingVertical: 3,
+    paddingHorizontal: 1,
+    letterSpacing: 1,
+    // color: "grey",
+    fontFamily: "Kanit",
+    marginBottom: 5,
+  },
+  Modal_Btn_Txt: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    paddingHorizontal: 13,
+    paddingVertical: 5,
+    letterSpacing: 1,
+    // color: "grey",
+    textAlign: "left",
+    fontFamily: "Kanit",
   },
 });
 

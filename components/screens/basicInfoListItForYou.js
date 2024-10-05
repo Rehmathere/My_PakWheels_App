@@ -130,12 +130,12 @@ const BasicInfoListItForYou = ({ navigation }) => {
   };
 
   const handleNext = () => {
-    if (setvalidationOK) {
-      navigation.navigate("bookExpertVisitCarInspection", { name: "faizan" });
-      console.log(validationOK);
-    } else {
-      validation();
-    }
+    // if (setvalidationOK) {
+    //   navigation.navigate("bookExpertVisitCarInspection", { name: "faizan" });
+    //   console.log(validationOK);
+    // } else {
+    //   validation();
+    // }
 
     validation();
 
@@ -169,7 +169,7 @@ const BasicInfoListItForYou = ({ navigation }) => {
       brand: selectedBrand,
       year: selectedYear,
       model: selectedModel,
-      variant: selectedVariant,
+      varient: selectedVariant,
       price: price,
       description: carSummary,
       pacakageType: selectedCapacity,
@@ -177,7 +177,7 @@ const BasicInfoListItForYou = ({ navigation }) => {
     };
 
     // console.log(data);
-    if (validation()) {
+    if (validation() || setvalidationOK) {
       navigation.navigate("checkoutCarInspection", data);
     }
   };
