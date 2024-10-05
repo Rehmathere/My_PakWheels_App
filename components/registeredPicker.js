@@ -1,23 +1,50 @@
-import React, { useState } from 'react';
-import { View, Text, Modal, TouchableOpacity, ScrollView, TextInput, StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Modal,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+  StyleSheet,
+} from "react-native";
 
 const cities = [
-  'Rawalpindi',
-  'Islamabad',
-  'Karachi',
-  'Lahore',
-  'Quetta',
-  'Multan',
-  'Faisalabad',
-  'Sukkur',
-  'Peshawar',
-  'Sialkot',
-  'Hyderabad'
+  "Karachi",
+  "Lahore",
+  "Islamabad",
+  "Faisalabad",
+  "Rawalpindi",
+  "Multan",
+  "Gujranwala",
+  "Hyderabad",
+  "Peshawar",
+  "Quetta",
+  "Sialkot",
+  "Bahawalpur",
+  "Sargodha",
+  "Sukkur",
+  "Larkana",
+  "Sheikhupura",
+  "Mirpur Khas",
+  "Rahim Yar Khan",
+  "Gujrat",
+  "Jhang",
+  "Mardan",
+  "Kasur",
+  "Dera Ghazi Khan",
+  "Sahiwal",
+  "Nawabshah",
+  "Mingora",
+  "Okara",
+  "Mandi Bahauddin",
+  "Chiniot",
+  "Kamalia",
   // Add more cities as needed
 ];
 
 const RegisteredPicker = ({ isVisible, onClose, onSelectCity }) => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
 
   const handleCitySelect = (city) => {
     onSelectCity(city);
@@ -41,8 +68,10 @@ const RegisteredPicker = ({ isVisible, onClose, onSelectCity }) => {
           />
           <ScrollView>
             {cities
-              .filter(city => city.toLowerCase().includes(searchText.toLowerCase()))
-              .map(city => (
+              .filter((city) =>
+                city.toLowerCase().includes(searchText.toLowerCase())
+              )
+              .map((city) => (
                 <TouchableOpacity
                   key={city}
                   style={styles.cityItem}
@@ -64,10 +93,10 @@ const RegisteredPicker = ({ isVisible, onClose, onSelectCity }) => {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
@@ -75,7 +104,7 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 10,
@@ -84,10 +113,10 @@ const styles = StyleSheet.create({
   cityItem: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: "#ccc",
   },
   closeButton: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
   },
 });

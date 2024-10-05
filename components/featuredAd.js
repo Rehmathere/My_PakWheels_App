@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import axios from "axios";
 // Fonts
 import { useFonts } from "expo-font";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const FeaturedAd = ({ navigation }) => {
   const [items, setItems] = useState([]);
@@ -103,22 +104,33 @@ const FeaturedAd = ({ navigation }) => {
         {items.length > 0 &&
           items.map((item) => (
             <TouchableOpacity
-              key={item.id}
+              key={item._id} // Updated to use item._id as a unique key
               style={styles.itemContainer}
               onPress={() => handleItemPress(item._id)}
             >
               <View style={styles.imageContainer}>
                 <Image source={{ uri: item.images[0] }} style={styles.image} />
+                {/* --- Featured --- */}
+                {item.featured && (
+                  // <Image
+                  //   source={require("../assets/featured.png")}
+                  //   style={styles.featuredIcon}
+                  // />
+                  // --- New ---
+                  <Text style={styles.featuredText}>
+                    {/* <FontAwesome name="star" size={15} color="white" /> */}
+                    Featured
+                  </Text>
+                  // --- New ---
+                )}
+                {/* --- Featured --- */}
               </View>
               <View style={styles.contentContainer}>
                 <Text
                   style={styles.name}
-                >{`${item.year} ${item.brand} ${item.varient}`}</Text>
-                <Text style={styles.price}>{item.price}</Text>
-                <Text style={styles.city}>{item.city}</Text>
-                <Text
-                  style={styles.modelKmDriven}
-                >{`${item.brand} / ${item.kmDriven}`}</Text>
+                >{`${item.brand} ${item.model} ${item.varient}`}</Text>
+                <Text style={styles.price}>PKR {item.price}</Text>
+                <Text style={styles.city}>{item.location}</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -129,8 +141,9 @@ const FeaturedAd = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   featuredAdsContainer: {
-    marginBottom: 10,
-    marginLeft: 4,
+    marginTop: 20,
+    marginBottom: 20,
+    paddingLeft: 10,
   },
   featuredAdsLabel: {
     color: "black",
@@ -146,12 +159,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   Extra_Box_Txt_1: {
+    marginLeft: 0,
     // borderWidth: 0.5,
     color: "#696969",
     fontSize: 17,
-    letterSpacing: 1.1,
+    letterSpacing: 1,
     fontFamily: "Heebo",
-    marginLeft: 5,
   },
   // Extra_Box_Txt_2_Box: {
   //   borderWidth: 0.5,
@@ -168,60 +181,72 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "row",
+    paddingTop: 5,
+    marginBottom: 5,
   },
   itemContainer: {
-    width: 180,
-    height: 220,
-    borderRadius: 20,
-    backgroundColor: "#ffffff",
-    margin: 5,
-    flexDirection: "column",
-    // Shadow properties for iOS
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    // Shadow properties for Android
-    elevation: 5,
+    marginHorizontal: 10,
+    marginBottom: 10,
+    width: 130,
   },
   imageContainer: {
-    flex: 1,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    overflow: "hidden",
+    width: "100%",
+    marginRight: 0,
+    justifyContent: "center", // Center vertically
+    alignItems: "center", // Center horizontally
   },
   image: {
-    flex: 1,
-    resizeMode: "cover",
-    // Make sure to handle image dimensions appropriately
+    width: "100%",
+    height: 100,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    // marginTop: 20,
   },
   contentContainer: {
-    padding: 10,
+    paddingVertical: 13,
+    paddingHorizontal: 10,
     justifyContent: "center",
     alignItems: "flex-start",
-    backgroundColor: "#f4f0ec",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    backgroundColor: "#FFF2F2",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   name: {
+    fontSize: 12.5,
+    // fontWeight: "bold",
+    marginTop: 1,
+    marginBottom: 5,
     color: "#bd2a2a",
-    fontWeight: "bold",
+    fontFamily: "Kanit",
+    letterSpacing: 1,
+  },
+  variant: {
     fontSize: 12,
+    marginBottom: 5,
+    color: "grey",
+    letterSpacing: 1,
   },
   price: {
-    color: "#000000",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 13.3,
+    fontFamily: "Heebo",
+    color: "#282828",
+    marginBottom: 3,
+    letterSpacing: 1,
   },
-  city: {
-    color: "#8b8c8c",
-    fontSize: 12,
-  },
-  modelKmDriven: {
-    color: "#8b8c8c",
+  featuredText: {
+    overflow: "visible",
+    borderWidth: 0,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    paddingHorizontal: 7,
+    paddingVertical: 7,
+    color: "white",
+    backgroundColor: "#EE0101",
+    letterSpacing: 1,
+    fontFamily: "Kanit",
+    borderTopLeftRadius: 5,
+    borderBottomRightRadius: 10,
     fontSize: 12,
   },
 });

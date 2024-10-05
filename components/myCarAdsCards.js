@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 // Fonts
 import { useFonts } from "expo-font";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const MyCarAdsCards = ({
   _id,
@@ -104,10 +105,16 @@ const MyCarAdsCards = ({
     <View>
       <View style={[styles.card, cardStyle]}>
         {isFeatured && (
-          <Image
-            source={require("../assets/featured.png")}
-            style={styles.featuredIcon}
-          />
+          // <Image
+          //   source={require("../assets/featured.png")}
+          //   style={styles.featuredIcon}
+          // />
+          // --- New ---
+          <Text style={styles.featuredText}>
+            {/* <FontAwesome name="star" size={18} color="white" /> */}
+            Featured
+          </Text>
+          // --- New ---
         )}
         <View style={styles.imageContainer}>
           <Image source={source} style={styles.image} />
@@ -116,7 +123,7 @@ const MyCarAdsCards = ({
           <Text style={styles.name}>
             {name} {model}
           </Text>
-          <Text style={styles.variant}>{variant}</Text>
+          <Text style={styles.variant}>{variant ? variant : " - "}</Text>
           <Text style={styles.price}>PKR {price}</Text>
 
           {/* Upper view */}
@@ -203,12 +210,12 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: 100,
     marginRight: 10,
-    justifyContent:"flex-start", // Center vertically
+    justifyContent: "flex-start", // Center vertically
     alignItems: "center", // Center horizontally
   },
   image: {
     width: "100%",
-    height: 100,
+    height: 110,
     borderRadius: 5,
     // marginTop: 20,
   },
@@ -250,12 +257,12 @@ const styles = StyleSheet.create({
   upperView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 15,
+    marginBottom: 9,
   },
   lowerView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 15,
+    marginBottom: 9,
   },
   infoContainer: {
     flexDirection: "row",
@@ -336,7 +343,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontSize: 15,
+    fontSize: 14.5,
     fontFamily: "Kanit",
     letterSpacing: 0.5,
   },
@@ -347,6 +354,21 @@ const styles = StyleSheet.create({
   removeButton: {
     backgroundColor: "#Bc0000", // Red color
     marginLeft: 5,
+  },
+  featuredText: {
+    overflow: "visible",
+    borderWidth: 0,
+    position: "absolute",
+    top: 0,
+    right: 0,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+    color: "white",
+    backgroundColor: "#EE0101",
+    letterSpacing: 1.5,
+    fontFamily: "Kanit",
+    borderTopRightRadius: 5,
+    borderBottomLeftRadius: 10,
   },
 });
 

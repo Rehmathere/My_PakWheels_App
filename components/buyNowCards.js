@@ -120,14 +120,19 @@ const BuyNowCard = ({
   return (
     <View style={styles.cardParent}>
       <View style={[styles.card, cardStyle]}>
-        {isFeatured && (
-          <Image
-            source={require("../assets/featured.png")}
-            style={styles.featuredIcon}
-          />
-        )}
         <View style={styles.imageContainer}>
           <Image source={source} style={styles.image} />
+          {/* --- Featured --- */}
+          {isFeatured && (
+            // <Image
+            //   source={require("../assets/featured.png")}
+            //   style={styles.featuredIcon}
+            // />
+            // --- New ---
+            <Text style={styles.featuredText}>Featured</Text>
+            // --- New ---
+          )}
+          {/* --- Featured --- */}
           {/* ----- Add To Favorite ----- */}
           <View style={styles.buttonContainer_Fav}>
             <TouchableOpacity
@@ -148,7 +153,7 @@ const BuyNowCard = ({
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.name}>
-            {name} {model} {variant}
+            {name} {model} , {variant}
           </Text>
           {/* <Text style={styles.variant}>{variant}</Text> */}
           <Text style={styles.price}>PKR {price}</Text>
@@ -265,7 +270,7 @@ const styles = StyleSheet.create({
     height: 150,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    overflow: "hidden", // Hides any content overflowing out of the container
+    // overflow: "hidden", // Hides any content overflowing out of the container
   },
   buttonContainer_Fav: {
     position: "absolute",
@@ -286,12 +291,30 @@ const styles = StyleSheet.create({
     height: 30,
     // tintColor: "white",
   },
-  featuredIcon: {
+  // featuredIcon: {
+  //   borderWidth: 0.5,
+  //   borderColor: "black",
+  //   position: "absolute",
+  //   top: 150,
+  //   right: 10,
+  //   width: 50,
+  //   height: 50,
+  //   overflow: "visible",
+  // },
+  featuredText: {
+    overflow: "visible",
+    borderWidth: 0,
     position: "absolute",
-    top: 10,
-    right: 10,
-    width: 30,
-    height: 30,
+    top: 0,
+    left: 0,
+    paddingHorizontal: 9,
+    paddingVertical: 9,
+    color: "white",
+    backgroundColor: "#EE0101",
+    letterSpacing: 1.8,
+    fontFamily: "Kanit",
+    borderTopLeftRadius: 5,
+    borderBottomRightRadius: 10,
   },
   detailsContainer: {
     flex: 1,
