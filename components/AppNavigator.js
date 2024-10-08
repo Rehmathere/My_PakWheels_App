@@ -80,6 +80,8 @@ import New_Cars_Detail_F_Single from "./screens/New_Cars_Detail_F_Single";
 import BasicinfoCarIns_2 from "./screens/basicinfoCarIns_2";
 import My_CarInspect from "./screens/My_CarInspect";
 import My_Package from "./screens/My_Package";
+import PremiumAdsPostService_Listit from "./screens/premiumAdsPostService_Listit";
+import FreeAdsPostService_List from "./screens/freeAdsPostService_List";
 
 const Stack = createStackNavigator();
 
@@ -155,9 +157,14 @@ const AppNavigator = () => {
       {/* <Stack.Screen name="homeSellItForMe" component={HomeSellItForMe} /> */}
       <Stack.Screen name="homeFreeAds" component={HomeFreeAds} />
       <Stack.Screen name="freeAdsPostService" component={FreeAdsPostService} />
+      <Stack.Screen name="FreeAdsPostService_List" component={FreeAdsPostService_List} />
       <Stack.Screen
         name="premiumAdsPostService"
         component={PremiumAdsPostService}
+      />
+      <Stack.Screen
+        name="PremiumAdsPostService_Listit"
+        component={PremiumAdsPostService_Listit}
       />
       <Stack.Screen name="homeListItForYou" component={HomeListItForYou} />
       <Stack.Screen name="myAds" component={MyAds} />

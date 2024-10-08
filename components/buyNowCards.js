@@ -35,7 +35,7 @@ const BuyNowCard = ({
   const { user } = useContext(UserContext);
 
   const cardStyle = {
-    ...(isInspected || isManagedByAutoFinder
+    ...(isInspected
       ? {
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
@@ -45,7 +45,7 @@ const BuyNowCard = ({
       : {}), // Apply bottom border radius conditionally
   };
   const additionalCard = {
-    ...(isInspected || isManagedByAutoFinder
+    ...(isInspected
       ? {
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
@@ -57,7 +57,7 @@ const BuyNowCard = ({
 
   let additionalInfo = null;
 
-  if (isInspected || isManagedByAutoFinder) {
+  if (isInspected) {
     additionalInfo = (
       <View style={[styles.additionalInfoContainer, additionalCard]}>
         {isInspected && (
@@ -70,7 +70,7 @@ const BuyNowCard = ({
             <Text style={styles.additionalInfoSubtext}> 8/10</Text>
           </View>
         )}
-        {isManagedByAutoFinder && (
+        {/* {isManagedByAutoFinder && (
           <View style={styles.additionalInfoItem}>
             <Image
               source={require("../assets/fuelIcon.png")}
@@ -78,7 +78,7 @@ const BuyNowCard = ({
             />
             <Text style={styles.additionalInfoText}>Managed by AutoFinder</Text>
           </View>
-        )}
+        )} */}
       </View>
     );
   }
@@ -122,6 +122,17 @@ const BuyNowCard = ({
       <View style={[styles.card, cardStyle]}>
         <View style={styles.imageContainer}>
           <Image source={source} style={styles.image} />
+          {/* --- ManagedByAutoFinder --- */}
+          {isManagedByAutoFinder && (
+            // <Image
+            //   source={require("../assets/featured.png")}
+            //   style={styles.featuredIcon}
+            // />
+            // --- New ---
+            <Text style={styles.featuredText_1}>Manage Ad By Auto Finder</Text>
+            // --- New ---
+          )}
+          {/* --- ManagedByAutoFinder --- */}
           {/* --- Featured --- */}
           {isFeatured && (
             // <Image
@@ -311,6 +322,21 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     color: "white",
     backgroundColor: "#EE0101",
+    letterSpacing: 1.8,
+    fontFamily: "Kanit",
+    borderTopLeftRadius: 5,
+    borderBottomRightRadius: 10,
+  },
+  featuredText_1: {
+    overflow: "visible",
+    borderWidth: 0,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    paddingHorizontal: 9,
+    paddingVertical: 9,
+    color: "black",
+    backgroundColor: "#FFCD03",
     letterSpacing: 1.8,
     fontFamily: "Kanit",
     borderTopLeftRadius: 5,

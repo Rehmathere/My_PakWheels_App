@@ -27,7 +27,7 @@ const MyCarAdsCards = ({
   }, []);
 
   const cardStyle = {
-    ...(isInspected || isManagedByAutoFinder
+    ...(isInspected
       ? {
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
@@ -37,7 +37,7 @@ const MyCarAdsCards = ({
       : {}), // Apply bottom border radius conditionally
   };
   const additionalCard = {
-    ...(isInspected || isManagedByAutoFinder
+    ...(isInspected
       ? {
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
@@ -49,7 +49,7 @@ const MyCarAdsCards = ({
 
   let additionalInfo = null;
 
-  if (isInspected || isManagedByAutoFinder) {
+  if (isInspected) {
     additionalInfo = (
       <View style={[styles.additionalInfoContainer, additionalCard]}>
         {isInspected && (
@@ -62,7 +62,7 @@ const MyCarAdsCards = ({
             <Text style={styles.additionalInfoSubtext}> 8/10</Text>
           </View>
         )}
-        {isManagedByAutoFinder && (
+        {/* {isManagedByAutoFinder && (
           <View style={styles.additionalInfoItem}>
             <Image
               source={require("../assets/fuelIcon.png")}
@@ -70,7 +70,7 @@ const MyCarAdsCards = ({
             />
             <Text style={styles.additionalInfoText}>Managed by AutoFinder</Text>
           </View>
-        )}
+        )} */}
       </View>
     );
   }
@@ -104,6 +104,12 @@ const MyCarAdsCards = ({
   return (
     <View>
       <View style={[styles.card, cardStyle]}>
+        {/* --- Manage Ad By Auto Finder --- */}
+        {isManagedByAutoFinder && (
+          <Text style={styles.featuredText_1}>Manage Ad</Text>
+          // --- New ---
+        )}
+        {/* --- Featured --- */}
         {isFeatured && (
           // <Image
           //   source={require("../assets/featured.png")}
@@ -210,6 +216,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: 100,
     marginRight: 10,
+    marginTop: 33,
     justifyContent: "flex-start", // Center vertically
     alignItems: "center", // Center horizontally
   },
@@ -360,15 +367,30 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     position: "absolute",
     top: 0,
-    right: 0,
+    left: 0,
     paddingHorizontal: 8,
     paddingVertical: 8,
     color: "white",
     backgroundColor: "#EE0101",
     letterSpacing: 1.5,
     fontFamily: "Kanit",
-    borderTopRightRadius: 5,
-    borderBottomLeftRadius: 10,
+    borderTopLeftRadius: 5,
+    borderBottomRightRadius: 10,
+  },
+  featuredText_1: {
+    overflow: "visible",
+    borderWidth: 0,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+    color: "black",
+    backgroundColor: "#FFCD03",
+    letterSpacing: 1.5,
+    fontFamily: "Kanit",
+    borderTopLeftRadius: 5,
+    borderBottomRightRadius: 10,
   },
 });
 
