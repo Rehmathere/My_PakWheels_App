@@ -32,6 +32,7 @@ const ManagedByAutoFinder = () => {
         "https://autofinder-backend.vercel.app/api/carAd/",
         {
           limit: 10,
+          ManagedByAutoFinder: true,
         }
       );
       setData(response.data.data);
@@ -100,6 +101,20 @@ const ManagedByAutoFinder = () => {
                   source={{ uri: item.images[0] }} // Use the first image URI
                   style={styles.image}
                 />
+                {/* --- Featured --- */}
+                {item.ManagedByAutoFinder && (
+                  // <Image
+                  //   source={require("../assets/featured.png")}
+                  //   style={styles.featuredIcon}
+                  // />
+                  // --- New ---
+                  <Text style={styles.featuredText_1}>
+                    {/* <FontAwesome name="star" size={15} color="white" /> */}
+                    Managed
+                  </Text>
+                  // --- New ---
+                )}
+                {/* --- Featured --- */}
                 {/* --- Featured --- */}
                 {item.featured && (
                   // <Image
@@ -273,6 +288,22 @@ const styles = StyleSheet.create({
     color: "white",
     backgroundColor: "#EE0101",
     letterSpacing: 1,
+    fontFamily: "Kanit",
+    borderTopLeftRadius: 5,
+    borderBottomRightRadius: 10,
+    fontSize: 12,
+  },
+  featuredText_1: {
+    overflow: "visible",
+    borderWidth: 0,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+    color: "black",
+    backgroundColor: "#FFCD03",
+    letterSpacing: 1.2,
     fontFamily: "Kanit",
     borderTopLeftRadius: 5,
     borderBottomRightRadius: 10,

@@ -23,7 +23,26 @@ export default function ActiveAds() {
           "https://autofinder-backend.vercel.app/api/carAd/",
           { limit: 10, user: `${user._id}` }
         );
-        setData(response.data.data);
+        // setData(response.data.data);
+        // --- New ---
+        if (response.data.ok) {
+          // const sortedData = response.data.data.sort(
+          //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          // );
+          // setData(sortedData);
+          // --- New ---
+          const sortedData = response.data.data.sort((a, b) => {
+            if (a.ManagedByAutoFinder && !b.ManagedByAutoFinder) return -1;
+            if (!a.ManagedByAutoFinder && b.ManagedByAutoFinder) return 1;
+            if (a.featured && !b.featured) return -1;
+            if (!a.featured && b.featured) return 1;
+            return 0;
+          });
+
+          setData(sortedData);
+        } else {
+          setNoDataError("No Data To Show");
+        }
       } catch (error) {
         console.log(error.response.data);
       }

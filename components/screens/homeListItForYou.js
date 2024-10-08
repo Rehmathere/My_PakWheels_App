@@ -76,6 +76,15 @@ const HomeListItForYou = () => {
       navigation.navigate("welcome");
     }
   };
+  const handleScheduleListItforYou_1 = () => {
+    // schedule inspections
+    console.log("begin pressed");
+    if (SyncStorage.get("token")) {
+      navigation.navigate("FreeAdsPostService_List");
+    } else {
+      navigation.navigate("welcome");
+    }
+  };
   const handleHorizontalOfferingItemPress = (itemId) => {
     // Handle the press event for the specific item (optional)
     console.log(`Item ${itemId} pressed`);
@@ -150,7 +159,7 @@ const HomeListItForYou = () => {
         <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
           <TouchableOpacity
             style={styles.button}
-            onPress={handleScheduleListItforYou}
+            onPress={handleScheduleListItforYou_1}
           >
             <Text style={styles.buttonText}>Schedule List It For You</Text>
           </TouchableOpacity>
